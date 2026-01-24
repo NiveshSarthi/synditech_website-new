@@ -23,7 +23,7 @@ const About = () => {
           <div className="relative">
             <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-dashed border-orange-500/40 rounded-2xl" />
             <img
-  src="/assets/images/I-train-startups.png"
+  src="assets\images\I train startups.jpg"
   alt="Founder"
   className="relative rounded-2xl shadow-2xl"
 />
@@ -45,7 +45,7 @@ const About = () => {
             </p>
 
             <div className="text-orange-500 font-semibold">
-              “Build with purpose. Scale with integrity.”
+              Mr.Rahul Kushwaha - Founder Synditech
             </div>
           </div>
         </div>
