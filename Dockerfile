@@ -1,61 +1,60 @@
-# Multi-stage Dockerfile for Synditech full-stack application
-
-# Stage 1: Build the React frontend
+# =========================
+# Stage 1: Build React Frontend
+# =========================
 FROM node:18-alpine AS frontend-build
 
 WORKDIR /app/frontend
 
 # Copy package files
-COPY frontend/package*.json ./
+COPY frontend/package.json frontend/package-lock.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (safe for CI)
+RUN npm ci || npm install
 
 # Copy source code
-COPY frontend/ ./
+COPY frontend/ .
 
-# Set environment variable for API URL
+# Environment variables
 ENV VITE_API_URL=/api
 ENV CI=false
 
-# Build the application
+# Build frontend
 RUN npm run build
 
-# Stage 2: Setup the Node.js backend
+
+# =========================
+# Stage 2: Node.js Backend
+# =========================
 FROM node:18-alpine AS backend
 
-# Set working directory
 WORKDIR /app
 
 # Copy backend package files
-COPY backend/package*.json ./
+COPY backend/package.json backend/package-lock.json ./
 
-# Install production dependencies only
-RUN npm ci --only=production
+# Install production dependencies (npm 9+ compatible)
+RUN npm ci --omit=dev || npm install --omit=dev
 
-# Copy backend source code
-COPY backend/ ./
+# Copy backend source
+COPY backend/ .
 
-# Copy built frontend from the previous stage
-COPY --from=frontend-build /app/frontend/dist ./dist/
+# Copy frontend build
+COPY --from=frontend-build /app/frontend/dist ./dist
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+# Create non-root user
+RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
 
-# Change ownership of the app directory
-RUN chown -R nextjs:nodejs /app
-USER nextjs
+# Set ownership
+RUN chown -R nodejs:nodejs /app
+USER nodejs
 
-# Expose the port the app runs on
+# App config
+ENV NODE_ENV=production
 EXPOSE 5000
 
-# Set environment to production
-ENV NODE_ENV=production
-
-# Health check
+# Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:5000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+  CMD node -e "require('http').get('http://localhost:5000/api/health', r => process.exit(r.statusCode === 200 ? 0 : 1))"
 
-# Start the application
+# Start app
 CMD ["npm", "start"]
