@@ -16,6 +16,7 @@ COPY frontend/ ./
 
 # Set environment variable for API URL
 ENV VITE_API_URL=/api
+ENV CI=false
 
 # Build the application
 RUN npm run build
