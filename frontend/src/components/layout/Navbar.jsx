@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { DarkModeSwitch } from "react-toggle-dark-mode"
+import { motion, AnimatePresence } from "framer-motion"
 import { SERVICES, TOOLS } from "../../utils/constants"
 
 const Navbar = () => {
@@ -48,8 +49,18 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="text-3xl font-black font-orbitron">
-            <span className="text-orange-500">SYNDI</span>
+          <Link 
+            to="/" 
+            className="text-2xl sm:text-3xl font-black font-orbitron transition-transform hover:scale-105"
+            aria-label="Synditech - Home"
+          >
+            <motion.span 
+              className="text-orange-500"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              SYNDI
+            </motion.span>
             <span className="text-white">TECH</span>
           </Link>
 
@@ -95,10 +106,34 @@ const Navbar = () => {
 
           {/* Mobile Button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X /> : <Menu />}
+            <AnimatePresence mode="wait">
+              {mobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X size={24} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu size={24} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>

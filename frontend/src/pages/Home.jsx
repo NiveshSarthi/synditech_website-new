@@ -1,23 +1,29 @@
-import React, { useState } from "react"
+import React, {useState} from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, CheckCircle, Layers, Shield, Rocket } from "lucide-react"
+import { motion } from "framer-motion"
+import CountUp from "react-countup"
+import { useInView } from "react-intersection-observer"
 import { SERVICES } from "../utils/constants"
 import FreeTrialModal from "../components/shared/FreeTrialModal"
+import { fadeInUp, staggerContainer, staggerItem } from "../utils/animations"
 
 const Home = () => {
-  // ✅ FIX: modal state
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true })
+  const [statsRef, statsInView] = useInView({ threshold: 0.5, triggerOnce: true })
 
   return (
     <div className="min-h-screen bg-black text-white">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <video
           autoPlay
           loop
           muted
           playsInline
+          loading="lazy"
           className="absolute inset-0 z-0 w-full h-full object-cover"
         >
           <source src="/assets/12716-241674181_small.mp4" type="video/mp4" />
@@ -26,26 +32,56 @@ const Home = () => {
         <div className="absolute inset-0 bg-black/70 z-[1]" />
         <div className="absolute inset-0 bg-gradient-to-br from-orange-900/30 to-blue-900/30 z-[1]" />
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto animate-fade-in">
-          <span className="inline-block mb-6 px-6 py-3 bg-orange-500/20 border border-orange-500/50 rounded-full text-orange-500 font-semibold">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative z-10 text-center px-4 max-w-5xl mx-auto"
+        >
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="inline-block mb-6 px-6 py-3 bg-orange-500/20 border border-orange-500/50 rounded-full text-orange-500 font-semibold"
+          >
             🚀 Innovation Meets Excellence
-          </span>
+          </motion.span>
 
-          <h1 className="text-6xl md:text-8xl font-black mb-6 font-orbitron">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 font-orbitron text-shadow-lg"
+          >
             SYNDITECH
-          </h1>
+          </motion.h1>
 
-          <p className="text-2xl md:text-3xl mb-6 text-orange-500 font-semibold">
-            Building Tomorrow’s Technology, Today
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-2xl md:text-3xl mb-6 text-orange-500 font-semibold"
+          >
+            Building Tomorrow's Technology, Today
+          </motion.p>
 
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto"
+          >
             We help startups, enterprises, and fast-growing businesses transform ideas into
             scalable digital products through modern software engineering, cloud solutions,
             and intelligent automation.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-wrap justify-center gap-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6"
+          >
             <Link
               to="/contact"
               className="btn-primary shadow-lg shadow-orange-500/50"
@@ -59,10 +95,47 @@ const Home = () => {
             >
               Free Trial
             </button>
-          </div>
+          </motion.div>
+        </motion.div>
+      </section>
+      
+      {/* ================= STATS SECTION ================= */}
+      <section ref={statsRef} className="py-20 px-4 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            animate={statsInView ? "visible" : "hidden"}
+          >
+            {[
+              { end: 500, label: "Projects Completed", suffix: "+" },
+              { end: 98, label: "Client Satisfaction", suffix: "%" },
+              { end: 50, label: "Team Members", suffix: "+" },
+              { end: 24, label: "Hour Support", suffix: "/7" }
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                variants={staggerItem}
+                className="text-center p-6 card hover-lift"
+              >
+                <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">
+                  {statsInView && (
+                    <CountUp
+                      end={stat.end}
+                      duration={2.5}
+                      suffix={stat.suffix}
+                    />
+                  )}
+                </div>
+                <div className="text-gray-400 text-sm md:text-base">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
- {/* ================= VIDEO ================= */}
+      
+      {/* ================= VIDEO ================= */}
       <section className="py-28 px-4 bg-gradient-to-r from-black to-gray-900">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-6">A Glimpse of Synditech</h2>
@@ -80,48 +153,62 @@ const Home = () => {
         </div>
       </section>
       {/* ================= SERVICES ================= */}
-      <section className="py-28 px-4 bg-black">
+      <section ref={ref} className="py-28 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold mb-4">Our Core Services</h2>
-            <p className="text-gray-400 max-w-3xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Core Services</h2>
+            <p className="text-gray-400 max-w-3xl mx-auto text-base md:text-lg">
               From idea validation to enterprise-grade deployment, Synditech delivers
               end-to-end digital solutions that scale with your business.
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto mt-6" />
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+            variants={staggerContainer}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+          >
             {SERVICES.map((service, idx) => {
               const Icon = service.icon
               return (
-                <Link
-                  key={service.id}
-                  to={service.path}
-                  className="group card hover:scale-105 transition-all animate-fade-in"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
-                >
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6">
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
+                <motion.div key={service.id} variants={staggerItem}>
+                  <Link
+                    to={service.path}
+                    className="block card hover-lift group h-full"
+                  >
+                    <motion.div 
+                      className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <Icon className="w-8 h-8 text-white" />
+                    </motion.div>
 
-                  <h3 className="text-2xl font-bold mb-3">
-                    {service.title}
-                  </h3>
+                    <h3 className="text-xl md:text-2xl font-bold mb-3">
+                      {service.title}
+                    </h3>
 
-                  <p className="text-gray-400 mb-4">
-                    {service.description} Our approach ensures performance,
-                    security, and long-term maintainability.
-                  </p>
+                    <p className="text-gray-400 mb-4 text-sm md:text-base">
+                      {service.description} Our approach ensures performance,
+                      security, and long-term maintainability.
+                    </p>
 
-                  <span className="text-orange-500 font-semibold flex items-center">
-                    Learn More
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" />
-                  </span>
-                </Link>
+                    <span className="text-orange-500 font-semibold flex items-center group-hover:gap-3 gap-2 transition-all">
+                      Learn More
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </Link>
+                </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
