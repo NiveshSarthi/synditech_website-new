@@ -5,7 +5,6 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import ChatBot from '../shared/ChatBot'
 import ScrollProgressBar from '../shared/ScrollProgressBar'
-import BackToTop from '../shared/BackToTop'
 import { pageTransition } from '../../utils/animations'
 
 const Layout = ({ children }) => {
@@ -46,7 +45,6 @@ const Layout = ({ children }) => {
 
       <Footer />
       <ChatBot />
-      <BackToTop />
     </div>
   )
 }
