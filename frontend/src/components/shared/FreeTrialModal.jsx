@@ -29,20 +29,20 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-black/95 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full mx-4 border border-orange-500/30">
+      <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative bg-white/95 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full mx-4 border border-green-600/30">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white hover:text-orange-500"
+          className="absolute top-4 right-4 text-gray-900 hover:text-green-600"
         >
           <X className="w-6 h-6" />
         </button>
 
-        <h2 className="text-2xl font-bold text-white mb-6">Free Trial Request</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Free Trial Request</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Full Name *
             </label>
             <input
@@ -51,13 +51,13 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600"
               placeholder="Enter your full name"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Email Address *
             </label>
             <input
@@ -66,13 +66,13 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
               required
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600"
               placeholder="Enter your email"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Company (Optional)
             </label>
             <input
@@ -80,13 +80,13 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
               name="company"
               value={formData.company}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600"
               placeholder="Enter your company name"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Tool of Interest *
             </label>
             <select
@@ -94,7 +94,7 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
               required
               value={formData.tool}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-orange-500"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-gray-900 focus:outline-none focus:border-green-600"
             >
               <option value="">Select a tool</option>
               <option value="Task Tracker">Task Tracker</option>
@@ -108,7 +108,7 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Why do you need this tool? *
             </label>
             <textarea
@@ -117,14 +117,14 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
               value={formData.reason}
               onChange={handleChange}
               rows={4}
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 resize-none"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600 resize-none"
               placeholder="Please describe your use case and requirements..."
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="w-full bg-green-600 hover:bg-green-700 text-gray-900 font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             Request Free Trial
           </button>

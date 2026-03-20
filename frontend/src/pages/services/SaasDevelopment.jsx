@@ -44,40 +44,40 @@ const SaasDevelopment = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-black pt-24 pb-20 px-4">
+    <div className="min-h-screen bg-white pt-24 pb-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl mb-6">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl mb-6">
             <Cloud className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-6xl font-bold text-white mb-4">
+          <h1 className="text-6xl font-bold text-gray-900 mb-4">
             SaaS Development
           </h1>
-          <p className="text-xl text-orange-500 max-w-3xl mx-auto">
+          <p className="text-xl text-green-600 max-w-3xl mx-auto">
             Build scalable, cloud-based software solutions that grow with your business
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto mt-4"></div>
         </div>
 
         {/* Overview */}
         <div className="grid md:grid-cols-2 gap-12 mb-20">
           <div className="animate-slide-in-left">
-            <h2 className="text-4xl font-bold text-white mb-6">What We Offer</h2>
-            <p className="text-gray-400 leading-relaxed mb-6">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">What We Offer</h2>
+            <p className="text-gray-600 leading-relaxed mb-6">
               Our SaaS development services help businesses create powerful, scalable cloud applications. 
               We handle everything from architecture design to deployment and ongoing maintenance.
             </p>
-            <p className="text-gray-400 leading-relaxed mb-8">
+            <p className="text-gray-600 leading-relaxed mb-8">
               With expertise in modern cloud technologies and best practices, we build solutions that 
               are secure, performant, and ready to scale with your growing user base.
             </p>
             
-            <h3 className="text-2xl font-bold text-white mb-4">Key Features</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Key Features</h3>
             <ul className="space-y-3">
               {features.map((feature, idx) => (
-                <li key={idx} className="flex items-center text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" />
+                <li key={idx} className="flex items-center text-gray-600">
+                  <CheckCircle className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -86,7 +86,7 @@ const SaasDevelopment = () => {
 
           <div className="space-y-6 animate-slide-in-right">
             <div className="card">
-              <h3 className="text-2xl font-bold text-white mb-4">Our Process</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Process</h3>
               <div className="space-y-4">
                 {[
                   { step: '1', title: 'Discovery', desc: 'Understanding your requirements and goals' },
@@ -97,12 +97,12 @@ const SaasDevelopment = () => {
                   { step: '6', title: 'Support', desc: 'Ongoing maintenance and updates' }
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0 font-bold text-white">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-700 rounded-lg flex items-center justify-center flex-shrink-0 font-bold text-white">
                       {item.step}
                     </div>
                     <div>
-                      <h4 className="font-bold text-white">{item.title}</h4>
-                      <p className="text-sm text-gray-400">{item.desc}</p>
+                      <h4 className="font-bold text-gray-900">{item.title}</h4>
+                      <p className="text-sm text-gray-600">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -113,12 +113,12 @@ const SaasDevelopment = () => {
 
         {/* Benefits */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold text-white mb-12 text-center">Why Choose Us</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Why Choose Us</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, idx) => (
               <div key={idx} className="card text-center animate-fade-in" style={{animationDelay: `${idx * 0.1}s`}}>
-                <h3 className="text-xl font-bold text-white mb-3">{benefit.title}</h3>
-                <p className="text-gray-400">{benefit.desc}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
+                <p className="text-gray-600">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -126,11 +126,11 @@ const SaasDevelopment = () => {
 
         {/* Tech Stack */}
         <div className="card mb-20 animate-fade-in">
-          <h2 className="text-4xl font-bold text-white mb-8 text-center">Technologies We Use</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Technologies We Use</h2>
           <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
             {techStack.map((tech, idx) => (
-              <div key={idx} className="bg-white/5 border border-orange-500/20 rounded-xl p-4 text-center hover:border-orange-500 transition-colors">
-                <span className="text-white font-semibold">{tech}</span>
+              <div key={idx} className="bg-white/5 border border-green-600/20 rounded-xl p-4 text-center hover:border-green-600 transition-colors">
+                <span className="text-gray-900 font-semibold">{tech}</span>
               </div>
             ))}
           </div>
@@ -139,30 +139,30 @@ const SaasDevelopment = () => {
         {/* Case Study / Example */}
         <div className="grid md:grid-cols-2 gap-12 mb-20">
           <div className="card animate-slide-in-left">
-            <h3 className="text-2xl font-bold text-white mb-4">Success Story</h3>
-            <p className="text-gray-400 mb-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Success Story</h3>
+            <p className="text-gray-600 mb-4">
               We helped a startup build a SaaS platform that now serves over 10,000 users. 
               The platform handles millions of transactions monthly with 99.9% uptime.
             </p>
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 text-gray-600">
               <li className="flex items-center">
-                <CheckCircle className="w-4 h-4 text-orange-500 mr-2" />
+                <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
                 <span>50% reduction in infrastructure costs</span>
               </li>
               <li className="flex items-center">
-                <CheckCircle className="w-4 h-4 text-orange-500 mr-2" />
+                <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
                 <span>3x faster page load times</span>
               </li>
               <li className="flex items-center">
-                <CheckCircle className="w-4 h-4 text-orange-500 mr-2" />
+                <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
                 <span>Auto-scaling to handle traffic spikes</span>
               </li>
             </ul>
           </div>
 
-          <div className="card animate-slide-in-right bg-gradient-to-br from-orange-500/10 to-orange-600/5">
-            <h3 className="text-2xl font-bold text-white mb-4">Ready to Build?</h3>
-            <p className="text-gray-400 mb-6">
+          <div className="card animate-slide-in-right bg-gradient-to-br from-green-600/10 to-green-700/5">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Build?</h3>
+            <p className="text-gray-600 mb-6">
               Let's discuss your SaaS project and create a solution that exceeds your expectations.
             </p>
             <Link to="/contact" className="btn-primary inline-flex items-center">
@@ -173,14 +173,14 @@ const SaasDevelopment = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center card bg-gradient-to-r from-orange-500/20 to-orange-600/10 border-orange-500/30 animate-fade-in">
-          <h2 className="text-4xl font-bold text-white mb-6">
+        <div className="text-center card bg-gradient-to-r from-green-600/20 to-green-700/10 border-green-600/30 animate-fade-in">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">
             Transform Your Idea Into Reality
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Schedule a free consultation with our SaaS development experts
           </p>
-          <Link to="/contact" className="btn-primary shadow-lg shadow-orange-500/50">
+          <Link to="/contact" className="btn-primary shadow-lg shadow-green-600/50">
             Get Free Consultation
           </Link>
         </div>

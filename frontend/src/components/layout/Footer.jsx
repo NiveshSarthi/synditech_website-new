@@ -15,7 +15,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="py-16 px-4 bg-gradient-to-b from-black to-gray-900 border-t border-orange-500/30">
+    <footer className="py-16 px-4 bg-gray-50 border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand & Social */}
@@ -24,10 +24,10 @@ const Footer = () => {
               className="text-3xl font-black font-orbitron mb-4"
               whileHover={{ scale: 1.02 }}
             >
-              <span className="text-orange-500">SYNDI</span>
-              <span className="text-white">TECH</span>
+              <span className="text-green-600">SYNDI</span>
+              <span className="text-gray-900">TECH</span>
             </motion.h3>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-600 mb-6">
               Building the future, one line of code at a time.
             </p>
             
@@ -43,11 +43,11 @@ const Footer = () => {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-lg flex items-center justify-center transition-colors group"
+                  className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Icon className="w-5 h-5 text-gray-400 group-hover:text-white" />
+                  <Icon className="w-5 h-5 text-gray-600 group-hover:text-white" />
                 </motion.a>
               ))}
             </div>
@@ -55,13 +55,13 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="font-bold mb-4 text-white">Services</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
+            <h4 className="font-bold mb-4 text-gray-900">Services</h4>
+            <ul className="space-y-2 text-gray-600 text-sm">
               {SERVICES.slice(0, 4).map((service) => (
                 <li key={service.id}>
                   <Link 
                     to={service.path} 
-                    className="hover:text-orange-500 transition-colors inline-block hover:translate-x-1 transform duration-200"
+                    className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200"
                   >
                     {service.title}
                   </Link>
@@ -72,25 +72,25 @@ const Footer = () => {
 
           {/* Company */}
           <div>
-            <h4 className="font-bold mb-4 text-white">Company</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
+            <h4 className="font-bold mb-4 text-gray-900">Company</h4>
+            <ul className="space-y-2 text-gray-600 text-sm">
               <li>
-                <Link to="/about" className="hover:text-orange-500 transition-colors inline-block hover:translate-x-1 transform duration-200">
+                <Link to="/about" className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/careers" className="hover:text-orange-500 transition-colors inline-block hover:translate-x-1 transform duration-200">
+                <Link to="/careers" className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200">
                   Careers
                 </Link>
               </li>
               <li>
-                <Link to="/pricing" className="hover:text-orange-500 transition-colors inline-block hover:translate-x-1 transform duration-200">
+                <Link to="/pricing" className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200">
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-orange-500 transition-colors inline-block hover:translate-x-1 transform duration-200">
+                <Link to="/contact" className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200">
                   Contact
                 </Link>
               </li>
@@ -99,8 +99,8 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h4 className="font-bold mb-4 text-white">Stay Updated</h4>
-            <p className="text-gray-400 text-sm mb-4">
+            <h4 className="font-bold mb-4 text-gray-900">Stay Updated</h4>
+            <p className="text-gray-600 text-sm mb-4">
               Subscribe to our newsletter for the latest updates.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-2">
@@ -109,12 +109,12 @@ const Footer = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email"
-                className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-colors text-sm"
+                className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-green-600 transition-colors text-sm"
                 required
               />
               <motion.button
                 type="submit"
-                className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-orange-500/50 transition-shadow"
+                className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-green-500/50 transition-shadow"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -124,12 +124,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-orange-500/30">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-sm">
+        <div className="pt-8 border-t border-gray-200">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600 text-sm">
             <p>© 2026 Synditech. All rights reserved.</p>
             <div className="flex gap-6">
-              <Link to="/privacy" className="hover:text-orange-500 transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-orange-500 transition-colors">Terms of Service</Link>
+              <Link to="/privacy" className="hover:text-green-600 transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-green-600 transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

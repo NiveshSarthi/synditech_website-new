@@ -32,7 +32,7 @@ const BackToTop = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 p-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-orange-500/50 transition-shadow focus-ring"
+          className="fixed bottom-8 right-8 z-40 p-4 bg-gradient-to-r from-green-600 to-green-700 text-gray-900 rounded-full shadow-lg hover:shadow-xl hover:shadow-green-600/50 transition-shadow focus-ring"
           aria-label="Back to top"
         >
           <ArrowUp className="w-6 h-6" />

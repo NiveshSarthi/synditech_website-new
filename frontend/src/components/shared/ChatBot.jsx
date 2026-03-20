@@ -14,9 +14,9 @@ const ChatBot = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-20 right-0 w-80 sm:w-96 bg-gradient-to-br from-gray-900 to-black border border-orange-500/30 rounded-2xl shadow-2xl shadow-orange-500/20 overflow-hidden"
+            className="absolute bottom-20 right-0 w-80 sm:w-96 bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden"
           >
-            <div className="p-4 bg-gradient-to-r from-orange-500 to-orange-600">
+            <div className="p-4 bg-gradient-to-r from-green-500 to-green-600">
               <div className="flex justify-between items-center">
                 <h3 className="font-bold text-white">Chat with us!</h3>
                 <button
@@ -28,7 +28,7 @@ const ChatBot = () => {
                 </button>
               </div>
             </div>
-            <div className="p-4 h-64 flex items-center justify-center text-gray-400">
+            <div className="p-4 h-64 flex items-center justify-center text-gray-600">
               <p className="text-center">
                 Chat feature coming soon!<br />
                 For now, please visit our contact page.
@@ -40,7 +40,7 @@ const ChatBot = () => {
 
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-orange-500/50 flex items-center justify-center transition-shadow focus-ring"
+        className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-green-500/50 flex items-center justify-center transition-shadow focus-ring"
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{ scale: 1.1 }}

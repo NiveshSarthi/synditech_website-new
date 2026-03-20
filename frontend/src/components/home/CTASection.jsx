@@ -6,7 +6,7 @@ const CTASection = () => {
     <section className="py-20">
       <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold mb-6">Ready to Start Your Project?</h2>
-        <p className="text-xl text-gray-300 mb-8">
+        <p className="text-xl text-gray-600 mb-8">
           Let's discuss your vision and turn it into reality. Our team of experts
           is ready to help you build something amazing.
         </p>

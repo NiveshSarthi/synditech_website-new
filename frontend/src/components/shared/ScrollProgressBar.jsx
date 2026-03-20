@@ -17,7 +17,7 @@ const ScrollProgressBar = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 z-50 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
+      className="fixed top-0 left-0 right-0 h-1 z-50 bg-gradient-to-r from-green-600 to-green-700 origin-left"
       style={{ scaleX: scrollProgress / 100 }}
       initial={{ scaleX: 0 }}
       transition={{ duration: 0.1 }}

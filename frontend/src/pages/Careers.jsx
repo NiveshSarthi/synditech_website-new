@@ -38,27 +38,27 @@ const Careers = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 to-blue-900/20"></div>
-        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-blue-900/20"></div>
+        <div className="absolute inset-0 bg-white/70"></div>
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto animate-fade-in">
           <div className="mb-6">
-            <span className="px-6 py-3 bg-orange-500/20 border border-orange-500/50 rounded-full text-orange-500 font-semibold">
+            <span className="px-6 py-3 bg-green-600/20 border border-green-600/50 rounded-full text-green-600 font-semibold">
               🌟 Join Our Team
             </span>
           </div>
-          <h1 className="text-6xl md:text-8xl font-black mb-6 text-white font-orbitron">
+          <h1 className="text-6xl md:text-8xl font-black mb-6 text-gray-900 font-orbitron">
             CAREERS
           </h1>
-          <p className="text-2xl md:text-3xl mb-8 text-orange-500 font-semibold">
+          <p className="text-2xl md:text-3xl mb-8 text-green-600 font-semibold">
             Shape the Future with Us
           </p>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
             Be part of a team that's revolutionizing technology. We offer exciting challenges,
             continuous learning, and the opportunity to work on projects that make a difference.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-            <a href="#openings" className="btn-primary shadow-lg shadow-orange-500/50">
+            <a href="#openings" className="btn-primary shadow-lg shadow-green-600/50">
               View Openings
             </a>
             <Link to="/contact" className="btn-outline">
@@ -69,11 +69,11 @@ const Careers = () => {
       </section>
 
       {/* Why Join Us */}
-      <section className="py-24 px-4 bg-black">
+      <section className="py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Why Join Synditech?</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto"></div>
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">Why Join Synditech?</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -83,9 +83,9 @@ const Careers = () => {
               { icon: Heart, title: 'Impact', desc: 'Projects that make a real difference' }
             ].map((item, idx) => (
               <div key={idx} className="card animate-fade-in text-center" style={{animationDelay: `${idx * 0.1}s`}}>
-                <item.icon className="w-12 h-12 text-orange-500 mb-4 mx-auto" />
-                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
+                <item.icon className="w-12 h-12 text-green-600 mb-4 mx-auto" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -93,19 +93,19 @@ const Careers = () => {
       </section>
 
       {/* Current Openings */}
-      <section id="openings" className="py-24 px-4 bg-gradient-to-r from-gray-900 to-black">
+      <section id="openings" className="py-24 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Current Openings</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto"></div>
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">Current Openings</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {jobs.map((job, idx) => (
               <div key={idx} className="card animate-fade-in" style={{animationDelay: `${idx * 0.1}s`}}>
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{job.title}</h3>
-                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{job.title}</h3>
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
                         {job.type}
@@ -117,10 +117,10 @@ const Careers = () => {
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-300 mb-4">{job.description}</p>
+                <p className="text-gray-600 mb-4">{job.description}</p>
                 <div className="mb-6">
-                  <h4 className="text-white font-semibold mb-2">Requirements:</h4>
-                  <ul className="text-gray-400 text-sm space-y-1">
+                  <h4 className="text-gray-900 font-semibold mb-2">Requirements:</h4>
+                  <ul className="text-gray-600 text-sm space-y-1">
                     {job.requirements.map((req, i) => (
                       <li key={i}>• {req}</li>
                     ))}
@@ -136,11 +136,11 @@ const Careers = () => {
       </section>
 
       {/* Culture Section */}
-      <section className="py-24 px-4 bg-black">
+      <section className="py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Our Culture</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto"></div>
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">Our Culture</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -158,8 +158,8 @@ const Careers = () => {
               }
             ].map((item, idx) => (
               <div key={idx} className="card animate-fade-in text-center" style={{animationDelay: `${idx * 0.1}s`}}>
-                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -167,17 +167,17 @@ const Careers = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 bg-gradient-to-r from-orange-500 to-orange-600">
+      <section className="py-24 px-4 bg-gradient-to-r from-green-600 to-green-700">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl font-bold text-white mb-6">Ready to Join Our Team?</h2>
-          <p className="text-xl text-white/90 mb-10">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">Ready to Join Our Team?</h2>
+          <p className="text-xl text-gray-900/90 mb-10">
             Don't see a position that matches your skills? We're always looking for talented individuals.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/contact" className="inline-block px-12 py-5 bg-white text-orange-600 hover:bg-gray-100 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg">
+            <Link to="/contact" className="inline-block px-12 py-5 bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg">
               Send Us Your Resume
             </Link>
-            <a href="mailto:careers@synditech.com" className="inline-block px-12 py-5 border-2 border-white text-white hover:bg-white hover:text-orange-600 rounded-full font-bold text-lg transition-all hover:scale-105">
+            <a href="mailto:careers@synditech.com" className="inline-block px-12 py-5 border-2 border-white text-gray-900 hover:bg-white hover:text-green-700 rounded-full font-bold text-lg transition-all hover:scale-105">
               <Mail className="w-5 h-5 inline mr-2" />
               Email Us
             </a>

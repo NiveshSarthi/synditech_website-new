@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { Menu, X, ChevronDown } from "lucide-react"
-import { DarkModeSwitch } from "react-toggle-dark-mode"
 import { motion, AnimatePresence } from "framer-motion"
 import { SERVICES, TOOLS } from "../../utils/constants"
 
@@ -11,7 +10,6 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [mobileDropdown, setMobileDropdown] = useState(null)
-  const [isDarkMode, setIsDarkMode] = useState(true)
 
   const lastScrollY = useRef(0)
 
@@ -39,10 +37,10 @@ const Navbar = () => {
   className="
     fixed top-4 left-4 right-4 z-50
     rounded-3xl
-    bg-black/40
+    bg-white/80
     backdrop-blur-2xl
-    border border-white/10
-    shadow shadow-white/10
+    border border-gray-200
+    shadow-sm
     transition-colors duration-300
   "
 >
@@ -51,17 +49,14 @@ const Navbar = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="text-2xl sm:text-3xl font-black font-orbitron transition-transform hover:scale-105"
+            className="transition-transform hover:scale-105"
             aria-label="Synditech - Home"
           >
-            <motion.span 
-              className="text-orange-500"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              SYNDI
-            </motion.span>
-            <span className="text-white">TECH</span>
+            <img 
+              src="/assets/images/logo.png" 
+              alt="Synditech Logo" 
+              className="h-16 sm:h-20 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Menu */}
@@ -94,19 +89,11 @@ const Navbar = () => {
             <Link to="/contact" className="btn-primary">
               Contact Us
             </Link>
-
-            <DarkModeSwitch
-              checked={isDarkMode}
-              onChange={setIsDarkMode}
-              size={24}
-              sunColor="#f97316"
-              moonColor="#f97316"
-            />
           </div>
 
           {/* Mobile Button */}
           <button
-            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
+            className="md:hidden text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -140,7 +127,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black/95 backdrop-blur-xl border-t border-orange-500/30 rounded-b-3xl">
+        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 rounded-b-3xl">
           <div className="px-4 py-4 space-y-3">
             <MobileLink to="/" setOpen={setMobileMenuOpen}>Home</MobileLink>
 
@@ -167,7 +154,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-center bg-orange-500 text-white py-2 rounded-full"
+              className="block text-center bg-green-600 text-white py-2 rounded-full"
             >
               Contact Us
             </Link>
@@ -185,7 +172,7 @@ export default Navbar
 const NavLink = ({ to, children }) => (
   <Link
     to={to}
-    className="text-white font-semibold hover:text-orange-500 transition-colors"
+    className="text-gray-900 font-semibold hover:text-green-600 transition-colors"
   >
     {children}
   </Link>
@@ -197,14 +184,14 @@ const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => (
     onMouseEnter={() => setActive(id)}
     onMouseLeave={() => setActive(null)}
   >
-    <button className="flex items-center gap-1 text-white font-semibold hover:text-orange-500">
+    <button className="flex items-center gap-1 text-gray-900 font-semibold hover:text-green-600">
       {label}
       <ChevronDown className="w-4 h-4" />
     </button>
 
     {active === id && (
       <div
-        className={`absolute top-full left-0 mt-0 w-80 bg-black/95 rounded-xl border border-orange-500/30 shadow-xl
+        className={`absolute top-full left-0 mt-0 w-80 bg-white/95 rounded-xl border border-gray-200 shadow-xl
         ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
       >
         {items.map((item) => {
@@ -213,12 +200,12 @@ const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => (
             <Link
               key={item.id}
               to={item.path}
-              className="flex gap-3 px-4 py-3 text-white hover:bg-orange-500/10"
+              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
             >
               <Icon className="w-5 h-5 mt-1" />
               <div>
                 <p className="font-medium">{item.title || item.name}</p>
-                <p className="text-sm text-gray-400">{item.description}</p>
+                <p className="text-sm text-gray-500">{item.description}</p>
               </div>
             </Link>
           )
@@ -232,7 +219,7 @@ const MobileAccordion = ({ label, items, open, setOpen, id }) => (
   <div>
     <button
       onClick={() => setOpen(open === id ? null : id)}
-      className="flex justify-between items-center w-full text-white py-2"
+      className="flex justify-between items-center w-full text-gray-900 py-2 font-semibold"
     >
       {label}
       <ChevronDown
@@ -248,7 +235,7 @@ const MobileAccordion = ({ label, items, open, setOpen, id }) => (
           <Link
             key={item.id}
             to={item.path}
-            className="block text-sm text-gray-300 hover:text-orange-500"
+            className="block text-sm text-gray-600 hover:text-green-600"
           >
             {item.title || item.name}
           </Link>
@@ -262,7 +249,7 @@ const MobileLink = ({ to, children, setOpen }) => (
   <Link
     to={to}
     onClick={() => setOpen(false)}
-    className="block text-white py-2 hover:text-orange-500"
+    className="block text-gray-900 py-2 font-semibold hover:text-green-600"
   >
     {children}
   </Link>
