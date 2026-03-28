@@ -142,8 +142,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Email</h3>
-                  <p className="text-gray-600">contact@synditech.com</p>
-                  <p className="text-gray-600">support@synditech.com</p>
+                  <p className="text-gray-600">contact@synditech.ai</p>
                 </div>
               </div>
             </div>
@@ -155,8 +154,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                  <p className="text-gray-600">+1 (555) 987-6543</p>
+                  <p className="text-gray-600">+91 9560037154</p>
                 </div>
               </div>
             </div>
@@ -168,9 +166,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Location</h3>
-                  <p className="text-gray-600">123 Tech Street</p>
-                  <p className="text-gray-600">Silicon Valley, CA 94025</p>
-                  <p className="text-gray-600">United States</p>
+                  <p className="text-gray-600">BH-918, 9th Floor, 81 High Street-Puri Business Hub, Sec-81, Faridabad, Haryana, 121002</p>
                 </div>
               </div>
             </div>

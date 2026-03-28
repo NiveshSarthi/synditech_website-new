@@ -177,7 +177,7 @@ const Careers = () => {
             <Link to="/contact" className="inline-block px-12 py-5 bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg">
               Send Us Your Resume
             </Link>
-            <a href="mailto:careers@synditech.com" className="inline-block px-12 py-5 border-2 border-white text-gray-900 hover:bg-white hover:text-green-700 rounded-full font-bold text-lg transition-all hover:scale-105">
+            <a href="mailto:contact@synditech.ai" className="inline-block px-12 py-5 border-2 border-white text-gray-900 hover:bg-white hover:text-green-700 rounded-full font-bold text-lg transition-all hover:scale-105">
               <Mail className="w-5 h-5 inline mr-2" />
               Email Us
             </a>
