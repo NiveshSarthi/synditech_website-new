@@ -7,7 +7,8 @@ import {
   LogOut, 
   Menu, 
   X, 
-  ChevronDown 
+  ChevronDown,
+  MessageSquare
 } from 'lucide-react'
 
 const ADMIN_TOKEN_KEY = 'synditech_admin_token'
@@ -44,6 +45,7 @@ const AdminDashboardLayout = () => {
   const navItems = [
     { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { to: '/admin/dashboard/leads', icon: Users, label: 'Leads' },
+    { to: '/admin/dashboard/contacts', icon: MessageSquare, label: 'Contacts' },
     { to: '/admin/dashboard/resumes', icon: FileText, label: 'Resumes' },
     { to: '/admin/dashboard/blogs', icon: FileText, label: 'Blogs' },
   ]

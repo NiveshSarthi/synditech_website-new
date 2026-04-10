@@ -173,7 +173,7 @@ const Home = () => {
                 </div>
                 <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-green-600">REAL-TIME</span>
               </div>
-              <p className="text-sm font-semibold text-slate-700">System Uptime</p>
+              <p className="text-sm font-semibold text-white">System Uptime</p>
               <p className="mt-2 text-4xl font-black tracking-[-0.05em] text-[#27324a]">99.99%</p>
               <div className="mt-5 h-1.5 w-full rounded-full bg-slate-200">
                 <div className="h-1.5 w-[92%] rounded-full bg-green-600" />

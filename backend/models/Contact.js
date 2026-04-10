@@ -14,14 +14,24 @@ const contactSchema = new mongoose.Schema({
       'Please add a valid email',
     ],
   },
+  phone: {
+    type: String,
+    trim: true,
+    default: '',
+  },
   subject: {
     type: String,
-    required: [true, 'Please add a subject'],
     trim: true,
+    default: '',
   },
   message: {
     type: String,
     required: [true, 'Please add a message'],
+  },
+  status: {
+    type: String,
+    enum: ['unread', 'read'],
+    default: 'unread',
   },
 }, {
   timestamps: true,

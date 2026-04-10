@@ -1,5 +1,10 @@
 const express = require('express');
-const { submitContact, getAllContacts } = require('../controllers/contact.controller');
+const {
+  submitContact,
+  getAllContacts,
+  deleteContact,
+  updateContactStatus,
+} = require('../controllers/contact.controller');
 const validate = require('../middleware/validation');
 
 const router = express.Router();
@@ -10,8 +15,18 @@ const router = express.Router();
 router.post('/', validate.contactValidation, submitContact);
 
 // @route   GET /api/contact
-// @desc    Get all contacts
+// @desc    Get all contacts (latest first)
 // @access  Private/Admin
 router.get('/', getAllContacts);
 
-module.exports = router;
+// @route   DELETE /api/contact/:id
+// @desc    Delete a contact
+// @access  Private/Admin
+router.delete('/:id', deleteContact);
+
+// @route   PATCH /api/contact/:id/status
+// @desc    Mark contact as read or unread
+// @access  Private/Admin
+router.patch('/:id/status', updateContactStatus);
+
+module.exports = router;

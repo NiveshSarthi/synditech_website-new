@@ -16,7 +16,9 @@ const api = axios.create({
 
 export const contactAPI = {
   submit: (data) => api.post('/contact', data),
-  getAll: () => api.get('/contact')
+  getAll: () => api.get('/contact'),
+  delete: (id) => api.delete(`/contact/${id}`),
+  updateStatus: (id, status) => api.patch(`/contact/${id}/status`, { status }),
 }
 
 export const leadAPI = {

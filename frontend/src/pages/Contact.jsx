@@ -35,7 +35,12 @@ const Contact = () => {
         setTimeout(() => setSuccess(false), 5000)
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to send message. Please try again.')
+      const errorData = err.response?.data
+      if (errorData?.errors && errorData.errors.length > 0) {
+        setError(errorData.errors.join('. '))
+      } else {
+        setError(errorData?.message || 'Failed to send message. Please try again.')
+      }
     } finally {
       setLoading(false)
     }

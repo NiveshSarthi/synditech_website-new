@@ -6,7 +6,7 @@ const validateEmail = (email) => {
 };
 
 const contactValidation = (req, res, next) => {
-  const { name, email, subject, message } = req.body;
+  const { name, email, message } = req.body;
   const errors = [];
 
   if (!name || name.trim().length < 2) {
@@ -15,10 +15,6 @@ const contactValidation = (req, res, next) => {
 
   if (!email || !validateEmail(email)) {
     errors.push('Please provide a valid email');
-  }
-
-  if (!subject || subject.trim().length < 5) {
-    errors.push('Subject must be at least 5 characters long');
   }
 
   if (!message || message.trim().length < 10) {

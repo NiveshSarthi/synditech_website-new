@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { faqs, defaultResponse, welcomeMessage } from '../../utils/faqs'
+import { intents, defaultResponse, welcomeMessage } from '../../utils/faqs'
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,10 +22,36 @@ const ChatBot = () => {
   const findAnswer = (userInput) => {
     const lowerInput = userInput.toLowerCase().trim()
     
-    for (const faq of faqs) {
-      if (lowerInput.includes(faq.question) || faq.keywords.some(kw => lowerInput.includes(kw))) {
-        return faq.answer
+    if (!lowerInput) return defaultResponse
+
+    let bestIntent = null
+    let bestScore = 0
+
+    for (const [intentName, intent] of Object.entries(intents)) {
+      let score = 0
+
+      for (const keyword of intent.keywords) {
+        const kwLower = keyword.toLowerCase()
+        
+        if (lowerInput === kwLower) {
+          score += kwLower.length * 3
+        } else if (lowerInput.startsWith(kwLower + ' ') || lowerInput.startsWith(kwLower + '?') || lowerInput.startsWith(kwLower + '!')) {
+          score += kwLower.length * 2
+        } else if (lowerInput.includes(' ' + kwLower + ' ') || lowerInput.includes(' ' + kwLower + '?') || lowerInput.includes(' ' + kwLower + '!')) {
+          score += kwLower.length * 1.5
+        } else if (lowerInput.includes(kwLower)) {
+          score += kwLower.length * 0.5
+        }
       }
+
+      if (score > bestScore) {
+        bestScore = score
+        bestIntent = intent
+      }
+    }
+
+    if (bestScore > 0) {
+      return bestIntent.response
     }
     
     return defaultResponse

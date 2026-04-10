@@ -4,10 +4,13 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const connectDB = require('./config/db');
 
 dotenv.config();
 
 const app = express();
+
+connectDB();
 
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
@@ -17,10 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // In-memory storage
-let contacts = [];
 let leads = [];
 let newsletters = [];
-let nextContactId = 1;
 let nextLeadId = 1;
 let nextNewsletterId = 1;
 
@@ -42,77 +43,9 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Contact Routes
-app.post('/api/contact', async (req, res) => {
-  try {
-    const { name, email, phone, message } = req.body;
-
-    if (!name || !email || !message) {
-      return res.status(400).json({
-        success: false,
-        message: 'Name, email, and message are required'
-      });
-    }
-
-    const contact = {
-      _id: String(nextContactId++),
-      name,
-      email,
-      phone: phone || '',
-      message,
-      status: 'new',
-      createdAt: new Date()
-    };
-
-    contacts.push(contact);
-
-    // Try to send email notification
-    try {
-      const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
-        subject: 'New Contact Form Submission - Synditech',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #f97316;">New Contact Form Submission</h2>
-            <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-              <p><strong>Message:</strong></p>
-              <p>${message}</p>
-            </div>
-            <p style="color: #666; margin-top: 20px;">Received at: ${new Date().toLocaleString()}</p>
-          </div>
-        `
-      };
-
-      await transporter.sendMail(mailOptions);
-    } catch (emailError) {
-      console.log('Email notification skipped:', emailError.message);
-    }
-
-    res.status(201).json({
-      success: true,
-      message: 'Contact form submitted successfully.',
-      data: contact
-    });
-  } catch (error) {
-    console.error('Contact Form Error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to submit contact form'
-    });
-  }
-});
-
-app.get('/api/contact', async (req, res) => {
-  res.json({
-    success: true,
-    count: contacts.length,
-    data: contacts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-  });
-});
+// Contact Routes (MongoDB)
+const contactRoutes = require('./routes/contact.routes');
+app.use('/api/contact', contactRoutes);
 
 // Lead Routes
 app.post('/api/leads', async (req, res) => {
