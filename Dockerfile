@@ -29,6 +29,10 @@ FROM node:18-alpine AS backend
 
 WORKDIR /app
 
+# su-exec lets the entrypoint fix mounted volume permissions as root,
+# then drop back to the unprivileged nodejs user before starting Node.
+RUN apk add --no-cache su-exec
+
 # Copy backend package files
 COPY backend/package.json backend/package-lock.json ./
 
@@ -45,8 +49,10 @@ COPY --from=frontend-build /app/frontend/dist ./dist
 RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
 
 # Set ownership
-RUN chown -R nodejs:nodejs /app
-USER nodejs
+RUN mkdir -p /app/uploads && chown -R nodejs:nodejs /app
+
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # App config
 ENV NODE_ENV=production
@@ -57,4 +63,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://localhost:5000/api/health', r => process.exit(r.statusCode === 200 ? 0 : 1))"
 
 # Start app
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["npm", "start"]
