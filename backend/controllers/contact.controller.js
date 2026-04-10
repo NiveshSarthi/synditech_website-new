@@ -7,38 +7,36 @@ const sendEmail = require('../utils/emailService');
 const submitContact = async (req, res) => {
   try {
     const { name, email, phone, subject, message } = req.body;
+    const normalizedSubject = subject?.trim() || 'Website Contact Form';
 
-    // Validation
     if (!name || !email || !message) {
-      return res.status(400).json({ message: 'Name, email, and message are required' });
+      return res.status(400).json({ success: false, message: 'Name, email, and message are required' });
     }
 
-    // Save to database
     const contact = await Contact.create({
       name,
       email,
       phone: phone || '',
-      subject: subject || '',
+      subject: normalizedSubject,
       message,
     });
 
-    // Send email notification
     try {
       await sendEmail({
-        to: process.env.EMAIL_USER,
-        subject: `New Contact Form Submission from ${name}`,
+        to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+        replyTo: email,
+        subject: `New Contact Form Submission: ${normalizedSubject}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-          <p><strong>Subject:</strong> ${subject || 'N/A'}</p>
+          <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+          <p><strong>Subject:</strong> ${normalizedSubject}</p>
           <p><strong>Message:</strong></p>
           <p>${message}</p>
         `,
       });
     } catch (emailError) {
-      // Don't fail the request if email fails
       console.error('Email notification failed:', emailError.message);
     }
 
@@ -48,7 +46,7 @@ const submitContact = async (req, res) => {
       data: contact,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -64,7 +62,7 @@ const getAllContacts = async (req, res) => {
       data: contacts,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -77,9 +75,10 @@ const deleteContact = async (req, res) => {
     if (!contact) {
       return res.status(404).json({ success: false, message: 'Contact not found' });
     }
+
     res.status(200).json({ success: true, message: 'Contact deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -89,15 +88,12 @@ const deleteContact = async (req, res) => {
 const updateContactStatus = async (req, res) => {
   try {
     const { status } = req.body;
+
     if (!['read', 'unread'].includes(status)) {
       return res.status(400).json({ success: false, message: 'Status must be "read" or "unread"' });
     }
 
-    const contact = await Contact.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
+    const contact = await Contact.findByIdAndUpdate(req.params.id, { status }, { new: true });
 
     if (!contact) {
       return res.status(404).json({ success: false, message: 'Contact not found' });
@@ -105,7 +101,7 @@ const updateContactStatus = async (req, res) => {
 
     res.status(200).json({ success: true, data: contact });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -114,4 +110,4 @@ module.exports = {
   getAllContacts,
   deleteContact,
   updateContactStatus,
-};
+};

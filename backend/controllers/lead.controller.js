@@ -3,9 +3,10 @@ const sendEmail = require('../utils/emailService');
 
 const createLead = async (req, res) => {
   try {
-    const { serviceType, projectType, timeline, budget, name, email, phone, contactTime } = req.body;
+    const { service, serviceType, projectType, timeline, budget, name, email, phone, contactTime } = req.body;
+    const normalizedService = service || projectType || serviceType;
 
-    if (!serviceType || !projectType || !timeline || !budget || !name || !email) {
+    if (!normalizedService || !timeline || !budget || !name || !email) {
       return res.status(400).json({ 
         success: false,
         message: 'Please fill in all required fields' 
@@ -13,8 +14,7 @@ const createLead = async (req, res) => {
     }
 
     const lead = await Lead.create({
-      serviceType,
-      projectType,
+      service: normalizedService,
       timeline,
       budget,
       name,
@@ -24,13 +24,13 @@ const createLead = async (req, res) => {
     });
 
     await sendEmail({
-      to: process.env.EMAIL_USER,
-      subject: `New Lead: ${name} - ${projectType}`,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      replyTo: email,
+      subject: `New Lead: ${name} - ${normalizedService}`,
       html: `
         <h2>New Lead Submission</h2>
         <h3>Project Details</h3>
-        <p><strong>Service Type:</strong> ${serviceType}</p>
-        <p><strong>Project Type:</strong> ${projectType}</p>
+        <p><strong>Service:</strong> ${normalizedService}</p>
         <p><strong>Timeline:</strong> ${timeline}</p>
         <p><strong>Budget:</strong> ${budget}</p>
         

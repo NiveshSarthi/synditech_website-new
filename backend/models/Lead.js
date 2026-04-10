@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
 
 const leadSchema = new mongoose.Schema({
-  serviceType: {
+  service: {
     type: String,
-    required: [true, 'Please select a service type'],
-    trim: true,
-  },
-  projectType: {
-    type: String,
-    required: [true, 'Please select a project type'],
+    required: [true, 'Please select a service'],
     trim: true,
   },
   timeline: {

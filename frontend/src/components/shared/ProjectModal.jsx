@@ -17,15 +17,15 @@ const PROJECT_TYPES = [
 const TIMELINE_OPTIONS = [
   { id: 'immediately', label: 'Immediately' },
   { id: 'within-1-month', label: 'Within 1 month' },
-  { id: '1-3-months', label: '1–3 months' },
+  { id: '1-3-months', label: '1-3 months' },
   { id: 'exploring', label: 'Just exploring' },
 ]
 
 const BUDGET_OPTIONS = [
-  { id: 'below-50k', label: '< ₹50K' },
-  { id: '50k-2l', label: '₹50K – ₹2L' },
-  { id: '2l-5l', label: '₹2L – ₹5L' },
-  { id: 'above-5l', label: '₹5L+' },
+  { id: 'below-50k', label: '< Rs50K' },
+  { id: '50k-2l', label: 'Rs50K - Rs2L' },
+  { id: '2l-5l', label: 'Rs2L - Rs5L' },
+  { id: 'above-5l', label: 'Rs5L+' },
 ]
 
 const CONTACT_TIMES = [
@@ -84,13 +84,11 @@ const ProjectModal = ({ isOpen, onClose }) => {
 
   const validateStep = (step) => {
     const newErrors = {}
-    
-    if (step === 1) {
-      if (!formData.projectType) {
-        newErrors.projectType = 'Please select a project type'
-      }
+
+    if (step === 1 && !formData.projectType) {
+      newErrors.projectType = 'Please select a project type'
     }
-    
+
     if (step === 2) {
       if (!formData.timeline) {
         newErrors.timeline = 'Please select a timeline'
@@ -99,7 +97,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
         newErrors.budget = 'Please select a budget range'
       }
     }
-    
+
     if (step === 3) {
       if (!formData.name.trim()) {
         newErrors.name = 'Name is required'
@@ -110,56 +108,56 @@ const ProjectModal = ({ isOpen, onClose }) => {
         newErrors.email = 'Please enter a valid email'
       }
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const handleNext = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => prev + 1)
+      setCurrentStep((prev) => prev + 1)
     }
   }
 
   const handleBack = () => {
-    setCurrentStep(prev => prev - 1)
+    setCurrentStep((prev) => prev - 1)
   }
 
   const handleSubmit = async () => {
     if (!validateStep(3)) return
-    
+
     setIsSubmitting(true)
     setErrors({ submit: '' })
-    
+
     const payload = {
       service: formData.projectType,
       name: formData.name,
       email: formData.email,
       phone: formData.phone || '',
       budget: formData.budget,
-      timeline: formData.timeline
+      timeline: formData.timeline,
+      contactTime: formData.contactTime || '',
     }
-    
+
     try {
       const response = await leadAPI.create(payload)
-      const data = response.data
-      if (data.success) {
+
+      if (response.data?.success) {
         setIsSuccess(true)
       } else {
-        setErrors({ submit: data.message || 'Failed to submit. Please try again.' })
+        setErrors({ submit: response.data?.message || 'Failed to submit. Please try again.' })
       }
     } catch (error) {
-      console.error('Network error:', error)
-      setErrors({ submit: 'Cannot connect to server. Please check your backend connection.' })
+      setErrors({ submit: error.response?.data?.message || 'Cannot connect to server. Is backend running on port 5000?' })
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const updateFormData = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    setFormData((prev) => ({ ...prev, [field]: value }))
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }))
+      setErrors((prev) => ({ ...prev, [field]: '' }))
     }
   }
 
@@ -175,7 +173,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
         onClick={onClose}
       >
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-        
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -203,8 +201,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
                     <X className="w-5 h-5 text-gray-500" />
                   </button>
                 </div>
-                
-                <div className="flex gap-2 mt-4">
+                <div className="mt-4 flex gap-2">
                   {STEPS.map((step) => (
                     <div
                       key={step.id}
@@ -256,7 +253,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
                       Back
                     </button>
                   )}
-                  
+
                   {currentStep < 3 ? (
                     <button
                       onClick={handleNext}
@@ -306,7 +303,7 @@ const StepOne = ({ formData, updateFormData, errors }) => (
   >
     <h3 className="text-xl font-semibold text-gray-900 mb-2">What do you want to build?</h3>
     <p className="text-gray-500 mb-6">Select the type of project you're interested in</p>
-    
+
     <div className="grid grid-cols-2 gap-3">
       {PROJECT_TYPES.map((type) => {
         const Icon = type.icon
@@ -346,7 +343,7 @@ const StepTwo = ({ formData, updateFormData, errors }) => (
   >
     <h3 className="text-xl font-semibold text-gray-900 mb-2">Project Details</h3>
     <p className="text-gray-500 mb-6">Help us understand your timeline and budget</p>
-    
+
     <div className="space-y-6">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-3">When do you want to start?</label>
@@ -404,7 +401,7 @@ const StepThree = ({ formData, updateFormData, errors }) => (
   >
     <h3 className="text-xl font-semibold text-gray-900 mb-2">Contact Information</h3>
     <p className="text-gray-500 mb-6">How can we reach you?</p>
-    
+
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>

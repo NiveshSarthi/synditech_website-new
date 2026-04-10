@@ -22,7 +22,7 @@ const contactSchema = new mongoose.Schema({
   subject: {
     type: String,
     trim: true,
-    default: '',
+    default: 'Website Contact Form',
   },
   message: {
     type: String,

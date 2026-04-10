@@ -1,33 +1,27 @@
-version: '3.8'
-
 services:
   app:
-    build: .
-    expose:
-      - "5000"          # Expose app port only to Docker network (L6–L7)
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: synditech-app
+    env_file:
+      - ./backend/.env
     environment:
-      - NODE_ENV=production
-      - MONGODB_URI=mongodb://mongo:27017/synditech
-      - PORT=5000
-    depends_on:
-      - mongo
-    networks:
-      - synditech-network
-    restart: unless-stopped
-
-  mongo:
-    image: mongo:6.0
-    expose:
-      - "27017"         # Mongo accessible only inside Docker network
+      NODE_ENV: production
+      PORT: 5000
+      SERVER_PUBLIC_URL: ${SERVER_PUBLIC_URL:-http://localhost:5000}
+      CLIENT_URL: ${CLIENT_URL:-http://localhost:5000}
+    ports:
+      - "5000:5000"
     volumes:
-      - mongo-data:/data/db
-    networks:
-      - synditech-network
+      - uploads:/app/uploads
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/api/health', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
 volumes:
-  mongo-data:
-
-networks:
-  synditech-network:
-    driver: bridge
+  uploads:

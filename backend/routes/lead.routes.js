@@ -6,17 +6,18 @@ const {
   updateLeadStatus, 
   deleteLead 
 } = require('../controllers/lead.controller');
+const { requireAdminAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
 router.post('/', createLead);
 
-router.get('/', getAllLeads);
+router.get('/', requireAdminAuth, getAllLeads);
 
-router.get('/:id', getLeadById);
+router.get('/:id', requireAdminAuth, getLeadById);
 
-router.put('/:id/status', updateLeadStatus);
+router.put('/:id/status', requireAdminAuth, updateLeadStatus);
 
-router.delete('/:id', deleteLead);
+router.delete('/:id', requireAdminAuth, deleteLead);
 
 module.exports = router;

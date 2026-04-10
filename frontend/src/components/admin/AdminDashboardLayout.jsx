@@ -11,8 +11,7 @@ import {
   MessageSquare,
   Bell
 } from 'lucide-react'
-
-const ADMIN_TOKEN_KEY = 'synditech_admin_token'
+import { ADMIN_TOKEN_KEY, adminAPI } from '../../utils/api'
 
 const AdminDashboardLayout = () => {
   const navigate = useNavigate()
@@ -24,7 +23,13 @@ const AdminDashboardLayout = () => {
     const token = localStorage.getItem(ADMIN_TOKEN_KEY)
     if (!token) {
       navigate('/admin/login', { replace: true })
+      return
     }
+
+    adminAPI.verify(token).catch(() => {
+      localStorage.removeItem(ADMIN_TOKEN_KEY)
+      navigate('/admin/login', { replace: true })
+    })
   }, [navigate])
 
   useEffect(() => {
