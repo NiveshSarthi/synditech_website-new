@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = '/api'
 
 const AdminBlogs = () => {
   const [blogs, setBlogs] = useState([])

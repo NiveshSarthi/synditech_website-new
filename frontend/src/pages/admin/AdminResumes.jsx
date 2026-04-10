@@ -15,7 +15,7 @@ import {
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = '/api'
 
 const STATUS_CONFIG = {
   'new': { label: 'New', color: 'bg-blue-100 text-blue-700' },

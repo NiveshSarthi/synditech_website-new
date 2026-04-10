@@ -28,12 +28,15 @@ const AdminLogin = () => {
     setErrorMessage('')
 
     try {
-      if (formData.email === 'admin@synditech.ai' && formData.password === 'admin123') {
-        localStorage.setItem(ADMIN_TOKEN_KEY, 'frontend_mock_token')
+      const response = await adminAPI.login(formData)
+      if (response.data.success) {
+        localStorage.setItem(ADMIN_TOKEN_KEY, response.data.token)
         navigate('/admin/dashboard', { replace: true })
       } else {
-        setErrorMessage('Unable to log in as admin. Invalid credentials.')
+        setErrorMessage(response.data.message || 'Unable to log in as admin.')
       }
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || 'Server error. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
