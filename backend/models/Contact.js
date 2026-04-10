@@ -14,10 +14,15 @@ const contactSchema = new mongoose.Schema({
       'Please add a valid email',
     ],
   },
+  phone: {
+    type: String,
+    trim: true,
+    default: '',
+  },
   subject: {
     type: String,
-    required: [true, 'Please add a subject'],
     trim: true,
+    default: 'Website Contact Form',
   },
   message: {
     type: String,

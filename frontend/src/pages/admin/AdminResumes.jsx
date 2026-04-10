@@ -14,8 +14,9 @@ import {
   FileText
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ADMIN_TOKEN_KEY } from '../../utils/api'
 
-const API_URL = '/api'
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 
 const STATUS_CONFIG = {
   'new': { label: 'New', color: 'bg-blue-100 text-blue-700' },
@@ -43,7 +44,12 @@ const AdminResumes = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`${API_URL}/careers/applications`)
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
+      const response = await fetch(`${API_URL}/careers/applications`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       const data = await response.json()
       if (data.success) {
         setApplications(data.data)
@@ -64,9 +70,13 @@ const AdminResumes = () => {
 
   const handleStatusChange = async (appId, newStatus) => {
     try {
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
       const response = await fetch(`${API_URL}/careers/applications/${appId}/status`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({ status: newStatus })
       })
       const data = await response.json()
@@ -86,7 +96,13 @@ const AdminResumes = () => {
     if (!window.confirm('Delete this application?')) return
     setDeletingId(appId)
     try {
-      const response = await fetch(`${API_URL}/careers/applications/${appId}`, { method: 'DELETE' })
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
+      const response = await fetch(`${API_URL}/careers/applications/${appId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       const data = await response.json()
       if (data.success) {
         setApplications(prev => prev.filter(a => a._id !== appId))

@@ -6,30 +6,34 @@ const sendEmail = require('../utils/emailService');
 // @access  Public
 const submitContact = async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, phone, subject, message } = req.body;
+    const normalizedSubject = subject?.trim() || 'Website Contact Form';
 
     // Validation
-    if (!name || !email || !subject || !message) {
-      return res.status(400).json({ message: 'All fields are required' });
+    if (!name || !email || !message) {
+      return res.status(400).json({ success: false, message: 'Name, email, and message are required' });
     }
 
     // Save to database
     const contact = await Contact.create({
       name,
       email,
-      subject,
+      phone: phone || '',
+      subject: normalizedSubject,
       message,
     });
 
     // Send email notification
     await sendEmail({
-      to: process.env.EMAIL_USER,
-      subject: `New Contact Form Submission: ${subject}`,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      replyTo: email,
+      subject: `New Contact Form Submission: ${normalizedSubject}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+        <p><strong>Subject:</strong> ${normalizedSubject}</p>
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `,
@@ -41,7 +45,7 @@ const submitContact = async (req, res) => {
       data: contact,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -57,7 +61,7 @@ const getAllContacts = async (req, res) => {
       data: contacts,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

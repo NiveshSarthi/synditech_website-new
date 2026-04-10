@@ -12,8 +12,7 @@ import {
   EyeOff
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const API_URL = '/api'
+import { ADMIN_TOKEN_KEY, adminBlogsAPI } from '../../utils/api'
 
 const AdminBlogs = () => {
   const [blogs, setBlogs] = useState([])
@@ -33,12 +32,12 @@ const AdminBlogs = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`${API_URL}/blogs/all`)
-      const data = await response.json()
-      if (data.success) {
-        setBlogs(data.data)
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
+      const response = await adminBlogsAPI.getAll(token)
+      if (response.data?.success) {
+        setBlogs(response.data.data)
       } else {
-        setError(data.message)
+        setError(response.data?.message)
       }
     } catch (err) {
       setError('Cannot connect to server')
@@ -56,9 +55,9 @@ const AdminBlogs = () => {
     if (!window.confirm('Delete this blog post?')) return
     setDeletingId(blogId)
     try {
-      const response = await fetch(`${API_URL}/blogs/${blogId}`, { method: 'DELETE' })
-      const data = await response.json()
-      if (data.success) {
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
+      const response = await adminBlogsAPI.delete(token, blogId)
+      if (response.data?.success) {
         setBlogs(prev => prev.filter(b => b._id !== blogId))
         showToast('Blog deleted')
       }
@@ -71,26 +70,17 @@ const AdminBlogs = () => {
 
   const handleSave = async (blogData) => {
     try {
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
       if (editingBlog) {
-        const response = await fetch(`${API_URL}/blogs/${editingBlog._id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(blogData)
-        })
-        const data = await response.json()
-        if (data.success) {
-          setBlogs(prev => prev.map(b => b._id === editingBlog._id ? data.data : b))
+        const response = await adminBlogsAPI.update(token, editingBlog._id, blogData)
+        if (response.data?.success) {
+          setBlogs(prev => prev.map(b => b._id === editingBlog._id ? response.data.data : b))
           showToast('Blog updated')
         }
       } else {
-        const response = await fetch(`${API_URL}/blogs`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(blogData)
-        })
-        const data = await response.json()
-        if (data.success) {
-          setBlogs(prev => [data.data, ...prev])
+        const response = await adminBlogsAPI.create(token, blogData)
+        if (response.data?.success) {
+          setBlogs(prev => [response.data.data, ...prev])
           showToast('Blog created')
         }
       }

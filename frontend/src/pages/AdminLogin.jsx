@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LockKeyhole, ShieldCheck } from 'lucide-react'
-import { adminAPI } from '../utils/api'
-
-const ADMIN_TOKEN_KEY = 'synditech_admin_token'
+import { adminAPI, ADMIN_TOKEN_KEY } from '../utils/api'
 
 const AdminLogin = () => {
   const navigate = useNavigate()
@@ -29,14 +27,16 @@ const AdminLogin = () => {
 
     try {
       const response = await adminAPI.login(formData)
-      if (response.data.success) {
-        localStorage.setItem(ADMIN_TOKEN_KEY, response.data.token)
-        navigate('/admin/dashboard', { replace: true })
-      } else {
-        setErrorMessage(response.data.message || 'Unable to log in as admin.')
+      const token = response.data?.token
+
+      if (!token) {
+        throw new Error('Token not returned')
       }
-    } catch (err) {
-      setErrorMessage(err.response?.data?.message || 'Server error. Please try again.')
+
+      localStorage.setItem(ADMIN_TOKEN_KEY, token)
+      navigate('/admin/dashboard', { replace: true })
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || 'Unable to log in as admin. Invalid credentials.')
     } finally {
       setIsSubmitting(false)
     }

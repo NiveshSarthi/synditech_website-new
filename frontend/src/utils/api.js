@@ -1,11 +1,15 @@
 import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+export const ADMIN_TOKEN_KEY = 'synditech_admin_token'
+
 const getAuthConfig = (token) => ({
   headers: {
     Authorization: `Bearer ${token}`
   }
 })
+
+export const getAdminToken = () => localStorage.getItem(ADMIN_TOKEN_KEY)
 
 const api = axios.create({
   baseURL: API_URL,
@@ -42,7 +46,8 @@ export const careersAPI = {
 
 export const adminAPI = {
   login: (credentials) => api.post('/admin/login', credentials),
-  getApplications: (token) => api.get('/admin/applications', getAuthConfig(token))
+  verify: (token) => api.post('/admin/verify', {}, getAuthConfig(token)),
+  getApplications: (token) => api.get('/careers/applications', getAuthConfig(token))
 }
 
 export const blogsAPI = {
@@ -53,7 +58,8 @@ export const blogsAPI = {
 export const adminBlogsAPI = {
   getAll: (token) => api.get('/admin/blogs', getAuthConfig(token)),
   create: (token, data) => api.post('/admin/blogs', data, getAuthConfig(token)),
-  update: (token, id, data) => api.put(`/admin/blogs/${id}`, data, getAuthConfig(token))
+  update: (token, id, data) => api.put(`/admin/blogs/${id}`, data, getAuthConfig(token)),
+  delete: (token, id) => api.delete(`/admin/blogs/${id}`, getAuthConfig(token))
 }
 
 export default api
