@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 const ScrollProgressBar = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -16,12 +15,14 @@ const ScrollProgressBar = () => {
   }, []);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-1 z-50 bg-gradient-to-r from-green-600 to-green-700 origin-left"
-      style={{ scaleX: scrollProgress / 100 }}
-      initial={{ scaleX: 0 }}
-      transition={{ duration: 0.1 }}
-    />
+    <div
+      className="fixed top-[80px] left-0 right-0 h-[5px] z-[40]"
+    >
+      <div
+        className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-100 ease-out rounded-full"
+        style={{ width: `${scrollProgress}%` }}
+      />
+    </div>
   );
 };
 

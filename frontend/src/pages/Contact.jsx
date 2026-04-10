@@ -42,168 +42,166 @@ const Contact = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-6xl font-bold text-gray-900 mb-4">Get In Touch</h1>
-          <p className="text-xl text-green-600">Let's discuss your project and bring your ideas to life</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto mt-4"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div className="animate-slide-in-left">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Send us a message</h2>
-            
-            {success && (
-              <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-xl text-green-500">
-                ✅ Message sent successfully! We'll get back to you soon.
-              </div>
-            )}
-
-            {error && (
-              <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-xl text-red-500">
-                ❌ {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name *"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-6 py-4 bg-white/5 border border-green-600/30 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600 transition-colors"
-                />
-              </div>
-
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address *"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-6 py-4 bg-white/5 border border-green-600/30 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600 transition-colors"
-                />
-              </div>
-
-              <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-6 py-4 bg-white/5 border border-green-600/30 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600 transition-colors"
-                />
-              </div>
-
-              <div>
-                <textarea
-                  name="message"
-                  placeholder="Your Message *"
-                  required
-                  rows="6"
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-6 py-4 bg-white/5 border border-green-600/30 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-green-600 transition-colors resize-none"
-                />
-              </div>
-
-              <button 
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 bg-gradient-to-r from-green-600 to-green-700 text-gray-900 rounded-xl font-bold hover:scale-105 transition-transform flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? (
-                  <span>Sending...</span>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </button>
-            </form>
+    <div className="contact-section">
+      <div className="contact-container">
+        <div className="contact-glass-box">
+          <div className="contact-header animate-fade-in">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">Get In Touch</h1>
+            <p className="text-lg text-green-600">Let's discuss your project and bring your ideas to life</p>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto mt-4"></div>
           </div>
 
-          {/* Contact Information */}
-          <div className="space-y-8 animate-slide-in-right">
-            <div className="card">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-white" />
+          <div className="contact-grid">
+            <div className="animate-slide-in-left">
+              <h2 className="text-2xl font-bold text-gray-900 mb-5">Send us a message</h2>
+              
+              {success && (
+                <div className="mb-4 p-3 bg-green-50 border border-green-500 rounded-xl text-green-700 text-sm">
+                  Message sent successfully! We'll get back to you soon.
                 </div>
+              )}
+
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-500 rounded-xl text-red-700 text-sm">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Email</h3>
-                  <p className="text-gray-600">contact@synditech.ai</p>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name *"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="contact-input"
+                  />
                 </div>
-              </div>
+
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address *"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="contact-input"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="contact-input"
+                  />
+                </div>
+
+                <div>
+                  <textarea
+                    name="message"
+                    placeholder="Your Message *"
+                    required
+                    rows="4"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="contact-input resize-none"
+                  />
+                </div>
+
+                <button 
+                  type="submit"
+                  disabled={loading}
+                  className="contact-submit-btn flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <span>Sending...</span>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
 
-            <div className="card">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Phone</h3>
-                  <p className="text-gray-600">+91 9560037154</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Location</h3>
-                  <p className="text-gray-600">BH-918, 9th Floor, 81 High Street-Puri Business Hub, Sec-81, Faridabad, Haryana, 121002</p>
+            <div className="space-y-4 animate-slide-in-right">
+              <div className="contact-info-card">
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">Email</h3>
+                    <p className="text-gray-600 text-sm">contact@synditech.ai</p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="card">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Business Hours</h3>
-              <div className="space-y-2 text-gray-600">
-                <div className="flex justify-between">
-                  <span>Monday - Friday:</span>
-                  <span className="text-green-600 font-semibold">9:00 AM - 6:00 PM</span>
+              <div className="contact-info-card">
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">Phone</h3>
+                    <p className="text-gray-600 text-sm">+91 9560037154</p>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span>Saturday:</span>
-                  <span className="text-green-600 font-semibold">10:00 AM - 4:00 PM</span>
+              </div>
+
+              <div className="contact-info-card">
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">Location</h3>
+                    <p className="text-gray-600 text-sm break-words leading-relaxed">BH-918, 9th Floor, 81 High Street-Puri Business Hub, Sec-81, Faridabad, Haryana, 121002</p>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span>Sunday:</span>
-                  <span className="text-green-600 font-semibold">Closed</span>
+              </div>
+
+              <div className="contact-info-card">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">Business Hours</h3>
+                <div className="space-y-1 text-gray-600 text-sm">
+                  <div className="flex justify-between">
+                    <span>Monday - Friday:</span>
+                    <span className="text-green-600 font-semibold">9:00 AM - 6:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Saturday:</span>
+                    <span className="text-green-600 font-semibold">10:00 AM - 4:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sunday:</span>
+                    <span className="text-green-600 font-semibold">Closed</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Map Section */}
-        <div className="mt-20 animate-fade-in">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Visit Our Office</h2>
-          <div className="card overflow-hidden">
+        <div className="mt-10 animate-fade-in">
+          <h2 className="text-2xl font-bold text-gray-900 mb-5 text-center">Visit Our Office</h2>
+          <div className="rounded-2xl overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.6395784923977!2d-122.08424368469178!3d37.42199997982424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c66619367e0!2sGoogleplex!5e0!3m2!1sen!2sus!4v1234567890123"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.8947!2d77.3087!3d28.4089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdd7f47c7c36b!2sBH-918,%2081%20High%20Street-Puri%20Business%20Hub,%20Sec-81,%20Faridabad,%20Haryana%20121002!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
               width="100%"
-              height="400"
+              height="300"
               style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="rounded-xl"
+              title="Synditech Office Location"
             ></iframe>
           </div>
         </div>

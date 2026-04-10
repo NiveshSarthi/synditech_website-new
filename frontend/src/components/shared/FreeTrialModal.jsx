@@ -97,6 +97,7 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
               className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-gray-900 focus:outline-none focus:border-green-600"
             >
               <option value="">Select a tool</option>
+              <option value="zavyo">zavyo</option>
               <option value="Task Tracker">Task Tracker</option>
               <option value="Lead Management">Lead Management</option>
               <option value="Inventory Management">Inventory Management</option>

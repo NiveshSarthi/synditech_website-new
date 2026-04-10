@@ -84,11 +84,11 @@ const Footer = () => {
                   Careers
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/pricing" className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200">
                   Pricing
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/contact" className="hover:text-green-600 transition-colors inline-block hover:translate-x-1 transform duration-200">
                   Contact

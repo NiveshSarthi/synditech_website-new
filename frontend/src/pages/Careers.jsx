@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Users, Code, Zap, Heart, Mail, MapPin, Clock } from 'lucide-react'
+import { ArrowRight, Users, Code, Zap, Heart, Mail, MapPin, Clock, Upload, FileText, CheckCircle2 } from 'lucide-react'
+import { careersAPI } from '../utils/api'
+import CareersHero from '../components/careers/CareersHero'
 
 const Careers = () => {
-  const jobs = [
+  const jobs = useMemo(() => ([
     {
+      id: 'senior-react-developer',
       title: 'Senior React Developer',
       type: 'Full-time',
       location: 'Remote',
@@ -12,6 +15,7 @@ const Careers = () => {
       requirements: ['5+ years React experience', 'TypeScript expertise', 'Team leadership']
     },
     {
+      id: 'backend-engineer-nodejs',
       title: 'Backend Engineer (Node.js)',
       type: 'Full-time',
       location: 'Remote',
@@ -19,6 +23,7 @@ const Careers = () => {
       requirements: ['4+ years Node.js experience', 'Database design', 'AWS/Azure knowledge']
     },
     {
+      id: 'ui-ux-designer',
       title: 'UI/UX Designer',
       type: 'Full-time',
       location: 'Remote',
@@ -26,51 +31,107 @@ const Careers = () => {
       requirements: ['3+ years design experience', 'Figma/Sketch proficiency', 'User research skills']
     },
     {
+      id: 'devops-engineer',
       title: 'DevOps Engineer',
       type: 'Full-time',
       location: 'Remote',
       description: 'Manage cloud infrastructure, CI/CD pipelines, and ensure system reliability.',
       requirements: ['3+ years DevOps experience', 'Docker/Kubernetes', 'AWS/Azure']
     }
-  ]
+  ]), [])
+
+  const applicationSectionRef = useRef(null)
+  const [selectedFileName, setSelectedFileName] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState({ type: '', text: '' })
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    role: jobs[0]?.title || '',
+    coverLetter: '',
+    resume: null
+  })
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setFormData((current) => ({
+      ...current,
+      [name]: value
+    }))
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0] || null
+    setFormData((current) => ({
+      ...current,
+      resume: file
+    }))
+    setSelectedFileName(file ? file.name : '')
+  }
+
+  const handleSelectRole = (role) => {
+    setFormData((current) => ({
+      ...current,
+      role
+    }))
+
+    applicationSectionRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage({ type: '', text: '' })
+
+    try {
+      const payload = new FormData()
+      payload.append('name', formData.name)
+      payload.append('email', formData.email)
+      payload.append('phone', formData.phone)
+      payload.append('role', formData.role)
+      payload.append('coverLetter', formData.coverLetter)
+
+      if (formData.resume) {
+        payload.append('resume', formData.resume)
+      }
+
+      const response = await careersAPI.submitApplication(payload)
+
+      setSubmitMessage({
+        type: 'success',
+        text: response.data?.message || 'Application submitted successfully.'
+      })
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        role: jobs[0]?.title || '',
+        coverLetter: '',
+        resume: null
+      })
+      setSelectedFileName('')
+    } catch (error) {
+      setSubmitMessage({
+        type: 'error',
+        text: error.response?.data?.message || 'Failed to submit your application. Please try again.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-sans">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-blue-900/20"></div>
-        <div className="absolute inset-0 bg-white/70"></div>
-
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto animate-fade-in">
-          <div className="mb-6">
-            <span className="px-6 py-3 bg-green-600/20 border border-green-600/50 rounded-full text-green-600 font-semibold">
-              🌟 Join Our Team
-            </span>
-          </div>
-          <h1 className="text-6xl md:text-8xl font-black mb-6 text-gray-900 font-orbitron">
-            CAREERS
-          </h1>
-          <p className="text-2xl md:text-3xl mb-8 text-green-600 font-semibold">
-            Shape the Future with Us
-          </p>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            Be part of a team that's revolutionizing technology. We offer exciting challenges,
-            continuous learning, and the opportunity to work on projects that make a difference.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="#openings" className="btn-primary shadow-lg shadow-green-600/50">
-              View Openings
-            </a>
-            <Link to="/contact" className="btn-outline">
-              Get In Touch
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CareersHero />
 
       {/* Why Join Us */}
       <section className="py-24 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 mb-4">Why Join Synditech?</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
@@ -82,7 +143,7 @@ const Careers = () => {
               { icon: Zap, title: 'Growth', desc: 'Continuous learning and development' },
               { icon: Heart, title: 'Impact', desc: 'Projects that make a real difference' }
             ].map((item, idx) => (
-              <div key={idx} className="card animate-fade-in text-center" style={{animationDelay: `${idx * 0.1}s`}}>
+              <div key={idx} className="card animate-fade-in text-center" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <item.icon className="w-12 h-12 text-green-600 mb-4 mx-auto" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
@@ -94,14 +155,14 @@ const Careers = () => {
 
       {/* Current Openings */}
       <section id="openings" className="py-24 px-4 bg-gradient-to-r from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 mb-4">Current Openings</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {jobs.map((job, idx) => (
-              <div key={idx} className="card animate-fade-in" style={{animationDelay: `${idx * 0.1}s`}}>
+              <div key={job.id} className="card animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{job.title}</h3>
@@ -126,18 +187,169 @@ const Careers = () => {
                     ))}
                   </ul>
                 </div>
-                <Link to="/contact" className="btn-primary w-full text-center">
+                <button
+                  type="button"
+                  onClick={() => handleSelectRole(job.title)}
+                  className="btn-primary w-full text-center"
+                >
                   Apply Now
-                </Link>
+                </button>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Application Form */}
+      <section ref={applicationSectionRef} data-application className="py-24 px-4 bg-white">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">Apply with Your Resume</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Submit your application directly from this page and our super admin team will review it from the admin dashboard.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
+            <div className="card">
+              <div className="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mb-6">
+                <FileText className="w-7 h-7 text-green-700" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">What to include</h3>
+              <ul className="space-y-3 text-gray-600">
+                <li className="flex gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                  Updated resume in PDF, DOC, or DOCX format
+                </li>
+                <li className="flex gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                  Role selection matching the opening you are applying for
+                </li>
+                <li className="flex gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                  Optional cover letter or brief introduction
+                </li>
+              </ul>
+              <div className="mt-8 rounded-2xl border border-green-100 bg-green-50 p-5">
+                <p className="text-sm font-semibold text-green-700 mb-2">Selected Role</p>
+                <p className="text-lg font-bold text-gray-900">{formData.role}</p>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="card space-y-6">
+              {submitMessage.text && (
+                <div
+                  className={`rounded-2xl px-4 py-3 text-sm font-medium ${
+                    submitMessage.type === 'success'
+                      ? 'bg-green-50 text-green-700 border border-green-200'
+                      : 'bg-red-50 text-red-700 border border-red-200'
+                  }`}
+                >
+                  {submitMessage.text}
+                </div>
+              )}
+
+              <div className="grid md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">Full Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full rounded-2xl border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full rounded-2xl border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">Phone</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full rounded-2xl border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">Role</label>
+                  <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                    className="w-full rounded-2xl border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    required
+                  >
+                    {jobs.map((job) => (
+                      <option key={job.id} value={job.title}>
+                        {job.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">Resume</label>
+                <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-green-300 bg-green-50/50 px-6 py-8 text-center transition-colors hover:bg-green-50">
+                  <Upload className="w-8 h-8 text-green-600 mb-3" />
+                  <span className="text-base font-semibold text-gray-900">Upload Resume</span>
+                  <span className="text-sm text-gray-500 mt-1">PDF, DOC, or DOCX up to 5MB</span>
+                  {selectedFileName && (
+                    <span className="mt-3 text-sm font-medium text-green-700">{selectedFileName}</span>
+                  )}
+                  <input
+                    type="file"
+                    name="resume"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    required
+                  />
+                </label>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-900 mb-2">Cover Letter</label>
+                <textarea
+                  name="coverLetter"
+                  value={formData.coverLetter}
+                  onChange={handleChange}
+                  rows={5}
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Tell us a little about your background and why this role is a fit."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       {/* Culture Section */}
       <section className="py-24 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 mb-4">Our Culture</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
@@ -157,7 +369,7 @@ const Careers = () => {
                 desc: 'Stay ahead with our learning budget, conferences, and internal knowledge-sharing sessions.'
               }
             ].map((item, idx) => (
-              <div key={idx} className="card animate-fade-in text-center" style={{animationDelay: `${idx * 0.1}s`}}>
+              <div key={idx} className="card animate-fade-in text-center" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
               </div>
@@ -168,15 +380,19 @@ const Careers = () => {
 
       {/* CTA Section */}
       <section className="py-24 px-4 bg-gradient-to-r from-green-600 to-green-700">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto px-2 sm:px-4 lg:px-8 text-center">
           <h2 className="text-5xl font-bold text-gray-900 mb-6">Ready to Join Our Team?</h2>
           <p className="text-xl text-gray-900/90 mb-10">
-            Don't see a position that matches your skills? We're always looking for talented individuals.
+            Don&apos;t see a position that matches your skills? We&apos;re always looking for talented individuals.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/contact" className="inline-block px-12 py-5 bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg">
+            <button
+              type="button"
+              onClick={() => applicationSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className="inline-block px-12 py-5 bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg"
+            >
               Send Us Your Resume
-            </Link>
+            </button>
             <a href="mailto:contact@synditech.ai" className="inline-block px-12 py-5 border-2 border-white text-gray-900 hover:bg-white hover:text-green-700 rounded-full font-bold text-lg transition-all hover:scale-105">
               <Mail className="w-5 h-5 inline mr-2" />
               Email Us

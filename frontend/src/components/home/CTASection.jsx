@@ -14,9 +14,9 @@ const CTASection = () => {
           <Link to="/contact" className="btn-primary text-lg px-8 py-4">
             Get Free Consultation
           </Link>
-          <Link to="/pricing" className="btn-outline text-lg px-8 py-4">
+          {/* <Link to="/pricing" className="btn-outline text-lg px-8 py-4">
             View Pricing
-          </Link>
+          </Link> */}
         </div>
       </div>
     </section>

@@ -1,71 +1,187 @@
 const Lead = require('../models/Lead');
 const sendEmail = require('../utils/emailService');
 
-// @desc    Create a lead
-// @route   POST /api/leads
-// @access  Public
 const createLead = async (req, res) => {
   try {
-    const { name, email, company, phone, service, message } = req.body;
+    const { serviceType, projectType, timeline, budget, name, email, phone, contactTime } = req.body;
 
-    // Validation
-    if (!name || !email || !message) {
-      return res.status(400).json({ message: 'Name, email and message are required' });
+    if (!serviceType || !projectType || !timeline || !budget || !name || !email) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Please fill in all required fields' 
+      });
     }
 
-    // Save to database
     const lead = await Lead.create({
+      serviceType,
+      projectType,
+      timeline,
+      budget,
       name,
       email,
-      company,
       phone,
-      service,
-      message,
+      contactTime,
     });
 
-    // Send email notification
     await sendEmail({
       to: process.env.EMAIL_USER,
-      subject: `New Lead: ${name} - ${service || 'General Inquiry'}`,
+      subject: `New Lead: ${name} - ${projectType}`,
       html: `
         <h2>New Lead Submission</h2>
+        <h3>Project Details</h3>
+        <p><strong>Service Type:</strong> ${serviceType}</p>
+        <p><strong>Project Type:</strong> ${projectType}</p>
+        <p><strong>Timeline:</strong> ${timeline}</p>
+        <p><strong>Budget:</strong> ${budget}</p>
+        
+        <h3>Contact Information</h3>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Company:</strong> ${company || 'N/A'}</p>
         <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-        <p><strong>Service:</strong> ${service || 'N/A'}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <p><strong>Preferred Contact Time:</strong> ${contactTime || 'N/A'}</p>
+        
+        <p><em>Submitted at: ${new Date().toLocaleString()}</em></p>
       `,
     });
 
     res.status(201).json({
       success: true,
-      message: 'Lead created successfully',
+      message: 'Thank you! Our team will contact you soon.',
       data: lead,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Lead creation error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error. Please try again later.' 
+    });
   }
 };
 
-// @desc    Get all leads
-// @route   GET /api/leads
-// @access  Private/Admin
 const getAllLeads = async (req, res) => {
   try {
-    const leads = await Lead.find().sort({ createdAt: -1 });
+    const { search, status, sort = '-createdAt' } = req.query;
+    
+    let query = {};
+    
+    if (status && status !== 'all') {
+      query.status = status;
+    }
+    
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    const leads = await Lead.find(query).sort({ createdAt: -1 });
+    
     res.status(200).json({
       success: true,
       count: leads.length,
       data: leads,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Get leads error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error. Please try again later.' 
+    });
+  }
+};
+
+const getLeadById = async (req, res) => {
+  try {
+    const lead = await Lead.findById(req.params.id);
+    
+    if (!lead) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Lead not found' 
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: lead,
+    });
+  } catch (error) {
+    console.error('Get lead error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error. Please try again later.' 
+    });
+  }
+};
+
+const updateLeadStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const validStatuses = ['new', 'contacted', 'in_progress', 'closed'];
+    
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Invalid status' 
+      });
+    }
+
+    const lead = await Lead.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true, runValidators: true }
+    );
+    
+    if (!lead) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Lead not found' 
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: 'Lead status updated',
+      data: lead,
+    });
+  } catch (error) {
+    console.error('Update lead error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error. Please try again later.' 
+    });
+  }
+};
+
+const deleteLead = async (req, res) => {
+  try {
+    const lead = await Lead.findByIdAndDelete(req.params.id);
+    
+    if (!lead) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Lead not found' 
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: 'Lead deleted successfully',
+    });
+  } catch (error) {
+    console.error('Delete lead error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error. Please try again later.' 
+    });
   }
 };
 
 module.exports = {
   createLead,
   getAllLeads,
+  getLeadById,
+  updateLeadStatus,
+  deleteLead,
 };

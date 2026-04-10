@@ -1,17 +1,22 @@
 const express = require('express');
-const { createLead, getAllLeads } = require('../controllers/lead.controller');
-const validate = require('../middleware/validation');
+const { 
+  createLead, 
+  getAllLeads, 
+  getLeadById, 
+  updateLeadStatus, 
+  deleteLead 
+} = require('../controllers/lead.controller');
 
 const router = express.Router();
 
-// @route   POST /api/leads
-// @desc    Create a lead
-// @access  Public
-router.post('/', validate.leadValidation, createLead);
+router.post('/', createLead);
 
-// @route   GET /api/leads
-// @desc    Get all leads
-// @access  Private/Admin
 router.get('/', getAllLeads);
+
+router.get('/:id', getLeadById);
+
+router.put('/:id/status', updateLeadStatus);
+
+router.delete('/:id', deleteLead);
 
 module.exports = router;

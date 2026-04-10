@@ -1,6 +1,26 @@
 const mongoose = require('mongoose');
 
 const leadSchema = new mongoose.Schema({
+  serviceType: {
+    type: String,
+    required: [true, 'Please select a service type'],
+    trim: true,
+  },
+  projectType: {
+    type: String,
+    required: [true, 'Please select a project type'],
+    trim: true,
+  },
+  timeline: {
+    type: String,
+    required: [true, 'Please select a timeline'],
+    trim: true,
+  },
+  budget: {
+    type: String,
+    required: [true, 'Please select a budget range'],
+    trim: true,
+  },
   name: {
     type: String,
     required: [true, 'Please add a name'],
@@ -14,25 +34,17 @@ const leadSchema = new mongoose.Schema({
       'Please add a valid email',
     ],
   },
-  company: {
-    type: String,
-    trim: true,
-  },
   phone: {
     type: String,
     trim: true,
   },
-  service: {
+  contactTime: {
     type: String,
     trim: true,
   },
-  message: {
-    type: String,
-    required: [true, 'Please add a message'],
-  },
   status: {
     type: String,
-    enum: ['new', 'contacted', 'qualified', 'lost'],
+    enum: ['new', 'contacted', 'in_progress', 'closed'],
     default: 'new',
   },
 }, {

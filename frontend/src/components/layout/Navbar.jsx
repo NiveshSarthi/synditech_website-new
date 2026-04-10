@@ -4,7 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { SERVICES, TOOLS } from "../../utils/constants"
 
-const Navbar = () => {
+const Navbar = ({ openProjectModal }) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showNav, setShowNav] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -13,7 +13,6 @@ const Navbar = () => {
 
   const lastScrollY = useRef(0)
 
-  /* Scroll behavior */
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY
@@ -35,18 +34,15 @@ const Navbar = () => {
   return (
   <nav
   className="
-    fixed top-4 left-4 right-4 z-50
-    rounded-3xl
-    bg-white/80
+    sticky top-0 z-50
+    w-full
+    bg-white/90
     backdrop-blur-2xl
-    border border-gray-200
-    shadow-sm
     transition-colors duration-300
   "
 >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          {/* Logo */}
           <Link 
             to="/" 
             className="transition-transform hover:scale-105"
@@ -59,11 +55,9 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <NavLink to="/">Home</NavLink>
 
-            {/* Services */}
             <DesktopDropdown
               label="Services"
               items={SERVICES}
@@ -72,7 +66,6 @@ const Navbar = () => {
               id="services"
             />
 
-            {/* Tools */}
             <DesktopDropdown
               label="Tools"
               items={TOOLS}
@@ -83,15 +76,19 @@ const Navbar = () => {
             />
 
             <NavLink to="/about">About</NavLink>
+            <NavLink to="/blog">Blog</NavLink>
             <NavLink to="/careers">Careers</NavLink>
-            <NavLink to="/pricing">Pricing</NavLink>
+            {/* <NavLink to="/pricing">Pricing</NavLink> */}
+            <NavLink to="/faq">FAQ</NavLink>
 
-            <Link to="/contact" className="btn-primary">
+            <Link 
+              to="/contact"
+              className="btn-primary"
+            >
               Contact Us
             </Link>
           </div>
 
-          {/* Mobile Button */}
           <button
             className="md:hidden text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -125,9 +122,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 rounded-b-3xl">
+        <div className="md:hidden bg-white/95 backdrop-blur-xl rounded-b-3xl">
           <div className="px-4 py-4 space-y-3">
             <MobileLink to="/" setOpen={setMobileMenuOpen}>Home</MobileLink>
 
@@ -148,13 +144,15 @@ const Navbar = () => {
             />
 
             <MobileLink to="/about" setOpen={setMobileMenuOpen}>About</MobileLink>
+            <MobileLink to="/blog" setOpen={setMobileMenuOpen}>Blog</MobileLink>
             <MobileLink to="/careers" setOpen={setMobileMenuOpen}>Careers</MobileLink>
-            <MobileLink to="/pricing" setOpen={setMobileMenuOpen}>Pricing</MobileLink>
+            {/* <MobileLink to="/pricing" setOpen={setMobileMenuOpen}>Pricing</MobileLink> */}
+            <MobileLink to="/faq" setOpen={setMobileMenuOpen}>FAQ</MobileLink>
 
             <Link
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-center bg-green-600 text-white py-2 rounded-full"
+              className="block w-full text-center bg-green-600 text-white py-2 rounded-full font-semibold px-4"
             >
               Contact Us
             </Link>
@@ -166,8 +164,6 @@ const Navbar = () => {
 }
 
 export default Navbar
-
-/* ---------------- Components ---------------- */
 
 const NavLink = ({ to, children }) => (
   <Link
@@ -191,22 +187,38 @@ const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => (
 
     {active === id && (
       <div
-        className={`absolute top-full left-0 mt-0 w-80 bg-white/95 rounded-xl border border-gray-200 shadow-xl
+        className={`absolute top-full left-0 mt-0 w-80 bg-white rounded-xl border border-gray-200 shadow-xl
         ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
       >
         {items.map((item) => {
           const Icon = item.icon
-          return (
-            <Link
-              key={item.id}
-              to={item.path}
-              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
-            >
+          const content = (
+            <>
               <Icon className="w-5 h-5 mt-1" />
               <div>
                 <p className="font-medium">{item.title || item.name}</p>
                 <p className="text-sm text-gray-500">{item.description}</p>
               </div>
+            </>
+          )
+
+          return item.external ? (
+            <a
+              key={item.id}
+              href={item.path}
+              target="_blank"
+              rel="noreferrer"
+              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
+            >
+              {content}
+            </a>
+          ) : (
+            <Link
+              key={item.id}
+              to={item.path}
+              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
+            >
+              {content}
             </Link>
           )
         })}
@@ -231,15 +243,27 @@ const MobileAccordion = ({ label, items, open, setOpen, id }) => (
 
     {open === id && (
       <div className="pl-4 space-y-2">
-        {items.map((item) => (
-          <Link
-            key={item.id}
-            to={item.path}
-            className="block text-sm text-gray-600 hover:text-green-600"
-          >
-            {item.title || item.name}
-          </Link>
-        ))}
+        {items.map((item) =>
+          item.external ? (
+            <a
+              key={item.id}
+              href={item.path}
+              target="_blank"
+              rel="noreferrer"
+              className="block text-sm text-gray-600 hover:text-green-600"
+            >
+              {item.title || item.name}
+            </a>
+          ) : (
+            <Link
+              key={item.id}
+              to={item.path}
+              className="block text-sm text-gray-600 hover:text-green-600"
+            >
+              {item.title || item.name}
+            </Link>
+          )
+        )}
       </div>
     )}
   </div>

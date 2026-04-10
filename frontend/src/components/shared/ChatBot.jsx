@@ -1,9 +1,55 @@
-import React, { useState } from 'react'
-import { MessageCircle, X } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react'
+import { MessageCircle, X, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { faqs, defaultResponse, welcomeMessage } from '../../utils/faqs'
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [messages, setMessages] = useState([])
+  const [inputValue, setInputValue] = useState('')
+  const messagesEndRef = useRef(null)
+
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      setMessages([{ text: welcomeMessage, isUser: false }])
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  const findAnswer = (userInput) => {
+    const lowerInput = userInput.toLowerCase().trim()
+    
+    for (const faq of faqs) {
+      if (lowerInput.includes(faq.question) || faq.keywords.some(kw => lowerInput.includes(kw))) {
+        return faq.answer
+      }
+    }
+    
+    return defaultResponse
+  }
+
+  const handleSend = () => {
+    if (!inputValue.trim()) return
+    
+    const userMessage = inputValue.trim()
+    setMessages(prev => [...prev, { text: userMessage, isUser: true }])
+    setInputValue('')
+    
+    setTimeout(() => {
+      const botAnswer = findAnswer(userMessage)
+      setMessages(prev => [...prev, { text: botAnswer, isUser: false }])
+    }, 500)
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
@@ -28,11 +74,45 @@ const ChatBot = () => {
                 </button>
               </div>
             </div>
-            <div className="p-4 h-64 flex items-center justify-center text-gray-600">
-              <p className="text-center">
-                Chat feature coming soon!<br />
-                For now, please visit our contact page.
-              </p>
+
+            <div className="h-72 overflow-y-auto p-4 space-y-3">
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
+                      msg.isUser
+                        ? 'bg-green-600 text-white rounded-br-md'
+                        : 'bg-gray-100 text-gray-800 rounded-bl-md'
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <div className="p-3 border-t border-gray-200">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type a message..."
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:border-green-500"
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={!inputValue.trim()}
+                  className="p-2 bg-green-600 text-white rounded-full hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <Send size={18} />
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

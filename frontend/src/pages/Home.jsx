@@ -1,17 +1,19 @@
+// client/src/pages/Home.jsx
 import React, { useState, useRef, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, CheckCircle, Layers, Shield, Hexagon, Circle, Triangle, Rocket, MessageSquare, Search, Globe, Settings, TrendingUp, Activity, Star, ArrowLeft } from "lucide-react"
+import { ArrowRight, CheckCircle, Layers, Shield, Rocket, Star, ArrowLeft } from "lucide-react"
 import { motion } from "framer-motion"
 import CountUp from "react-countup"
 import { useInView } from "react-intersection-observer"
 import { SERVICES } from "../utils/constants"
 import FreeTrialModal from "../components/shared/FreeTrialModal"
+import { useProjectModal } from "../components/layout/Layout"
 import { fadeInUp, staggerContainer, staggerItem } from "../utils/animations"
-import Particles from "../components/shared/Particles"
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true })
+  const { openProjectModal } = useProjectModal()
 
   const carouselRef = useRef(null);
 
@@ -61,192 +63,150 @@ const Home = () => {
     <div className="min-h-screen bg-white text-gray-900">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-        <div className="absolute inset-0 z-0 w-full h-full">
-          <Particles
-            particleColors={["#00ff33"]}
-            particleCount={2000}
-            particleSpread={10}
-            speed={0.1}
-            particleBaseSize={100}
-            moveParticlesOnHover
-            alphaParticles={false}
-            disableRotation={false}
-            pixelRatio={typeof window !== 'undefined' ? window.devicePixelRatio : 1}
-          />
-        </div>
+      <section className="relative w-full min-h-screen overflow-hidden">
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/assets/images/background.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/60" />
 
-        {/* Abstract Floating Graphic Vectors */}
-        <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ y: [0, -20, 0], rotate: [0, 90, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="absolute top-1/4 left-1/4 text-green-300/30"
-          >
-            <Hexagon size={120} strokeWidth={1} />
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 30, 0], x: [0, 20, 0], rotate: [0, -90, 0] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            className="absolute top-1/3 right-1/4 text-green-400/20"
-          >
-            <Triangle size={150} strokeWidth={1} />
-          </motion.div>
-          <motion.div
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/4 left-1/3 text-green-500/20"
-          >
-            <Circle size={90} strokeWidth={1} />
-          </motion.div>
-        </div>
-
-
-        <div className="relative z-10 px-4 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 w-full min-h-screen flex items-center justify-center">
           
           {/* Left: Text Content */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-left"
+            className="w-full max-w-2xl px-8 lg:px-16 text-left"
           >
-            <motion.span 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-block mb-6 px-4 py-2 bg-green-600/10 border border-green-600/30 rounded-full text-green-600 font-semibold text-sm tracking-wide shadow-sm"
-            >
-              Innovation Meets Excellence
-            </motion.span>
-
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-gray-900 drop-shadow-sm leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight text-white"
             >
-              Accelerate Your Digital Growth.
+              Accelerate Your
+              <br />
+              <span className="font-bold text-green-400">Digital Growth.</span>
             </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-xl md:text-2xl mb-8 text-green-600 font-semibold"
+              className="mt-6 text-lg md:text-xl text-gray-200 leading-relaxed"
             >
-              Building Tomorrow's Technology, Today.
-            </motion.p>
-
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-lg md:text-xl text-gray-600 mb-10 max-w-lg"
-            >
-              We help startups, enterprises, and fast-growing businesses transform ideas into
-              scalable digital products through modern software engineering, cloud solutions,
-              and intelligent automation.
+              Building Tomorrow&apos;s Technology, Today. High-precision infrastructure for global enterprises and ambitious startups.
             </motion.p>
 
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
-              <Link
-                to="/contact"
-                className="btn-primary shadow-lg shadow-green-600/30 text-center"
+              <button
+                onClick={openProjectModal}
+                className="inline-flex items-center justify-center rounded-full bg-green-600 px-8 py-4 text-center text-base font-semibold text-white shadow-[0_24px_50px_-22px_rgba(22,163,74,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
               >
                 Start Your Project
-              </Link>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="btn-outline text-center"
-              >
-                Free Trial
               </button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="mt-14"
+            >
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-300">
+                Trusted by Industry Leaders
+              </p>
             </motion.div>
           </motion.div>
 
-          {/* Right: Glassmorphic Floating Cards & Vectors */}
+          {/* Right: Visual Stack */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="relative hidden md:block h-[500px]"
+            className="hidden lg:block relative w-full max-w-xl pr-8"
           >
-            {/* Background glowing orb */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-400/20 blur-3xl rounded-full pointer-events-none" />
-            
-            {/* Primary Glass Card */}
+            <div className="absolute inset-x-10 top-12 h-[70%] rounded-[2.5rem] bg-gradient-to-br from-green-400/30 via-emerald-400/20 to-transparent blur-3xl" />
+
             <motion.div 
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-10 right-10 w-72 bg-white/80 backdrop-blur-xl border border-white rounded-3xl p-6 shadow-2xl shadow-green-900/10 z-20"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
+              className="relative ml-auto w-[84%]"
             >
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="text-green-600 w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 font-medium tracking-wide uppercase">Growth</p>
-                    <p className="font-bold text-gray-900 leading-none">Scalable Tech</p>
-                  </div>
-                </div>
-                <div className="px-3 py-1 bg-green-50 rounded-full text-green-600 text-xs font-bold">+340%</div>
-              </div>
-              <div className="space-y-3">
-                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-500 w-[85%]" />
-                </div>
-                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-400 w-[60%]" />
-                </div>
-                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-300 w-[45%]" />
-                </div>
+              <div
+                className="relative aspect-[1.02/0.9] overflow-hidden rounded-[2rem] border border-slate-900/10 bg-[#101826] shadow-[0_40px_85px_-42px_rgba(15,23,42,0.68)]"
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-screen"
+                  src="/assets/images/WhatsApp Video 2026-04-06 at 17.02.06.mp4"
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_46%,rgba(34,211,238,0.08),transparent_18%)]" />
               </div>
             </motion.div>
 
-            {/* Secondary Glass Card */}
+            <motion.div
+              animate={{ y: [0, 10, 0], rotate: [-4, -2, -4] }}
+              transition={{ duration: 5.4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-1 top-10 w-[42%] rounded-[1.55rem] border border-white/85 bg-white/82 p-5 shadow-[0_30px_60px_-34px_rgba(15,23,42,0.36)] backdrop-blur-xl"
+            >
+              <div className="mb-5 flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-50 text-green-700 shadow-sm">
+                  <Rocket className="h-5 w-5" />
+                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-green-600">REAL-TIME</span>
+              </div>
+              <p className="text-sm font-semibold text-slate-700">System Uptime</p>
+              <p className="mt-2 text-4xl font-black tracking-[-0.05em] text-[#27324a]">99.99%</p>
+              <div className="mt-5 h-1.5 w-full rounded-full bg-slate-200">
+                <div className="h-1.5 w-[92%] rounded-full bg-green-600" />
+              </div>
+            </motion.div>
+
             <motion.div 
-              animate={{ y: [0, 15, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-10 left-0 w-64 bg-white/90 backdrop-blur-md border border-gray-100 rounded-3xl p-5 shadow-xl shadow-gray-200/50 z-30"
+              animate={{ y: [0, 12, 0], rotate: [4, 2, 4] }}
+              transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 0.75 }}
+              className="absolute -bottom-10 right-0 w-[46%] rounded-[1.55rem] border border-white/85 bg-white/84 p-5 shadow-[0_30px_62px_-36px_rgba(15,23,42,0.38)] backdrop-blur-xl"
             >
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
-                    <Activity className="text-white w-6 h-6" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-600 text-white shadow-[0_14px_30px_-16px_rgba(22,163,74,0.7)]">
+                  <ArrowRight className="h-5 w-5" />
                 </div>
-                <div>
-                  <p className="font-bold text-gray-900">System Uptime</p>
-                  <p className="text-sm text-green-600 font-semibold">99.99% Guaranteed</p>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+                    GROWTH SCALABLE TECH
+                  </p>
+                  <p className="mt-2 text-4xl font-black tracking-[-0.05em] text-green-600">+340%</p>
                 </div>
+              </div>
+              <div className="mt-5 flex items-end gap-2">
+                <div className="h-5 w-2 rounded-full bg-green-100" />
+                <div className="h-7 w-2 rounded-full bg-green-100" />
+                <div className="h-9 w-2 rounded-full bg-green-200" />
+                <div className="h-6 w-2 rounded-full bg-green-200" />
+                <div className="h-11 w-2 rounded-full bg-green-600" />
               </div>
             </motion.div>
 
-            {/* Floating Vectors mapped from background to wrap the cards */}
-            <motion.div
-              animate={{ rotate: [0, 90, 0] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 left-10 text-green-200 pointer-events-none z-10"
-            >
-              <Hexagon size={80} strokeWidth={1} />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, 20, 0], x: [0, 10, 0], rotate: [0, -90, 0] }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-20 right-0 text-green-100 pointer-events-none z-10"
-            >
-              <Triangle size={100} strokeWidth={1} />
-            </motion.div>
-
+            <div className="absolute -bottom-16 left-[-8%] h-40 w-[82%] rounded-tr-[2rem] bg-black/10" />
+            <div className="absolute bottom-8 right-2 h-5 w-5 rounded-full bg-white/50" />
           </motion.div>
         </div>
       </section>
@@ -360,18 +320,21 @@ const Home = () => {
       {/* ================= VIDEO ================= */}
       <section className="py-28 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-6 text-white">A Glimpse of Synditech</h2>
+          <h2 className="text-5xl font-bold mb-6 text-gray-900">A Glimpse of Synditech</h2>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
             Watch how we empower businesses with technology-driven innovation
             and real-world digital solutions.
           </p>
 
-          <iframe
-            src="https://www.youtube.com/embed/dK-cxTXoaEY"
-            title="Synditech Overview"
-            allowFullScreen
-            className="mx-auto w-full max-w-4xl aspect-video rounded-2xl shadow-2xl shadow-green-600/20"
-          />
+          <div className="mx-auto w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl shadow-green-600/20 bg-black">
+            <video
+              src="/assets/images/WhatsApp Video 2026-04-06 at 17.02.06.mp4"
+              title="Synditech Overview"
+              controls
+              playsInline
+              className="w-full h-auto max-h-[70vh] object-contain"
+            />
+          </div>
         </div>
       </section>
       {/* ================= SERVICES ================= */}
@@ -486,7 +449,7 @@ const Home = () => {
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold mb-4">Why Choose Synditech?</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              We’re not just developers — we’re long-term technology partners.
+              We're not just developers — we're long-term technology partners.
             </p>
           </div>
 
@@ -516,15 +479,6 @@ const Home = () => {
 
       {/* ================= TESTIMONIALS ================= */}
       <section className="relative py-32 px-4 bg-white overflow-hidden">
-        {/* Giant Outlined Text Background */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none z-0">
-          <span 
-            className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-bold text-transparent bg-clip-text"
-            style={{ WebkitTextStroke: '2px rgba(0,0,0,0.04)', color: 'transparent', lineHeight: 0.8 }}
-          >
-            Testimonials
-          </span>
-        </div>
 
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
           {/* Pill Badge */}
@@ -599,7 +553,7 @@ const Home = () => {
             Ready to Build Something Powerful?
           </h2>
           <p className="text-xl text-white/90 mb-10">
-            Let’s turn your idea into a scalable, secure, and future-ready product.
+            Let's turn your idea into a scalable, secure, and future-ready product.
           </p>
           <Link
             to="/contact"
