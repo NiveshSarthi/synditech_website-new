@@ -133,80 +133,135 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: Visual Stack */}
-          <motion.div 
+          {/* Right: Professional Dashboard Visual */}
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="hidden lg:block relative w-full max-w-xl pr-8"
           >
+            {/* Glow blob */}
             <div className="absolute inset-x-10 top-12 h-[70%] rounded-[2.5rem] bg-gradient-to-br from-green-400/30 via-emerald-400/20 to-transparent blur-3xl" />
 
-            <motion.div 
+            {/* Main dashboard card */}
+            <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
               className="relative ml-auto w-[84%]"
             >
-              <div
-                className="relative aspect-[1.02/0.9] overflow-hidden rounded-[2rem] border border-slate-900/10 bg-[#101826] shadow-[0_40px_85px_-42px_rgba(15,23,42,0.68)]"
-              >
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="absolute inset-0 h-full w-full object-cover opacity-90 mix-blend-screen"
-                  src="/assets/images/WhatsApp Video 2026-04-06 at 17.02.06.mp4"
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_46%,rgba(34,211,238,0.08),transparent_18%)]" />
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d1a14] shadow-[0_40px_85px_-20px_rgba(0,0,0,0.8)] p-6">
+                {/* Terminal header bar */}
+                <div className="flex items-center gap-2 mb-5">
+                  <div className="h-3 w-3 rounded-full bg-red-400/70" />
+                  <div className="h-3 w-3 rounded-full bg-yellow-400/70" />
+                  <div className="h-3 w-3 rounded-full bg-green-400/70" />
+                  <span className="ml-3 text-xs text-gray-500 font-mono">synditech.dashboard</span>
+                </div>
+
+                {/* Live metric row */}
+                <div className="grid grid-cols-3 gap-3 mb-5">
+                  {[
+                    { label: "Uptime", value: "99.99%", color: "text-green-400" },
+                    { label: "Latency", value: "12ms", color: "text-emerald-300" },
+                    { label: "Requests", value: "4.2M", color: "text-green-400" },
+                  ].map((m, i) => (
+                    <div key={i} className="bg-white/5 rounded-xl p-3 border border-white/8">
+                      <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-1">{m.label}</p>
+                      <p className={`text-lg font-black ${m.color}`}>{m.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Animated bar chart */}
+                <div className="bg-white/5 rounded-xl border border-white/8 p-4 mb-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs text-gray-400 font-semibold">Revenue Growth</span>
+                    <span className="text-xs font-bold text-green-400">+340% YoY</span>
+                  </div>
+                  <div className="flex items-end gap-1.5 h-14">
+                    {[30, 45, 35, 60, 50, 75, 65, 90, 80, 100, 88, 110].map((h, i) => (
+                      <motion.div
+                        key={i}
+                        className="flex-1 rounded-sm bg-gradient-to-t from-green-700 to-green-400"
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ delay: 0.6 + i * 0.05, duration: 0.4, ease: "easeOut" }}
+                        style={{ height: `${h}%`, transformOrigin: "bottom" }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tech badges */}
+                <div className="flex flex-wrap gap-2">
+                  {["React", "Node.js", "MongoDB", "Docker", "AWS"].map((tech) => (
+                    <span key={tech} className="text-[10px] font-semibold text-green-300 bg-green-900/50 border border-green-700/40 rounded-full px-2.5 py-0.5">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Subtle scan line overlay */}
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.015)_3px,rgba(255,255,255,0.015)_4px)]" />
               </div>
             </motion.div>
 
+            {/* Floating stat card — System Uptime */}
             <motion.div
               animate={{ y: [0, 10, 0], rotate: [-4, -2, -4] }}
               transition={{ duration: 5.4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-1 top-10 w-[42%] rounded-[1.55rem] border border-white/85 bg-white/82 p-5 shadow-[0_30px_60px_-34px_rgba(15,23,42,0.36)] backdrop-blur-xl"
+              className="absolute left-0 top-8 w-[44%] rounded-[1.55rem] border border-white/15 bg-[#0d1a14]/90 p-5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl"
             >
-              <div className="mb-5 flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-50 text-green-700 shadow-sm">
-                  <Rocket className="h-5 w-5" />
+              <div className="mb-4 flex items-start justify-between">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/20 text-green-400 border border-green-500/30">
+                  <Rocket className="h-4 w-4" />
                 </div>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-green-600">REAL-TIME</span>
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-green-400">REAL-TIME</span>
               </div>
-              <p className="text-sm font-semibold text-white">System Uptime</p>
-              <p className="mt-2 text-4xl font-black tracking-[-0.05em] text-[#27324a]">99.99%</p>
-              <div className="mt-5 h-1.5 w-full rounded-full bg-slate-200">
-                <div className="h-1.5 w-[92%] rounded-full bg-green-600" />
+              <p className="text-xs font-semibold text-gray-400">System Uptime</p>
+              <p className="mt-1 text-3xl font-black tracking-tight text-white">99.99%</p>
+              <div className="mt-3 h-1.5 w-full rounded-full bg-white/10">
+                <motion.div
+                  className="h-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-400"
+                  initial={{ width: 0 }}
+                  animate={{ width: "92%" }}
+                  transition={{ delay: 1, duration: 1.2, ease: "easeOut" }}
+                />
               </div>
             </motion.div>
 
-            <motion.div 
+            {/* Floating stat card — Growth */}
+            <motion.div
               animate={{ y: [0, 12, 0], rotate: [4, 2, 4] }}
               transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 0.75 }}
-              className="absolute -bottom-10 right-0 w-[46%] rounded-[1.55rem] border border-white/85 bg-white/84 p-5 shadow-[0_30px_62px_-36px_rgba(15,23,42,0.38)] backdrop-blur-xl"
+              className="absolute -bottom-10 right-0 w-[46%] rounded-[1.55rem] border border-white/15 bg-[#0d1a14]/90 p-5 shadow-[0_30px_62px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl"
             >
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-600 text-white shadow-[0_14px_30px_-16px_rgba(22,163,74,0.7)]">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-green-600 text-white shadow-[0_8px_24px_-8px_rgba(22,163,74,0.7)]">
                   <ArrowRight className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-gray-400">
                     GROWTH SCALABLE TECH
                   </p>
-                  <p className="mt-2 text-4xl font-black tracking-[-0.05em] text-green-600">+340%</p>
+                  <p className="mt-1.5 text-3xl font-black tracking-tight text-green-400">+340%</p>
                 </div>
               </div>
-              <div className="mt-5 flex items-end gap-2">
-                <div className="h-5 w-2 rounded-full bg-green-100" />
-                <div className="h-7 w-2 rounded-full bg-green-100" />
-                <div className="h-9 w-2 rounded-full bg-green-200" />
-                <div className="h-6 w-2 rounded-full bg-green-200" />
-                <div className="h-11 w-2 rounded-full bg-green-600" />
+              <div className="mt-4 flex items-end gap-1.5">
+                {[20, 35, 55, 40, 70].map((h, i) => (
+                  <motion.div
+                    key={i}
+                    className="flex-1 rounded-sm bg-gradient-to-t from-green-800 to-green-500"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ delay: 1.2 + i * 0.08, duration: 0.4, ease: "easeOut" }}
+                    style={{ height: `${h}%`, maxHeight: 40, transformOrigin: "bottom" }}
+                  />
+                ))}
               </div>
             </motion.div>
 
             <div className="absolute -bottom-16 left-[-8%] h-40 w-[82%] rounded-tr-[2rem] bg-black/10" />
-            <div className="absolute bottom-8 right-2 h-5 w-5 rounded-full bg-white/50" />
           </motion.div>
         </div>
       </section>
