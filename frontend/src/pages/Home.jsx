@@ -373,22 +373,66 @@ const Home = () => {
       </section>
       
       {/* ================= VIDEO ================= */}
-      <section className="py-16 px-4 bg-gradient-to-r from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">A Glimpse of Synditech</h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-            Watch how we empower businesses with technology-driven innovation
-            and real-world digital solutions.
-          </p>
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-green-50/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-14">
 
-          <div className="mx-auto w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl shadow-green-600/20 bg-black">
-            <video
-              src="/assets/images/WhatsApp Video 2026-04-06 at 17.02.06.mp4"
-              title="Synditech Overview"
-              controls
-              playsInline
-              className="w-full h-auto max-h-[70vh] object-contain"
-            />
+            {/* Left: Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="flex-1 max-w-xl"
+            >
+              <span className="inline-block text-xs font-bold uppercase tracking-widest text-green-600 bg-green-50 border border-green-200 rounded-full px-4 py-1.5 mb-6">
+                See Us In Action
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+                A Glimpse of{" "}
+                <span className="text-green-600">Synditech</span>
+              </h2>
+              <p className="text-lg text-gray-500 leading-relaxed mb-8">
+                Watch how we empower businesses with technology-driven innovation
+                and real-world digital solutions that scale.
+              </p>
+              <div className="flex flex-col gap-4">
+                {[
+                  "Enterprise-grade infrastructure, built to scale",
+                  "Delivered on time with zero compromise on quality",
+                  "Trusted by 500+ businesses worldwide",
+                ].map((point, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className="mt-1 flex-shrink-0 h-5 w-5 rounded-full bg-green-100 flex items-center justify-center">
+                      <CheckCircle className="h-3.5 w-3.5 text-green-600" />
+                    </div>
+                    <span className="text-gray-600 text-sm leading-relaxed">{point}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right: Portrait Video — no black bars */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="flex-shrink-0 w-full max-w-[300px] lg:max-w-[340px]"
+            >
+              <div className="relative rounded-[2rem] overflow-hidden shadow-[0_30px_80px_-20px_rgba(22,163,74,0.25)] border border-green-100">
+                {/* Decorative glow ring */}
+                <div className="absolute -inset-0.5 rounded-[2rem] bg-gradient-to-br from-green-400/20 to-emerald-600/20 blur-sm -z-10" />
+                <video
+                  src="/assets/images/WhatsApp Video 2026-04-06 at 17.02.06.mp4"
+                  controls
+                  playsInline
+                  className="w-full h-auto block rounded-[2rem]"
+                  style={{ aspectRatio: "9/16", objectFit: "cover" }}
+                />
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
