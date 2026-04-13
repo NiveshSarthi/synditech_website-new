@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ADMIN_TOKEN_KEY } from '../../utils/api'
-
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+import { ADMIN_TOKEN_KEY, leadAPI, contactAPI, adminAPI, adminBlogsAPI } from '../../utils/api'
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -22,22 +20,17 @@ const Dashboard = () => {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const authHeaders = {
-        Authorization: `Bearer ${token}`
-      }
-
       const [leadsRes, contactsRes, resumesRes, blogsRes] = await Promise.all([
-        fetch(`${API_URL}/leads`, { headers: authHeaders }),
-        fetch(`${API_URL}/contact`, { headers: authHeaders }),
-        fetch(`${API_URL}/careers/applications`, { headers: authHeaders }),
-        fetch(`${API_URL}/admin/blogs`, { headers: authHeaders })
+        leadAPI.getAll(),
+        contactAPI.getAll(),
+        adminAPI.getApplications(),
+        adminBlogsAPI.getAll()
       ])
 
-      const leadsData = await leadsRes.json()
-      const contactsData = await contactsRes.json()
-      const resumesData = await resumesRes.json()
-      const blogsData = await blogsRes.json()
+      const leadsData = leadsRes.data
+      const contactsData = contactsRes.data
+      const resumesData = resumesRes.data
+      const blogsData = blogsRes.data
 
       setStats({
         leads: leadsData.count || 0,

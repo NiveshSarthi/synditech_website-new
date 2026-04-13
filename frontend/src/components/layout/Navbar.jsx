@@ -32,30 +32,25 @@ const Navbar = ({ openProjectModal }) => {
   }, [])
 
   return (
-  <nav
-  className="
-    sticky top-0 z-50
-    w-full
-    bg-white/90
-    backdrop-blur-2xl
-    transition-colors duration-300
-  "
->
+    <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-2xl border-b border-gray-100 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          <Link 
-            to="/" 
-            className="transition-transform hover:scale-105"
+        <div className="flex h-20 items-center justify-between gap-6">
+
+          {/* Logo — far left */}
+          <Link
+            to="/"
+            className="flex-shrink-0 transition-transform hover:scale-105"
             aria-label="Synditech - Home"
           >
-            <img 
-              src="/assets/images/logo.png" 
-              alt="Synditech Logo" 
-              className="h-16 sm:h-20 w-auto object-contain"
+            <img
+              src="/assets/images/logo.png"
+              alt="Synditech Logo"
+              className="h-14 sm:h-16 w-auto object-contain"
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Nav links — centered with even spacing */}
+          <div className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8">
             <NavLink to="/">Home</NavLink>
 
             <DesktopDropdown
@@ -78,17 +73,20 @@ const Navbar = ({ openProjectModal }) => {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/blog">Blog</NavLink>
             <NavLink to="/careers">Careers</NavLink>
-            {/* <NavLink to="/pricing">Pricing</NavLink> */}
             <NavLink to="/faq">FAQ</NavLink>
+          </div>
 
-            <Link 
+          {/* Contact Us CTA — far right */}
+          <div className="hidden md:flex flex-shrink-0 items-center">
+            <Link
               to="/contact"
-              className="btn-primary"
+              className="btn-primary whitespace-nowrap"
             >
               Contact Us
             </Link>
           </div>
 
+          {/* Mobile hamburger */}
           <button
             className="md:hidden text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -119,6 +117,7 @@ const Navbar = ({ openProjectModal }) => {
               )}
             </AnimatePresence>
           </button>
+
         </div>
       </div>
 

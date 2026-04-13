@@ -14,9 +14,7 @@ import {
   FileText
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ADMIN_TOKEN_KEY } from '../../utils/api'
-
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+import api from '../../utils/api'
 
 const STATUS_CONFIG = {
   'new': { label: 'New', color: 'bg-blue-100 text-blue-700' },
@@ -44,13 +42,8 @@ const AdminResumes = () => {
     setLoading(true)
     setError(null)
     try {
-      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await fetch(`${API_URL}/careers/applications`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
+      const response = await api.get('/careers/applications')
+      const data = response.data
       if (data.success) {
         setApplications(data.data)
       } else {
@@ -70,16 +63,8 @@ const AdminResumes = () => {
 
   const handleStatusChange = async (appId, newStatus) => {
     try {
-      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await fetch(`${API_URL}/careers/applications/${appId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ status: newStatus })
-      })
-      const data = await response.json()
+      const response = await api.put(`/careers/applications/${appId}/status`, { status: newStatus })
+      const data = response.data
       if (data.success) {
         setApplications(prev => prev.map(a => a._id === appId ? { ...a, status: newStatus } : a))
         if (selectedApp?._id === appId) {
@@ -96,14 +81,8 @@ const AdminResumes = () => {
     if (!window.confirm('Delete this application?')) return
     setDeletingId(appId)
     try {
-      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await fetch(`${API_URL}/careers/applications/${appId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
+      const response = await api.delete(`/careers/applications/${appId}`)
+      const data = response.data
       if (data.success) {
         setApplications(prev => prev.filter(a => a._id !== appId))
         if (selectedApp?._id === appId) {
@@ -310,7 +289,7 @@ const ApplicationModal = ({ app, onClose, onStatusChange, onDelete, deletingId }
             <div className="flex justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-gray-600">Resume</span>
               <a 
-                href={`${API_URL}/uploads/${app.resume}`}
+                href={app.resume.startsWith('http') ? app.resume : `/api/uploads/${app.resume}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-green-600 hover:text-green-700"

@@ -18,6 +18,18 @@ const api = axios.create({
   }
 })
 
+// Automatically attach auth token to all requests
+api.interceptors.request.use(
+  (config) => {
+    const token = getAdminToken()
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
 export const contactAPI = {
   submit: (data) => api.post('/contact', data),
   getAll: () => api.get('/contact'),

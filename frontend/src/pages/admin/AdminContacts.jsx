@@ -15,8 +15,7 @@ import {
   Circle,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const API_URL = '/api'
+import { contactAPI } from '../../utils/api'
 
 const AdminContacts = () => {
   const [contacts, setContacts] = useState([])
@@ -37,8 +36,8 @@ const AdminContacts = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`${API_URL}/contact`)
-      const data = await response.json()
+      const response = await contactAPI.getAll()
+      const data = response.data
       if (data.success) {
         setContacts(data.data)
       } else {
@@ -60,8 +59,8 @@ const AdminContacts = () => {
     if (!window.confirm('Delete this contact submission? This cannot be undone.')) return
     setDeletingId(contactId)
     try {
-      const response = await fetch(`${API_URL}/contact/${contactId}`, { method: 'DELETE' })
-      const data = await response.json()
+      const response = await contactAPI.delete(contactId)
+      const data = response.data
       if (data.success) {
         setContacts(prev => prev.filter(c => c._id !== contactId))
         if (selectedContact?._id === contactId) {
@@ -83,12 +82,8 @@ const AdminContacts = () => {
     const newStatus = contact.status === 'read' ? 'unread' : 'read'
     setUpdatingId(contact._id)
     try {
-      const response = await fetch(`${API_URL}/contact/${contact._id}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      })
-      const data = await response.json()
+      const response = await contactAPI.updateStatus(contact._id, newStatus)
+      const data = response.data
       if (data.success) {
         setContacts(prev =>
           prev.map(c => c._id === contact._id ? { ...c, status: newStatus } : c)
