@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Linkedin, Instagram, Mail, Send } from 'lucide-react'
 import { SERVICES, TOOLS } from '../../utils/constants'
+import { newsletterAPI } from '../../utils/api'
 
 const Footer = () => {
   const [email, setEmail] = React.useState('')
@@ -14,13 +15,9 @@ const Footer = () => {
     setStatus('loading')
     setMessage('')
     try {
-      const res = await fetch('http://localhost:5000/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      const data = await res.json()
-      if (res.ok && data.success) {
+      const res = await newsletterAPI.subscribe(email)
+      const data = res.data
+      if (data.success) {
         setStatus('success')
         setMessage(data.message || 'Subscribed successfully!')
         setEmail('')
@@ -28,9 +25,9 @@ const Footer = () => {
         setStatus('error')
         setMessage(data.message || 'Something went wrong. Please try again.')
       }
-    } catch {
+    } catch (err) {
       setStatus('error')
-      setMessage('Unable to connect. Please try again later.')
+      setMessage(err.response?.data?.message || 'Unable to connect. Please try again later.')
     }
   }
 

@@ -140,33 +140,17 @@ const ProjectModal = ({ isOpen, onClose }) => {
       timeline: formData.timeline
     }
     
-    console.log('=== SUBMITTING LEAD ===')
-    console.log('URL: http://localhost:5000/api/leads')
-    console.log('Payload:', payload)
-    
     try {
-      const response = await fetch('http://localhost:5000/api/leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      })
-      
-      console.log('Response status:', response.status)
-      const data = await response.json()
-      console.log('Response data:', data)
-      
-      if (response.ok && data.success) {
-        console.log('Lead submitted successfully!')
+      const response = await leadAPI.create(payload)
+      const data = response.data
+      if (data.success) {
         setIsSuccess(true)
       } else {
-        console.log('Submission failed:', data.message)
         setErrors({ submit: data.message || 'Failed to submit. Please try again.' })
       }
     } catch (error) {
       console.error('Network error:', error)
-      setErrors({ submit: 'Cannot connect to server. Is backend running on port 5000?' })
+      setErrors({ submit: 'Cannot connect to server. Please check your backend connection.' })
     } finally {
       setIsSubmitting(false)
     }

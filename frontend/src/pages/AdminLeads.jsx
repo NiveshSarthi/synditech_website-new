@@ -17,8 +17,7 @@ import {
   RefreshCw
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const API_URL = 'http://localhost:5000/api'
+import { leadAPI } from '../utils/api'
 
 const STATUS_CONFIG = {
   'new': { label: 'New', color: 'bg-blue-100 text-blue-700', icon: AlertCircle },
@@ -46,12 +45,9 @@ const AdminLeads = () => {
   const fetchLeads = async () => {
     setLoading(true)
     setError(null)
-    console.log('Fetching leads from:', `${API_URL}/leads`)
     try {
-      const response = await fetch(`${API_URL}/leads`)
-      const data = await response.json()
-      console.log('Leads response:', data)
-      
+      const response = await leadAPI.getAll()
+      const data = response.data
       if (data.success) {
         setLeads(data.data)
       } else {
@@ -59,7 +55,7 @@ const AdminLeads = () => {
       }
     } catch (err) {
       console.error('Fetch error:', err)
-      setError('Cannot connect to server. Is backend running on port 5000?')
+      setError('Cannot connect to server. Please check your backend connection.')
     } finally {
       setLoading(false)
     }
@@ -75,11 +71,8 @@ const AdminLeads = () => {
     
     setDeletingId(leadId)
     try {
-      const response = await fetch(`${API_URL}/leads/${leadId}`, {
-        method: 'DELETE'
-      })
-      const data = await response.json()
-      
+      const response = await leadAPI.delete(leadId)
+      const data = response.data
       if (data.success) {
         setLeads(prev => prev.filter(lead => lead._id !== leadId))
         if (selectedLead?._id === leadId) {

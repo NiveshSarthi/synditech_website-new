@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Trash2, Mail, RefreshCw, Users } from 'lucide-react'
+import api from '../../utils/api'
 
 const AdminSubscribers = () => {
   const [subscribers, setSubscribers] = useState([])
@@ -11,8 +12,8 @@ const AdminSubscribers = () => {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('http://localhost:5000/api/newsletter/subscribers')
-      const data = await res.json()
+      const res = await api.get('/newsletter/subscribers')
+      const data = res.data
       if (data.success) {
         setSubscribers(data.data)
       } else {
@@ -31,8 +32,8 @@ const AdminSubscribers = () => {
     if (!window.confirm('Remove this subscriber?')) return
     setDeletingId(id)
     try {
-      const res = await fetch(`http://localhost:5000/api/newsletter/subscribers/${id}`, { method: 'DELETE' })
-      const data = await res.json()
+      const res = await api.delete(`/newsletter/subscribers/${id}`)
+      const data = res.data
       if (data.success) {
         setSubscribers(prev => prev.filter(s => s._id !== id))
       } else {
