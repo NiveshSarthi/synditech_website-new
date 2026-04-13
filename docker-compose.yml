@@ -4,8 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: synditech-app
-    profiles:
-      - prod
     env_file:
       - .env
     environment:
