@@ -4,15 +4,15 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: synditech-app
+    profiles:
+      - prod
     env_file:
-      - ./backend/.env
+      - .env
     environment:
       NODE_ENV: production
       PORT: 5000
-      SERVER_PUBLIC_URL: ${SERVER_PUBLIC_URL:-http://localhost:5000}
-      CLIENT_URL: ${CLIENT_URL:-http://localhost:5000}
-    expose:
-      - "5000"
+    ports:
+      - "5000:5000"
     volumes:
       - uploads:/app/uploads
     networks:
@@ -24,6 +24,50 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: synditech-backend-dev
+    profiles:
+      - dev
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - uploads:/app/uploads
+    networks:
+      - coolify
+    command: npm run dev
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend-build
+    container_name: synditech-frontend-dev
+    profiles:
+      - dev
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      BACKEND_URL: http://backend:5000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app/frontend
+    networks:
+      - coolify
+    command: npm run dev
+    depends_on:
+      - backend
 
 volumes:
   uploads:
