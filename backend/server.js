@@ -113,51 +113,77 @@ app.delete('/api/leads/:id', async (req, res) => {
 });
 
 // Newsletter Routes
+const Newsletter = require('./models/Newsletter');
+
 app.post('/api/newsletter', async (req, res) => {
   try {
     const { email } = req.body;
-    
+
     if (!email) {
-      return res.status(400).json({
-        success: false,
-        message: 'Email is required'
-      });
+      return res.status(400).json({ success: false, message: 'Email is required' });
     }
 
-    if (newsletters.find(n => n.email === email.toLowerCase())) {
-      return res.status(400).json({
-        success: false,
-        message: 'Email already subscribed'
-      });
+    // Check duplicate in MongoDB
+    const existing = await Newsletter.findOne({ email: email.toLowerCase() });
+    if (existing) {
+      return res.status(400).json({ success: false, message: 'This email is already subscribed.' });
     }
 
-    const newsletter = {
-      _id: String(nextNewsletterId++),
-      email: email.toLowerCase(),
-      subscribed: true,
-      subscribedAt: new Date()
-    };
+    // Save to MongoDB
+    const subscriber = await Newsletter.create({ email: email.toLowerCase() });
 
-    newsletters.push(newsletter);
+    // Send confirmation email to subscriber
+    try {
+      await transporter.sendMail({
+        from: `"Synditech" <${process.env.EMAIL_USER}>`,
+        replyTo: 'contact@synditech.ai',
+        to: email,
+        subject: 'Thanks for subscribing to Synditech!',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9fafb; border-radius: 12px;">
+            <h2 style="color: #16a34a; font-size: 24px; margin-bottom: 12px;">Thanks for subscribing! 🎉</h2>
+            <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+              You're now subscribed to the Synditech newsletter. We'll keep you updated with the latest in AI, automation, and technology solutions.
+            </p>
+            <p style="color: #374151; font-size: 16px; margin-top: 24px;">
+              Best regards,<br/>
+              <strong>The Synditech Team</strong><br/>
+              <a href="mailto:contact@synditech.ai" style="color: #16a34a;">contact@synditech.ai</a>
+            </p>
+          </div>
+        `,
+      });
+    } catch (emailErr) {
+      console.error('Confirmation email failed:', emailErr.message);
+      // Don't fail the subscription if email fails
+    }
 
-    res.status(201).json({ 
-      success: true, 
-      message: 'Subscribed successfully!' 
-    });
+    res.status(201).json({ success: true, message: 'Subscribed successfully! Check your inbox for a confirmation email.' });
   } catch (error) {
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to subscribe'
-    });
+    console.error('Newsletter subscribe error:', error);
+    res.status(500).json({ success: false, message: 'Failed to subscribe. Please try again.' });
   }
 });
 
-app.get('/api/newsletter', async (req, res) => {
-  res.json({
-    success: true,
-    count: newsletters.length,
-    data: newsletters.filter(n => n.subscribed).sort((a, b) => new Date(b.subscribedAt) - new Date(a.subscribedAt))
-  });
+// Admin: Get all newsletter subscribers
+app.get('/api/newsletter/subscribers', async (req, res) => {
+  try {
+    const subscribers = await Newsletter.find().sort({ subscribedAt: -1 });
+    res.json({ success: true, count: subscribers.length, data: subscribers });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to fetch subscribers' });
+  }
+});
+
+// Admin: Delete a subscriber
+app.delete('/api/newsletter/subscribers/:id', async (req, res) => {
+  try {
+    const deleted = await Newsletter.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ success: false, message: 'Subscriber not found' });
+    res.json({ success: true, message: 'Subscriber removed successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to remove subscriber' });
+  }
 });
 
 // Blog Routes

@@ -8,7 +8,8 @@ import {
   Rocket, 
   DollarSign, 
   ShieldCheck, 
-  TrendingUp 
+  TrendingUp,
+  Users
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -17,122 +18,112 @@ const FAQSection = () => {
 
   const faqData = [
     {
-      category: "General FAQs",
+      category: "General & About",
       icon: Brain,
       items: [
         {
-          question: "What does your company do?",
-          answer: "We provide end-to-end technology solutions including product development, web & mobile applications, and digital transformation services tailored to businesses of all sizes."
+          question: "What is Synditech.ai?",
+          answer: "Synditech.ai is a technology-driven SaaS and automation company that provides AI-powered solutions for businesses, including CRM systems, WhatsApp automation, workflow automation, and custom software development. It helps businesses streamline operations, improve customer engagement, and scale efficiently."
         },
         {
-          question: "Who are your services for?",
-          answer: "Our services are designed for startups, SMEs, and enterprises looking to build, scale, or optimize their digital products."
+          question: "What makes Synditech.ai different from other SaaS platforms?",
+          answer: "Synditech.ai offers a unique combination of AI automation, official WhatsApp integration, advanced CRM capabilities, and custom development services all under one unified platform."
         },
         {
-          question: "What industries do you specialize in?",
-          answer: "We work across multiple industries including SaaS, e-commerce, fintech, healthcare, and education."
+          question: "How can I get started with Synditech.ai?",
+          answer: "You can get started immediately by booking a personalized demo through our official website to see how our automation solutions fit your business needs."
         },
         {
-          question: "Do you offer custom solutions?",
-          answer: "Yes, all our solutions are customized based on your business goals and requirements."
+          question: "Does Synditech.ai provide support and onboarding?",
+          answer: "Yes, Synditech.ai offers complete onboarding support, including setup assistance, technical training, and ongoing dedicated support to ensure your success."
+        },
+        {
+          question: "Where is Synditech.ai available?",
+          answer: "Synditech.ai provides its cutting-edge AI and automation services globally, supporting businesses across different time zones and regions."
         }
       ]
     },
     {
-      category: "Product & Services FAQs",
+      category: "Services & Features",
       icon: Monitor,
       items: [
         {
-          question: "What services do you offer?",
-          answer: "We offer web development, mobile app development, UI/UX design, cloud solutions, API integration, and ongoing maintenance."
+          question: "What services does Synditech.ai offer?",
+          answer: "Synditech.ai offers a range of services including WhatsApp Business API automation, AI chatbot development, CRM solutions, marketing automation, SaaS product development, and custom enterprise software tailored to business needs."
         },
         {
-          question: "Do you build both websites and mobile apps?",
-          answer: "Yes, we develop responsive websites and cross-platform mobile applications."
+          question: "What is WhatsApp automation by Synditech.ai?",
+          answer: "Synditech.ai provides WhatsApp automation using official APIs that allow businesses to send notifications, automate replies, create workflows, and manage customer conversations at scale."
         },
         {
-          question: "Can you redesign or improve an existing product?",
-          answer: "Absolutely! We specialize in redesigning, optimizing performance, and enhancing user experience."
+          question: "Does Synditech.ai provide custom software development?",
+          answer: "Yes, Synditech.ai specializes in building custom SaaS platforms, CRM systems, automation tools, and enterprise-grade applications based on specific business requirements."
         },
         {
-          question: "What technologies do you use?",
-          answer: "We use modern technologies like React, Node.js, Python, Flutter, and cloud platforms such as AWS and Google Cloud."
+          question: "What is the advantage of using AI chatbots from Synditech.ai?",
+          answer: "AI chatbots from Synditech.ai provide instant responses, 24/7 availability, intelligent lead qualification, and automated workflows, significantly improving customer experience while reducing manual workload."
+        },
+        {
+          question: "How does Synditech.ai support marketing automation?",
+          answer: "Synditech.ai enables automated multi-channel campaigns through WhatsApp, email, and CRM workflows, helping businesses engage customers effectively and consistently across their journey."
+        },
+        {
+          question: "Does Synditech.ai offer CRM solutions?",
+          answer: "Yes, Synditech.ai provides advanced CRM systems that help manage leads, track sales pipelines, automate follow-ups, and improve overall team productivity."
+        },
+        {
+          question: "Can Synditech.ai automate customer support?",
+          answer: "Yes, Synditech.ai automates customer support using intelligent AI chatbots and defined workflows to handle common queries and routing."
         }
       ]
     },
     {
-      category: "Project Process FAQs",
-      icon: Rocket,
+      category: "Target Audience & Industries",
+      icon: Users,
       items: [
         {
-          question: "What is your development process?",
-          answer: "Our process includes discovery, planning, design, development, testing, and deployment, followed by support."
+          question: "Who should use Synditech.ai?",
+          answer: "Synditech.ai is designed for startups, SMEs, real estate companies, healthcare providers, eCommerce brands, financial services, and enterprises looking to automate processes, manage leads, and improve customer communication."
         },
         {
-          question: "How long does it take to complete a project?",
-          answer: "Project timelines vary depending on complexity, but most projects range from a few weeks to a few months."
+          question: "What industries can benefit from Synditech.ai solutions?",
+          answer: "Industries such as real estate, healthcare, education, finance, retail, eCommerce, and service-based businesses can benefit significantly from Synditech.ai automation solutions."
         },
         {
-          question: "Will I be involved during development?",
-          answer: "Yes, we maintain regular communication and provide updates at every stage."
-        },
-        {
-          question: "Do you provide post-launch support?",
-          answer: "Yes, we offer ongoing maintenance, updates, and technical support."
+          question: "Is Synditech.ai suitable for small businesses?",
+          answer: "Yes, Synditech.ai provides highly scalable solutions that are suitable for small businesses as well as large enterprises, allowing your automation to grow alongside your business without changing platforms."
         }
       ]
     },
     {
-      category: "Pricing FAQs",
-      icon: DollarSign,
-      items: [
-        {
-          question: "How much do your services cost?",
-          answer: "Pricing depends on the project scope, features, and complexity. We provide a custom quote after understanding your requirements."
-        },
-        {
-          question: "Do you offer fixed pricing or hourly billing?",
-          answer: "We offer both fixed-price and flexible hourly models."
-        },
-        {
-          question: "Is there a free consultation?",
-          answer: "Yes, we offer an initial consultation to understand your needs and suggest the best approach."
-        }
-      ]
-    },
-    {
-      category: "Security & Support FAQs",
-      icon: ShieldCheck,
-      items: [
-        {
-          question: "How do you ensure data security?",
-          answer: "We follow industry best practices including encryption, secure coding standards, and regular security audits."
-        },
-        {
-          question: "What kind of support do you provide?",
-          answer: "We provide technical support, bug fixes, updates, and performance monitoring."
-        },
-        {
-          question: "Can you sign an NDA?",
-          answer: "Yes, we are happy to sign an NDA to protect your idea and data."
-        }
-      ]
-    },
-    {
-      category: "Business & Scaling FAQs",
+      category: "Business Growth & Leads",
       icon: TrendingUp,
       items: [
         {
-          question: "Can you help scale my product?",
-          answer: "Yes, we design scalable architectures and optimize systems for growth."
+          question: "How does Synditech.ai help businesses grow?",
+          answer: "Synditech.ai enables rapid growth by automating lead generation, improving response time with AI chatbots, optimizing customer journeys, and providing powerful tools for better data management and decision-making."
         },
         {
-          question: "Do you work with startups?",
-          answer: "Yes, we love working with startups—from idea validation to full product launch."
+          question: "Can Synditech.ai help in lead generation?",
+          answer: "Yes, Synditech.ai offers specialized tools and integrations that help capture, manage, and nurture leads through automation, directly improving conversion rates and sales efficiency."
+        }
+      ]
+    },
+    {
+      category: "Integration & Security",
+      icon: ShieldCheck,
+      items: [
+        {
+          question: "Can Synditech.ai integrate with existing systems?",
+          answer: "Yes, Synditech.ai can seamlessly integrate with existing CRM systems, websites, landing pages, payment gateways, and third-party tools through robust APIs and custom integrations."
         },
         {
-          question: "Can you integrate third-party tools?",
-          answer: "Yes, we can integrate payment gateways, CRMs, analytics tools, and more."
+          question: "Is Synditech.ai compliant with WhatsApp Business API policies?",
+          answer: "Yes, Synditech.ai exclusively uses official WhatsApp Business API integrations and strictly follows all compliance guidelines set by Meta to ensure secure, reliable, and verified communication."
+        },
+        {
+          question: "How secure is Synditech.ai?",
+          answer: "Synditech.ai follows industry-standard security practices including advanced data encryption, secure APIs, and full compliance with global data protection standards to ensure your business data is always safe."
         }
       ]
     }
@@ -143,7 +134,7 @@ const FAQSection = () => {
   }
 
   return (
-    <section className="py-24 px-4 bg-white overflow-hidden">
+    <section className="pt-6 pb-24 px-4 bg-white overflow-hidden">
       <div className="max-w-4xl mx-auto">
         
         {/* ================= HEADER ================= */}

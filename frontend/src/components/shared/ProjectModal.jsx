@@ -200,26 +200,27 @@ const ProjectModal = ({ isOpen, onClose }) => {
           className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full hover:bg-gray-100 transition-colors"
-          >
-            <X className="w-5 h-5 text-gray-500" />
-          </button>
-
           {isSuccess ? (
             <SuccessView onClose={onClose} />
           ) : (
             <>
               <div className="p-6 border-b border-gray-100">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900">Start Your Project</h2>
-                  <span className="text-sm text-gray-500">
-                    Step {currentStep} of {STEPS.length}
-                  </span>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">Start Your Project</h2>
+                    <span className="text-sm text-gray-500">
+                      Step {currentStep} of {STEPS.length}
+                    </span>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="p-2 -mt-1 -mr-1 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <X className="w-5 h-5 text-gray-500" />
+                  </button>
                 </div>
                 
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-4">
                   {STEPS.map((step) => (
                     <div
                       key={step.id}
@@ -261,7 +262,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
               </div>
 
               <div className="p-6 border-t border-gray-100 bg-gray-50">
-                <div className="flex gap-3">
+                <div className="flex justify-end gap-3">
                   {currentStep > 1 && (
                     <button
                       onClick={handleBack}
@@ -275,7 +276,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
                   {currentStep < 3 ? (
                     <button
                       onClick={handleNext}
-                      className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
+                      className="flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
                     >
                       Continue
                       <ArrowRight className="w-4 h-4" />
@@ -284,7 +285,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
                     <button
                       onClick={handleSubmit}
                       disabled={isSubmitting}
-                      className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         <>

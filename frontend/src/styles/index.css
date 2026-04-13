@@ -85,7 +85,7 @@ body {
   }
   
   .card {
-    @apply bg-white p-8 rounded-2xl border border-gray-200 
+    @apply bg-white p-5 rounded-2xl border border-gray-200 
            hover:border-green-500/40 hover:shadow-xl hover:shadow-gray-200
            transition-all duration-300;
   }
@@ -235,11 +235,11 @@ body {
 
 /* Contact Section */
 .contact-section {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 10px;
+  padding-bottom: 24px;
   background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f7faf7 100%);
 }
 

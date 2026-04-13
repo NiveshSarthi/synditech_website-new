@@ -17,14 +17,17 @@ const CareersHero = () => {
   }
 
   return (
-    <section className="pt-24 pb-16 px-6 md:px-16 max-w-5xl mx-auto">
+    <section className="pt-12 pb-10 px-6 md:px-16 max-w-5xl mx-auto">
       <div className="flex flex-col items-center text-center">
-        <span className="text-sm uppercase tracking-widest text-green-600 font-semibold mb-4">
-          JOIN OUR TEAM
+        <span className="text-green-600 font-medium mb-4">
+          Join Our Team
         </span>
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight mb-4">
-          CAREERS
-        </h1>
+        <div className="mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            Careers
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
+        </div>
         <p className="text-green-600 font-medium mb-4">
           Shape the Future with Us
         </p>
@@ -41,12 +44,13 @@ const CareersHero = () => {
             View Openings
             <ArrowRight className="ml-2 w-4 h-4" />
           </button>
-          <a
-            href="mailto:ranipuja11223344@gmail.com?subject=Job Application&body=Hi,%0D%0A%0D%0AI am interested in applying for a position at Synditech.%0D%0A%0D%0APlease find my resume attached.%0D%0A%0D%0AThank you!"
+          <button
+            type="button"
+            onClick={scrollToApplication}
             className="inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:border-green-600 hover:text-green-600 transition-colors"
           >
             Apply with Resume
-          </a>
+          </button>
         </div>
       </div>
     </section>

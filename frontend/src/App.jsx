@@ -18,6 +18,7 @@ import AdminLeads from './pages/admin/AdminLeads'
 import AdminResumes from './pages/admin/AdminResumes'
 import AdminBlogs from './pages/admin/AdminBlogs'
 import AdminContacts from './pages/admin/AdminContacts'
+import AdminSubscribers from './pages/admin/AdminSubscribers'
 
 // Service Pages
 import SaasDevelopment from './pages/services/SaasDevelopment'
@@ -76,6 +77,7 @@ function App() {
           <Route path="resumes" element={<AdminResumes />} />
           <Route path="blogs" element={<AdminBlogs />} />
           <Route path="contacts" element={<AdminContacts />} />
+          <Route path="subscribers" element={<AdminSubscribers />} />
         </Route>
       </Routes>
   )

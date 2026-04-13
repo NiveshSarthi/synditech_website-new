@@ -212,7 +212,7 @@ const Home = () => {
       </section>
       
       {/* ================= NEW SERVICES GRID SECTION ================= */}
-      <section className="py-24 px-4 bg-white border-t border-gray-50">
+      <section className="py-14 px-4 bg-white border-t border-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 mb-2 leading-tight">
@@ -282,7 +282,7 @@ const Home = () => {
       </section>
       
       {/* ================= STATS SECTION ================= */}
-      <section ref={statsRef} className="py-20 px-4 bg-white">
+      <section ref={statsRef} className="py-12 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
@@ -318,10 +318,10 @@ const Home = () => {
       </section>
       
       {/* ================= VIDEO ================= */}
-      <section className="py-28 px-4 bg-gradient-to-r from-gray-50 to-white">
+      <section className="py-16 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-6 text-gray-900">A Glimpse of Synditech</h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">A Glimpse of Synditech</h2>
+          <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
             Watch how we empower businesses with technology-driven innovation
             and real-world digital solutions.
           </p>
@@ -338,13 +338,13 @@ const Home = () => {
         </div>
       </section>
       {/* ================= SERVICES ================= */}
-      <section ref={ref} className="py-28 px-4 bg-white">
+      <section ref={ref} className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-20"
+            className="text-center mb-10"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Core Services</h2>
             <p className="text-gray-600 max-w-3xl mx-auto text-base md:text-lg">
@@ -398,10 +398,10 @@ const Home = () => {
       </section>
 
       {/* ================= PROCESS ================= */}
-      <section className="py-28 px-4 bg-gradient-to-r from-gray-50 to-white">
+      <section className="py-16 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold mb-4">How We Work</h2>
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold mb-4">How We Work</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
               A transparent, agile, and results-driven process designed to deliver
               maximum business impact.
@@ -444,10 +444,10 @@ const Home = () => {
       </section>
 
       {/* ================= WHY CHOOSE US ================= */}
-      <section className="py-28 px-4 bg-white">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold mb-4">Why Choose Synditech?</h2>
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold mb-4">Why Choose Synditech?</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
               We're not just developers — we're long-term technology partners.
             </p>
@@ -478,18 +478,14 @@ const Home = () => {
      
 
       {/* ================= TESTIMONIALS ================= */}
-      <section className="relative py-32 px-4 bg-white overflow-hidden">
+      <section className="relative py-16 px-4 bg-white overflow-hidden">
 
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-          {/* Pill Badge */}
-          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-200 bg-white mb-8">
-            <Star className="w-4 h-4 text-gray-500" />
-            <span className="text-xs font-bold tracking-wider text-gray-800">WHAT CLIENT SAYS?</span>
-            <ArrowRight className="w-4 h-4 text-gray-300" />
-          </div>
+          {/* Label */}
+          <p className="text-sm font-bold tracking-wider text-gray-800 uppercase mb-8">What Clients Say</p>
 
           {/* Heading */}
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">
             Proof That We Don't Just Talk
           </h2>
 
@@ -547,7 +543,7 @@ const Home = () => {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="py-28 px-4 bg-gradient-to-r from-green-600 to-green-700">
+      <section className="py-16 px-4 bg-gradient-to-r from-green-600 to-green-700">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-6 text-white">
             Ready to Build Something Powerful?

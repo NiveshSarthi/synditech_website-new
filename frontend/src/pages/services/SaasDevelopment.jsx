@@ -44,14 +44,14 @@ const SaasDevelopment = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-20 px-4">
+    <div className="min-h-screen bg-white pt-14 pb-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl mb-6">
+        <div className="text-center mb-10 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-600 to-green-700 rounded-2xl mb-4">
             <Cloud className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-6xl font-bold text-gray-900 mb-4">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
             SaaS Development
           </h1>
           <p className="text-xl text-green-600 max-w-3xl mx-auto">
@@ -73,7 +73,7 @@ const SaasDevelopment = () => {
               are secure, performant, and ready to scale with your growing user base.
             </p>
             
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Key Features</h3>
+            <h3 className="text-4xl font-bold text-gray-900 mb-6">Key Features</h3>
             <ul className="space-y-3">
               {features.map((feature, idx) => (
                 <li key={idx} className="flex items-center text-gray-600">

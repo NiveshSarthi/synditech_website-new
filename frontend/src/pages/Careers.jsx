@@ -130,10 +130,10 @@ const Careers = () => {
       <CareersHero />
 
       {/* Why Join Us */}
-      <section className="py-24 px-4 bg-white">
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Why Join Synditech?</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Join Synditech?</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -154,10 +154,10 @@ const Careers = () => {
       </section>
 
       {/* Current Openings */}
-      <section id="openings" className="py-24 px-4 bg-gradient-to-r from-gray-50 to-white">
+      <section id="openings" className="py-14 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Current Openings</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Current Openings</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
@@ -201,10 +201,10 @@ const Careers = () => {
       </section>
 
       {/* Application Form */}
-      <section ref={applicationSectionRef} data-application className="py-24 px-4 bg-white">
+      <section ref={applicationSectionRef} data-application className="py-14 px-4 bg-white">
         <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Apply with Your Resume</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Apply with Your Resume</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Submit your application directly from this page and our super admin team will review it from the admin dashboard.
             </p>
@@ -348,10 +348,10 @@ const Careers = () => {
       </section>
 
       {/* Culture Section */}
-      <section className="py-24 px-4 bg-white">
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Our Culture</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Culture</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -379,9 +379,9 @@ const Careers = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 bg-gradient-to-r from-green-600 to-green-700">
+      <section className="py-14 px-4 bg-gradient-to-r from-green-600 to-green-700">
         <div className="max-w-4xl mx-auto px-2 sm:px-4 lg:px-8 text-center">
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">Ready to Join Our Team?</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Ready to Join Our Team?</h2>
           <p className="text-xl text-gray-900/90 mb-10">
             Don&apos;t see a position that matches your skills? We&apos;re always looking for talented individuals.
           </p>

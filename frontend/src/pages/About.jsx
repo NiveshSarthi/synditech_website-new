@@ -2,10 +2,10 @@ import React from "react"
 
 const About = () => {
   return (
-    <div className="pt-28 pb-24 bg-white text-gray-900">
+    <div className="pt-16 bg-white text-gray-900">
 
       {/* ================= INTRO ================= */}
-      <section className="mb-24">
+      <section className="mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             About <span className="text-green-600">Synditech</span>
@@ -18,10 +18,9 @@ const About = () => {
         </div>
       </section>
  {/* ================= FOUNDER SECTION ================= */}
-      <section className="mb-28">
+      <section className="mb-12">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-dashed border-green-600/40 rounded-2xl" />
             <img
   src="assets\images\I train startups.jpg"
   alt="Founder"
@@ -51,7 +50,7 @@ const About = () => {
         </div>
       </section>
       {/* ================= OUR STORY ================= */}
-      <section className="mb-28">
+      <section className="mb-12 text-gray-900 bg-white">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
@@ -85,7 +84,7 @@ const About = () => {
       </section>
 
       {/* ================= MISSION & VISION ================= */}
-      <section className="mb-28 bg-gradient-to-r from-gray-50 to-white py-24">
+      <section className="mb-12 bg-gradient-to-r from-gray-50 to-white py-16">
         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16">
           <div className="card">
             <h3 className="text-3xl font-bold mb-4 text-green-600">Our Mission</h3>
@@ -108,7 +107,7 @@ const About = () => {
       </section>
 
       {/* ================= HOW WE WORK (DOTTED FLOW) ================= */}
-      <section className="mb-28">
+      <section className="mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-16">How We Work</h2>
 
@@ -141,31 +140,11 @@ const About = () => {
         </div>
       </section>
 
-      {/* ================= VIDEO SECTION ================= */}
-      <section className="mb-28 bg-gradient-to-r from-gray-50 to-white py-24">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Learn More About Synditech
-          </h2>
-          <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
-            Watch this short video to understand how Synditech partners with
-            businesses to build high-impact digital products and scalable
-            technology solutions.
-          </p>
-
-          <iframe
-            className="w-full max-w-4xl mx-auto aspect-video rounded-2xl shadow-2xl shadow-green-600/20"
-            src="https://www.youtube.com/embed/dK-cxTXoaEY"
-            title="About Synditech"
-            allowFullScreen
-          />
-        </div>
-      </section>
 
      
 
       {/* ================= CTA ================= */}
-      <section className="text-center bg-gradient-to-r from-green-600 to-green-700 py-24">
+      <section className="text-center bg-gradient-to-r from-green-600 to-green-700 py-16">
         <h2 className="text-4xl font-bold mb-6">
           Ready to Build With Synditech?
         </h2>
