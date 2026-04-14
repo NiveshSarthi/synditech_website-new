@@ -40,7 +40,7 @@ const Layout = () => {
           <motion.main
             key={location.pathname}
             id="main-content"
-            className="flex-grow pt-4"
+            className="flex-grow"
             variants={pageTransition}
             initial="hidden"
             animate="visible"

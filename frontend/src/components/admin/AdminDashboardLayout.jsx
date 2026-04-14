@@ -9,7 +9,8 @@ import {
   X, 
   ChevronDown,
   MessageSquare,
-  Bell
+  Bell,
+  Briefcase
 } from 'lucide-react'
 import { ADMIN_TOKEN_KEY, adminAPI } from '../../utils/api'
 
@@ -54,6 +55,7 @@ const AdminDashboardLayout = () => {
     { to: '/admin/dashboard/contacts', icon: MessageSquare, label: 'Contacts' },
     { to: '/admin/dashboard/resumes', icon: FileText, label: 'Resumes' },
     { to: '/admin/dashboard/blogs', icon: FileText, label: 'Blogs' },
+    { to: '/admin/dashboard/jobs', icon: Briefcase, label: 'Jobs' },
     { to: '/admin/dashboard/subscribers', icon: Bell, label: 'Subscribers' },
   ]
 

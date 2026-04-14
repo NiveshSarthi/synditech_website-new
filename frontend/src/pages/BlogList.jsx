@@ -26,6 +26,7 @@ const BlogList = () => {
   const [blogs, setBlogs] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [imageErrors, setImageErrors] = useState({})
 
   useEffect(() => {
     const loadBlogs = async () => {
@@ -83,11 +84,16 @@ const BlogList = () => {
                 <div className="blog-image-container bg-gradient-to-br from-green-100 via-white to-emerald-50">
                   {index === 1 ? (
                     <img src={ZAVYO_IMAGE} alt={blog.title} className="blog-image" />
-                  ) : blog.coverImage ? (
-                    <img src={blog.coverImage} alt={blog.title} className="blog-image" />
+                  ) : blog.coverImage && !imageErrors[blog._id] ? (
+                    <img 
+                      src={blog.coverImage} 
+                      alt={blog.title} 
+                      className="blog-image"
+                      onError={() => setImageErrors(prev => ({ ...prev, [blog._id]: true }))}
+                    />
                   ) : (
-                    <div className="flex h-full items-end p-4 md:p-6">
-                      <span className="rounded-full bg-white px-2 md:px-3 py-1 md:py-2 text-xs font-semibold uppercase tracking-[0.16em] text-green-700 shadow-sm">
+                    <div className="flex h-full flex-col items-center justify-center p-4 md:p-6">
+                      <span className="rounded-full bg-white px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-semibold uppercase tracking-[0.16em] text-green-700 shadow-sm">
                         {blog.category}
                       </span>
                     </div>

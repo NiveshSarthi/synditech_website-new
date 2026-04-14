@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500/api'
 export const ADMIN_TOKEN_KEY = 'synditech_admin_token'
 
 const getAuthConfig = (token) => ({
@@ -74,6 +74,17 @@ export const adminBlogsAPI = {
   create: (token, data) => api.post('/admin/blogs', data, getAuthConfig(token)),
   update: (token, id, data) => api.put(`/admin/blogs/${id}`, data, getAuthConfig(token)),
   delete: (token, id) => api.delete(`/admin/blogs/${id}`, getAuthConfig(token))
+}
+
+export const jobsAPI = {
+  getAll: () => api.get('/jobs')
+}
+
+export const adminJobsAPI = {
+  getAll: (token) => api.get('/jobs/all', getAuthConfig(token)),
+  create: (token, data) => api.post('/jobs', data, getAuthConfig(token)),
+  update: (token, id, data) => api.put(`/jobs/${id}`, data, getAuthConfig(token)),
+  delete: (token, id) => api.delete(`/jobs/${id}`, getAuthConfig(token))
 }
 
 export default api

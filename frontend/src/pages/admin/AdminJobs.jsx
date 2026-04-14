@@ -7,35 +7,35 @@ import {
   X, 
   Loader2,
   RefreshCw,
-  ExternalLink,
-  Eye,
-  EyeOff
+  MapPin,
+  Clock,
+  Briefcase
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ADMIN_TOKEN_KEY, adminBlogsAPI } from '../../utils/api'
+import { ADMIN_TOKEN_KEY, adminJobsAPI } from '../../utils/api'
 
-const AdminBlogs = () => {
-  const [blogs, setBlogs] = useState([])
+const AdminJobs = () => {
+  const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState('')
   const [showModal, setShowModal] = useState(false)
-  const [editingBlog, setEditingBlog] = useState(null)
+  const [editingJob, setEditingJob] = useState(null)
   const [deletingId, setDeletingId] = useState(null)
   const [toast, setToast] = useState(null)
 
   useEffect(() => {
-    fetchBlogs()
+    fetchJobs()
   }, [])
 
-  const fetchBlogs = async () => {
+  const fetchJobs = async () => {
     setLoading(true)
     setError(null)
     try {
       const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await adminBlogsAPI.getAll(token)
+      const response = await adminJobsAPI.getAll(token)
       if (response.data?.success) {
-        setBlogs(response.data.data)
+        setJobs(response.data.data)
       } else {
         setError(response.data?.message)
       }
@@ -51,15 +51,15 @@ const AdminBlogs = () => {
     setTimeout(() => setToast(null), 3000)
   }
 
-  const handleDelete = async (blogId) => {
-    if (!window.confirm('Delete this blog post?')) return
-    setDeletingId(blogId)
+  const handleDelete = async (jobId) => {
+    if (!window.confirm('Delete this job?')) return
+    setDeletingId(jobId)
     try {
       const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await adminBlogsAPI.delete(token, blogId)
+      const response = await adminJobsAPI.delete(token, jobId)
       if (response.data?.success) {
-        setBlogs(prev => prev.filter(b => b._id !== blogId))
-        showToast('Blog deleted')
+        setJobs(prev => prev.filter(j => j._id !== jobId))
+        showToast('Job deleted')
       }
     } catch (err) {
       showToast('Failed to delete', 'error')
@@ -68,52 +68,57 @@ const AdminBlogs = () => {
     }
   }
 
-  const handleSave = async (blogData) => {
+  const handleSave = async (jobData) => {
     try {
       const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      if (editingBlog) {
-        const response = await adminBlogsAPI.update(token, editingBlog._id, blogData)
+      if (editingJob) {
+        const response = await adminJobsAPI.update(token, editingJob._id, jobData)
         if (response.data?.success) {
-          setBlogs(prev => prev.map(b => b._id === editingBlog._id ? response.data.data : b))
-          showToast('Blog updated')
+          setJobs(prev => prev.map(j => j._id === editingJob._id ? response.data.data : j))
+          showToast('Job updated')
         }
       } else {
-        const response = await adminBlogsAPI.create(token, blogData)
+        const response = await adminJobsAPI.create(token, jobData)
         if (response.data?.success) {
-          setBlogs(prev => [response.data.data, ...prev])
-          showToast('Blog created')
+          setJobs(prev => [response.data.data, ...prev])
+          showToast('Job created')
         }
       }
       setShowModal(false)
-      setEditingBlog(null)
+      setEditingJob(null)
     } catch (err) {
       showToast('Failed to save', 'error')
     }
   }
 
-  const filteredBlogs = blogs.filter(blog =>
-    blog.title?.toLowerCase().includes(search.toLowerCase()) ||
-    blog.category?.toLowerCase().includes(search.toLowerCase())
+  const handleEdit = (job) => {
+    setEditingJob(job)
+    setShowModal(true)
+  }
+
+  const filteredJobs = jobs.filter(job =>
+    job.title?.toLowerCase().includes(search.toLowerCase()) ||
+    job.location?.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Blogs</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Job Vacancies</h1>
         <div className="flex gap-3">
           <button
-            onClick={fetchBlogs}
+            onClick={fetchJobs}
             className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
           <button
-            onClick={() => { setEditingBlog(null); setShowModal(true) }}
+            onClick={() => { setEditingJob(null); setShowModal(true) }}
             className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
           >
             <Plus className="w-4 h-4" />
-            New Blog
+            Add Job
           </button>
         </div>
       </div>
@@ -124,7 +129,7 @@ const AdminBlogs = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search by title or category..."
+              placeholder="Search by title or location..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 outline-none"
@@ -140,48 +145,46 @@ const AdminBlogs = () => {
           <div className="p-8 text-center text-red-500">{error}</div>
         ) : (
           <div className="divide-y divide-gray-100">
-            {filteredBlogs.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">No blogs found</div>
+            {filteredJobs.length === 0 ? (
+              <div className="p-8 text-center text-gray-500">No jobs found</div>
             ) : (
-              filteredBlogs.map((blog) => (
-                <div key={blog._id} className="p-4 hover:bg-gray-50 transition-colors">
+              filteredJobs.map((job) => (
+                <div key={job._id} className="p-4 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
-                        <h3 className="font-semibold text-gray-900">{blog.title}</h3>
+                        <h3 className="font-semibold text-gray-900">{job.title}</h3>
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                          blog.isPublished ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                          job.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
                         }`}>
-                          {blog.isPublished ? 'Published' : 'Draft'}
+                          {job.isActive ? 'Active' : 'Inactive'}
                         </span>
                       </div>
                       <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
-                        <span>{blog.category}</span>
-                        <span>by {blog.authorName}</span>
-                        <span>{blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}</span>
+                        <span className="flex items-center gap-1">
+                          <Briefcase className="w-4 h-4" />
+                          {job.type}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" />
+                          {job.location}
+                        </span>
+                        <span>{job.createdAt ? new Date(job.createdAt).toLocaleDateString() : ''}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <a
-                        href={`/blog/${blog.slug}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 hover:text-green-600"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
                       <button
-                        onClick={() => { setEditingBlog(blog); setShowModal(true) }}
+                        onClick={() => handleEdit(job)}
                         className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 hover:text-green-600"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
-                        onClick={() => handleDelete(blog._id)}
-                        disabled={deletingId === blog._id}
+                        onClick={() => handleDelete(job._id)}
+                        disabled={deletingId === job._id}
                         className="p-2 hover:bg-red-50 rounded-lg text-gray-600 hover:text-red-600 disabled:opacity-50"
                       >
-                        {deletingId === blog._id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        {deletingId === job._id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                       </button>
                     </div>
                   </div>
@@ -193,14 +196,14 @@ const AdminBlogs = () => {
       </div>
 
       <div className="mt-4 text-sm text-gray-500">
-        Showing {filteredBlogs.length} of {blogs.length} blogs
+        Showing {filteredJobs.length} of {jobs.length} jobs
       </div>
 
       <AnimatePresence>
         {showModal && (
-          <BlogModal
-            blog={editingBlog}
-            onClose={() => { setShowModal(false); setEditingBlog(null) }}
+          <JobModal
+            job={editingJob}
+            onClose={() => { setShowModal(false); setEditingJob(null) }}
             onSave={handleSave}
           />
         )}
@@ -224,16 +227,15 @@ const AdminBlogs = () => {
   )
 }
 
-const BlogModal = ({ blog, onClose, onSave }) => {
+const JobModal = ({ job, onClose, onSave }) => {
   const [formData, setFormData] = useState({
-    title: blog?.title || '',
-    excerpt: blog?.excerpt || '',
-    content: blog?.content || '',
-    coverImage: blog?.coverImage || '',
-    authorName: blog?.authorName || 'Admin',
-    category: blog?.category || 'Technology',
-    tags: blog?.tags?.join(', ') || '',
-    isPublished: blog?.isPublished ?? true
+    title: job?.title || '',
+    type: job?.type || 'Full-time',
+    location: job?.location || 'Remote',
+    description: job?.description || '',
+    requirements: job?.requirements?.join('\n') || '',
+    salary: job?.salary || '',
+    isActive: job?.isActive ?? true
   })
   const [saving, setSaving] = useState(false)
 
@@ -242,7 +244,7 @@ const BlogModal = ({ blog, onClose, onSave }) => {
     setSaving(true)
     const data = {
       ...formData,
-      tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean)
+      requirements: formData.requirements.split('\n').map(r => r.trim()).filter(Boolean)
     }
     await onSave(data)
     setSaving(false)
@@ -265,108 +267,93 @@ const BlogModal = ({ blog, onClose, onSave }) => {
         onClick={e => e.stopPropagation()}
       >
         <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">{blog ? 'Edit Blog' : 'New Blog'}</h2>
+          <h2 className="text-xl font-bold text-gray-900">{job ? 'Edit Job' : 'Add New Job'}</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto max-h-[60vh] space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Excerpt</label>
-            <textarea
-              value={formData.excerpt}
-              onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
-              rows={2}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Content *</label>
-            <textarea
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
-              rows={8}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Cover Image URL</label>
-            <input
-              type="url"
-              value={formData.coverImage}
-              onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
-              placeholder="https://example.com/image.jpg"
-            />
-            {formData.coverImage && (
-              <div className="mt-2 rounded-lg overflow-hidden border border-gray-200">
-                <img 
-                  src={formData.coverImage} 
-                  alt="Cover Preview" 
-                  className="h-32 w-full object-cover"
-                  onError={(e) => { e.target.style.display = 'none' }}
-                  onLoad={(e) => { e.target.style.display = 'block' }}
-                />
-              </div>
-            )}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Job Title *</label>
+              <input
+                type="text"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
+              <select
+                value={formData.type}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
+              >
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Internship">Internship</option>
+              </select>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
               <input
                 type="text"
-                value={formData.authorName}
-                onChange={(e) => setFormData({ ...formData, authorName: e.target.value })}
+                value={formData.location}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Salary (Optional)</label>
               <input
                 type="text"
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                value={formData.salary}
+                onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
                 className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
+                placeholder="e.g., $50,000 - $80,000"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
-            <input
-              type="text"
-              value={formData.tags}
-              onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+            <textarea
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
-              placeholder="react, javascript, web development"
+              rows={4}
+              required
+              placeholder="Describe the role and responsibilities..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Requirements (one per line)</label>
+            <textarea
+              value={formData.requirements}
+              onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-green-500 outline-none"
+              rows={4}
+              placeholder="5+ years experience&#10;React expertise&#10;Team leadership"
             />
           </div>
 
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              id="isPublished"
-              checked={formData.isPublished}
-              onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
+              id="isActive"
+              checked={formData.isActive}
+              onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
               className="w-4 h-4 text-green-600 rounded"
             />
-            <label htmlFor="isPublished" className="text-sm text-gray-700">Published</label>
+            <label htmlFor="isActive" className="text-sm text-gray-700">Active (visible on website)</label>
           </div>
         </form>
 
@@ -384,7 +371,7 @@ const BlogModal = ({ blog, onClose, onSave }) => {
             className="px-6 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
           >
             {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-            {blog ? 'Update Blog' : 'Create Blog'}
+            {job ? 'Update Job' : 'Create Job'}
           </button>
         </div>
       </motion.div>
@@ -392,4 +379,4 @@ const BlogModal = ({ blog, onClose, onSave }) => {
   )
 }
 
-export default AdminBlogs
+export default AdminJobs

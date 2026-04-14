@@ -7,7 +7,7 @@ const About = () => {
       {/* ================= INTRO ================= */}
       <section className="mb-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <h1 className="text-[48px] md:text-6xl font-bold mb-6">
             About <span className="text-green-600">Synditech</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto">
@@ -20,13 +20,12 @@ const About = () => {
  {/* ================= FOUNDER SECTION ================= */}
       <section className="mb-12">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative">
+          <div className="flex items-center justify-center h-[350px] bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-2xl overflow-hidden">
             <img
-  src="assets\images\I train startups.jpg"
-  alt="Founder"
-  className="relative rounded-2xl shadow-2xl"
-/>
-
+              src="assets\images\I train startups.jpg"
+              alt="Founder"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           <div>

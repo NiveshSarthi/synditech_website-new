@@ -1,44 +1,28 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Users, Code, Zap, Heart, Mail, MapPin, Clock, Upload, FileText, CheckCircle2 } from 'lucide-react'
-import { careersAPI } from '../utils/api'
+import { careersAPI, jobsAPI } from '../utils/api'
 import CareersHero from '../components/careers/CareersHero'
 
 const Careers = () => {
-  const jobs = useMemo(() => ([
-    {
-      id: 'senior-react-developer',
-      title: 'Senior React Developer',
-      type: 'Full-time',
-      location: 'Remote',
-      description: 'Build cutting-edge web applications using React, Next.js, and modern frontend technologies.',
-      requirements: ['5+ years React experience', 'TypeScript expertise', 'Team leadership']
-    },
-    {
-      id: 'backend-engineer-nodejs',
-      title: 'Backend Engineer (Node.js)',
-      type: 'Full-time',
-      location: 'Remote',
-      description: 'Develop scalable APIs and microservices using Node.js, Express, and cloud technologies.',
-      requirements: ['4+ years Node.js experience', 'Database design', 'AWS/Azure knowledge']
-    },
-    {
-      id: 'ui-ux-designer',
-      title: 'UI/UX Designer',
-      type: 'Full-time',
-      location: 'Remote',
-      description: 'Create beautiful and intuitive user experiences for web and mobile applications.',
-      requirements: ['3+ years design experience', 'Figma/Sketch proficiency', 'User research skills']
-    },
-    {
-      id: 'devops-engineer',
-      title: 'DevOps Engineer',
-      type: 'Full-time',
-      location: 'Remote',
-      description: 'Manage cloud infrastructure, CI/CD pipelines, and ensure system reliability.',
-      requirements: ['3+ years DevOps experience', 'Docker/Kubernetes', 'AWS/Azure']
+  const [jobs, setJobs] = useState([])
+  const [isLoadingJobs, setIsLoadingJobs] = useState(true)
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await jobsAPI.getAll()
+        if (response.data?.success) {
+          setJobs(response.data.data)
+        }
+      } catch (error) {
+        console.error('Error fetching jobs:', error)
+      } finally {
+        setIsLoadingJobs(false)
+      }
     }
-  ]), [])
+    fetchJobs()
+  }, [])
 
   const applicationSectionRef = useRef(null)
   const [selectedFileName, setSelectedFileName] = useState('')
@@ -48,7 +32,7 @@ const Careers = () => {
     name: '',
     email: '',
     phone: '',
-    role: jobs[0]?.title || '',
+    role: '',
     coverLetter: '',
     resume: null
   })
@@ -161,8 +145,13 @@ const Careers = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {jobs.map((job, idx) => (
-              <div key={job.id} className="card animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+            {isLoadingJobs ? (
+              <div className="col-span-2 text-center py-10 text-gray-600">Loading jobs...</div>
+            ) : jobs.length === 0 ? (
+              <div className="col-span-2 text-center py-10 text-gray-600">No job openings at the moment. Check back soon!</div>
+            ) : (
+            jobs.map((job, idx) => (
+              <div key={job._id} className="card animate-fade-in flex flex-col" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{job.title}</h3>
@@ -190,12 +179,13 @@ const Careers = () => {
                 <button
                   type="button"
                   onClick={() => handleSelectRole(job.title)}
-                  className="btn-primary w-full text-center"
+                  className="btn-primary w-full text-center mt-auto"
                 >
                   Apply Now
                 </button>
               </div>
-            ))}
+            ))
+            )}
           </div>
         </div>
       </section>
@@ -385,16 +375,21 @@ const Careers = () => {
           <p className="text-xl text-gray-900/90 mb-10">
             Don&apos;t see a position that matches your skills? We&apos;re always looking for talented individuals.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="relative z-10 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
             <button
               type="button"
               onClick={() => applicationSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="inline-block px-12 py-5 bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg"
+              className="w-full sm:w-auto px-8 py-4 bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-base sm:text-lg transition-all hover:scale-105 shadow-lg"
             >
               Send Us Your Resume
             </button>
-            <a href="mailto:contact@synditech.ai" className="inline-block px-12 py-5 border-2 border-white text-gray-900 hover:bg-white hover:text-green-700 rounded-full font-bold text-lg transition-all hover:scale-105">
-              <Mail className="w-5 h-5 inline mr-2" />
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@synditech.ai"
+              target="_blank"
+              rel="noreferrer"
+              className="w-full sm:w-auto px-8 py-4 flex items-center justify-center bg-white text-green-700 hover:bg-gray-100 rounded-full font-bold text-base sm:text-lg transition-all hover:scale-105 shadow-lg cursor-pointer"
+            >
+              <Mail className="w-5 h-5 mr-2" />
               Email Us
             </a>
           </div>

@@ -57,7 +57,7 @@ const Contact = () => {
           </div>
 
           <div className="contact-grid">
-            <div className="animate-slide-in-left">
+            <div className="contact-card animate-slide-in-left">
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Send us a message</h2>
               
               {success && (
@@ -137,56 +137,62 @@ const Contact = () => {
               </form>
             </div>
 
-            <div className="space-y-4 animate-slide-in-right">
-              <div className="contact-info-card">
+            <div className="contact-card contact-info-card animate-slide-in-right">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Details</h3>
+              
+              <div className="space-y-4">
+                {/* Email */}
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600 text-sm">contact@synditech.ai</p>
+                    <h4 className="text-sm font-semibold text-gray-500 mb-0.5">Email</h4>
+                    <p className="text-gray-900 font-medium">contact@synditech.ai</p>
                   </div>
                 </div>
-              </div>
-
-              <div className="contact-info-card">
+                
+                <div className="h-px bg-gray-100"></div>
+                
+                {/* Phone */}
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Phone className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">Phone</h3>
-                    <p className="text-gray-600 text-sm">+91 9560037154</p>
+                    <h4 className="text-sm font-semibold text-gray-500 mb-0.5">Phone</h4>
+                    <p className="text-gray-900 font-medium">+91 9560037154</p>
                   </div>
                 </div>
-              </div>
-
-              <div className="contact-info-card">
+                
+                <div className="h-px bg-gray-100"></div>
+                
+                {/* Location */}
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5 text-green-600" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">Location</h3>
-                    <p className="text-gray-600 text-sm break-words leading-relaxed">BH-918, 9th Floor, 81 High Street-Puri Business Hub, Sec-81, Faridabad, Haryana, 121002</p>
+                    <h4 className="text-sm font-semibold text-gray-500 mb-0.5">Location</h4>
+                    <p className="text-gray-900 font-medium text-sm leading-relaxed">BH-918, 9th Floor, 81 High Street-Puri Business Hub, Sec-81, Faridabad, Haryana, 121002</p>
                   </div>
                 </div>
               </div>
 
-              <div className="contact-info-card">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Business Hours</h3>
-                <div className="space-y-1 text-gray-600 text-sm">
+              {/* Business Hours */}
+              <div className="mt-6 pt-4 border-t border-gray-100">
+                <h4 className="text-sm font-semibold text-gray-500 mb-3">Business Hours</h4>
+                <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Monday - Friday:</span>
+                    <span className="text-gray-600">Monday - Friday:</span>
                     <span className="text-green-600 font-semibold">9:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Saturday:</span>
+                    <span className="text-gray-600">Saturday:</span>
                     <span className="text-green-600 font-semibold">10:00 AM - 4:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Sunday:</span>
+                    <span className="text-gray-600">Sunday:</span>
                     <span className="text-green-600 font-semibold">Closed</span>
                   </div>
                 </div>

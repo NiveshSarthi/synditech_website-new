@@ -159,14 +159,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600 text-sm">
-            <p>© 2026 Synditech. All rights reserved.</p>
-            <div className="flex gap-6">
-              <Link to="/privacy" className="hover:text-green-600 transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-green-600 transition-colors">Terms of Service</Link>
-            </div>
-          </div>
+        <div className="pt-8 border-t border-gray-200 text-center">
+          <p className="text-gray-600 text-sm">© 2026 Synditech. All rights reserved.</p>
         </div>
       </div>
     </footer>

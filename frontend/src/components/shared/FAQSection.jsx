@@ -138,26 +138,16 @@ const FAQSection = () => {
       <div className="max-w-4xl mx-auto">
         
         {/* ================= HEADER ================= */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-5xl font-bold text-gray-900 mb-2"
           >
             Frequently Asked Questions
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600"
-          >
-            Everything you need to know about our platform
-          </motion.p>
-          <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto mt-6 rounded-full" />
         </div>
 
         {/* ================= GROUPED ACCORDION ================= */}
@@ -171,7 +161,7 @@ const FAQSection = () => {
                   <div className="p-2 bg-green-50 rounded-lg text-green-600">
                     <CategoryIcon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     {group.category}
                   </h3>
                 </div>
@@ -198,15 +188,15 @@ const FAQSection = () => {
                           onClick={() => toggleFAQ(uniqueId)}
                           className="w-full text-left px-6 py-5 flex items-center justify-between group focus:outline-none"
                         >
-                          <span className={`text-lg font-bold transition-colors ${
-                            isActive ? 'text-green-700' : 'text-gray-900 group-hover:text-green-600'
+                          <span className={`text-base font-medium transition-colors ${
+                            isActive ? 'text-green-700' : 'text-gray-700 group-hover:text-green-600'
                           }`}>
                             {item.question}
                           </span>
                           <div className={`p-2 rounded-full transition-all duration-300 ${
-                            isActive ? 'bg-green-600 text-white rotate-180 scale-110' : 'bg-gray-50 text-gray-400 group-hover:bg-green-50 group-hover:text-green-600'
+                            isActive ? 'bg-green-600 text-white rotate-180 scale-110' : 'bg-gray-100 text-gray-600 group-hover:bg-green-100 group-hover:text-green-700'
                           }`}>
-                            <ChevronDown className="w-5 h-5" />
+                            <ChevronDown className="w-6 h-6" />
                           </div>
                         </button>
 

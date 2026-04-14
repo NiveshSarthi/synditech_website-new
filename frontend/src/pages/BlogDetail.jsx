@@ -25,6 +25,7 @@ const BlogDetail = () => {
   const [blog, setBlog] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [imageError, setImageError] = useState(false)
 
   useEffect(() => {
     const loadBlog = async () => {
@@ -102,10 +103,21 @@ const BlogDetail = () => {
           </div>
         </header>
 
-        {(blog.coverImage || slug === 'how-zavyo-helps-businesses-automate-whatsapp-communication-with-ai') && (
+        {blog.coverImage && !imageError && (
           <div className="blog-image-container mt-8 overflow-hidden">
             <img 
-              src={slug === 'how-zavyo-helps-businesses-automate-whatsapp-communication-with-ai' ? '/assets/images/zavyo.jpeg' : blog.coverImage} 
+              src={blog.coverImage} 
+              alt={blog.title} 
+              className="blog-image"
+              onError={() => setImageError(true)}
+            />
+          </div>
+        )}
+        
+        {slug === 'how-zavyo-helps-businesses-automate-whatsapp-communication-with-ai' && (
+          <div className="blog-image-container mt-8 overflow-hidden">
+            <img 
+              src='/assets/images/zavyo.jpeg' 
               alt={blog.title} 
               className="blog-image" 
             />

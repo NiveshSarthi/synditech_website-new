@@ -8,15 +8,28 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 
-dotenv.config({ path: path.join(__dirname, '../.env') });
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
 const distPath = path.join(__dirname, 'dist');
 const uploadsPath = path.join(__dirname, 'uploads');
 
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:5173'
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
@@ -39,6 +52,7 @@ app.use('/api/leads', require('./routes/lead.routes'));
 app.use('/api/newsletter', require('./routes/newsletter.routes'));
 app.use('/api/careers', require('./routes/career.routes'));
 app.use('/api/blogs', require('./routes/blog.routes'));
+app.use('/api/jobs', require('./routes/job.routes'));
 app.use('/api/admin', require('./routes/admin.routes'));
 
 app.use('/api', (req, res) => {

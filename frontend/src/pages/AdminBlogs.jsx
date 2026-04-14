@@ -279,6 +279,21 @@ const AdminBlogs = () => {
                     className="w-full rounded-2xl border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="https://example.com/blog-cover.jpg"
                   />
+                  {formData.coverImage && (
+                    <div className="mt-3 overflow-hidden rounded-xl border border-gray-200">
+                      <img 
+                        src={formData.coverImage} 
+                        alt="Cover Preview" 
+                        className="h-32 w-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                        onLoad={(e) => {
+                          e.target.style.display = 'block';
+                        }}
+                      />
+                    </div>
+                  )}
                 </label>
 
                 <label className="block">

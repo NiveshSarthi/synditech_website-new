@@ -32,7 +32,7 @@ const Navbar = ({ openProjectModal }) => {
   }, [])
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-2xl border-b border-gray-100 transition-colors duration-300">
+    <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-2xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between gap-6">
 
@@ -179,49 +179,43 @@ const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => (
     onMouseEnter={() => setActive(id)}
     onMouseLeave={() => setActive(null)}
   >
-    <button className="flex items-center gap-1 text-gray-900 font-semibold hover:text-green-600">
+    <button className="flex items-center gap-1 text-gray-900 font-semibold hover:text-green-600 transition-colors">
       {label}
-      <ChevronDown className="w-4 h-4" />
+      <ChevronDown className={`w-4 h-4 transition-transform ${active === id ? 'rotate-180' : ''}`} />
     </button>
 
     {active === id && (
-      <div
-        className={`absolute top-full left-0 mt-0 w-80 bg-white rounded-xl border border-gray-200 shadow-xl
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.2 }}
+        className={`absolute top-full left-0 mt-2 w-80 bg-white rounded-xl border border-gray-200 shadow-xl z-50
         ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
       >
         {items.map((item) => {
           const Icon = item.icon
           const content = (
             <>
-              <Icon className="w-5 h-5 mt-1" />
+              <Icon className="w-5 h-5 mt-1 text-green-600" />
               <div>
-                <p className="font-medium">{item.title || item.name}</p>
+                <p className="font-medium text-gray-900">{item.title || item.name}</p>
                 <p className="text-sm text-gray-500">{item.description}</p>
               </div>
             </>
           )
 
-          return item.external ? (
-            <a
-              key={item.id}
-              href={item.path}
-              target="_blank"
-              rel="noreferrer"
-              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
-            >
-              {content}
-            </a>
-          ) : (
+          return (
             <Link
               key={item.id}
               to={item.path}
-              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
+              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50 transition-colors cursor-pointer"
             >
               {content}
             </Link>
           )
         })}
-      </div>
+      </motion.div>
     )}
   </div>
 )
@@ -241,28 +235,17 @@ const MobileAccordion = ({ label, items, open, setOpen, id }) => (
     </button>
 
     {open === id && (
-      <div className="pl-4 space-y-2">
-        {items.map((item) =>
-          item.external ? (
-            <a
-              key={item.id}
-              href={item.path}
-              target="_blank"
-              rel="noreferrer"
-              className="block text-sm text-gray-600 hover:text-green-600"
-            >
-              {item.title || item.name}
-            </a>
-          ) : (
-            <Link
-              key={item.id}
-              to={item.path}
-              className="block text-sm text-gray-600 hover:text-green-600"
-            >
-              {item.title || item.name}
-            </Link>
-          )
-        )}
+      <div className="pl-4 space-y-1">
+        {items.map((item) => (
+          <Link
+            key={item.id}
+            to={item.path}
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm text-gray-600 hover:text-green-600 py-2 transition-colors"
+          >
+            {item.title || item.name}
+          </Link>
+        ))}
       </div>
     )}
   </div>

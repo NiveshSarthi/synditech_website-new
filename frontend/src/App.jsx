@@ -19,6 +19,7 @@ import AdminResumes from './pages/admin/AdminResumes'
 import AdminBlogs from './pages/admin/AdminBlogs'
 import AdminContacts from './pages/admin/AdminContacts'
 import AdminSubscribers from './pages/admin/AdminSubscribers'
+import AdminJobs from './pages/admin/AdminJobs'
 
 // Service Pages
 import SaasDevelopment from './pages/services/SaasDevelopment'
@@ -29,6 +30,7 @@ import APIIntegration from './pages/services/APIIntegration'
 import CloudServices from './pages/services/CloudServices'
 
 // Tool Pages
+import Zavyo from './pages/tools/Zavyo'
 import TaskTracker from './pages/tools/TaskTracker'
 import LeadManagement from './pages/tools/LeadManagement'
 import InventoryManagement from './pages/tools/InventoryManagement'
@@ -60,6 +62,7 @@ function App() {
           <Route path="/services/cloud-services" element={<CloudServices />} />
           
           {/* Tool Routes */}
+          <Route path="/tools/zavyo" element={<Zavyo />} />
           <Route path="/tools/task-tracker" element={<TaskTracker />} />
           <Route path="/tools/lead-management" element={<LeadManagement />} />
           <Route path="/tools/inventory-management" element={<InventoryManagement />} />
@@ -78,6 +81,7 @@ function App() {
           <Route path="blogs" element={<AdminBlogs />} />
           <Route path="contacts" element={<AdminContacts />} />
           <Route path="subscribers" element={<AdminSubscribers />} />
+          <Route path="jobs" element={<AdminJobs />} />
         </Route>
       </Routes>
   )
