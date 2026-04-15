@@ -185,15 +185,35 @@ const Zavyo = () => {
           <p className="text-green-100 text-lg mb-8">
             Get started with Zavyo today and automate your customer communications.
           </p>
-          <a 
-            href="https://zavyo.io/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white text-green-700 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-          >
-            Get Started Now
-            <ExternalLink className="w-5 h-5" />
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a 
+              href="https://zavyo.io/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-green-700 transition-colors"
+            >
+              Visit Zavyo
+              <ExternalLink className="w-4 h-4" />
+            </a>
+            <a 
+              href="https://zavyo.io/book-demo" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-green-700 transition-colors"
+            >
+              Book a Demo
+              <ExternalLink className="w-4 h-4" />
+            </a>
+            <a 
+              href="https://zavyo.io/register" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-green-700 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+            >
+              Register
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </section>
     </div>

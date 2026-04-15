@@ -45,7 +45,7 @@ const Footer = () => {
               <span className="text-gray-900">TECH</span>
             </motion.h3>
             <p className="text-gray-600 mb-6">
-              Building the future, one line of code at a time.
+              Transforming ideas into solutions
             </p>
             
             <div className="flex gap-4">
