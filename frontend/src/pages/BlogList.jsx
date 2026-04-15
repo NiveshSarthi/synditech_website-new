@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, CalendarDays, Sparkles } from 'lucide-react'
 import { blogsAPI } from '../utils/api'
 
-const ZAVYO_IMAGE = '/assets/images/zavyo.jpeg'
-
 const formatDate = (value) => {
   try {
     return new Date(value).toLocaleDateString(undefined, {
@@ -81,35 +79,35 @@ const BlogList = () => {
           <div className="blog-grid-responsive mt-8 md:mt-10">
             {blogs.map((blog, index) => (
               <article key={blog._id} className="blog-card overflow-hidden transition-transform hover:-translate-y-1">
-                <div className="blog-image-container bg-gradient-to-br from-green-100 via-white to-emerald-50">
-                  {index === 1 ? (
-                    <img src={ZAVYO_IMAGE} alt={blog.title} className="blog-image" />
-                  ) : blog.coverImage && !imageErrors[blog._id] ? (
+                <div className="overflow-hidden p-4 md:p-6 flex flex-col h-full">
+                  {blog.coverImage && !imageErrors[blog._id] ? (
                     <img 
                       src={blog.coverImage} 
                       alt={blog.title} 
-                      className="blog-image"
+                      className="float-right w-[40%] ml-4 mb-3 h-[180px] object-cover rounded-lg"
                       onError={() => setImageErrors(prev => ({ ...prev, [blog._id]: true }))}
                     />
-                  ) : (
-                    <div className="flex h-full flex-col items-center justify-center p-4 md:p-6">
-                      <span className="rounded-full bg-white px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-semibold uppercase tracking-[0.16em] text-green-700 shadow-sm">
-                        {blog.category}
-                      </span>
+                  ) : null}
+                  <div className="flex-grow pr-4">
+                    <span className="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-green-700">
+                      {blog.category}
+                    </span>
+                    <h3 className="mt-3 text-lg sm:text-xl md:text-2xl font-semibold text-gray-900" style={{ lineHeight: 1.4 }}>{blog.title}</h3>
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-3" style={{ lineHeight: 1.6 }}>{blog.excerpt}</p>
+                    <div className="mt-3 flex items-center gap-3 text-xs text-gray-500">
+                      <span>{formatDate(blog.publishedAt || blog.createdAt)}</span>
+                      <span>{estimateReadTime(blog.content)} min read</span>
                     </div>
-                  )}
-                </div>
-                <div className="blog-card-content p-4 md:p-6">
-                  <div className="mb-2 md:mb-3 flex flex-wrap gap-2 md:gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
-                    <span>{formatDate(blog.publishedAt || blog.createdAt)}</span>
-                    <span>{estimateReadTime(blog.content)} min read</span>
                   </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-900 mb-2 md:mb-4" style={{ lineHeight: 1.6 }}>{blog.title}</h3>
-                  <p className="text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-gray-600" style={{ lineHeight: 1.6 }}>{blog.excerpt}</p>
-                  <Link to={`/blog/${blog.slug}`} className="mt-3 md:mt-4 inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-green-700 transition-transform hover:translate-x-1">
-                    Explore post
-                    <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
-                  </Link>
+                  <div className="clear-right mt-4">
+                    <Link 
+                      to={`/blog/${blog.slug}`} 
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-full text-xs font-semibold hover:bg-green-700 transition-colors"
+                    >
+                      Explore post
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}

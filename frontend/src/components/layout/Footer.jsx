@@ -49,30 +49,41 @@ const Footer = () => {
             </p>
             
             <div className="flex gap-4">
-              {[
-                { icon: Linkedin, href: 'https://www.linkedin.com/company/synditechtechnologies/', label: 'LinkedIn', external: true },
-                { icon: Instagram, href: 'https://www.instagram.com/synditech', label: 'Instagram', external: true },
-                { icon: Mail, to: '/contact', label: 'Contact Us', external: false }
-              ].map((item) => {
-                const Icon = item.icon;
-                const Component = item.external ? motion.a : motion(Link);
-                const props = item.external
-                  ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
-                  : { to: item.to };
-
-                return (
-                  <Component
-                    key={item.label}
-                    {...props}
-                    aria-label={item.label}
-                    className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Icon className="w-5 h-5 text-gray-600 group-hover:text-white" />
-                  </Component>
-                );
-              })}
+              <motion.a
+                href="https://www.linkedin.com/company/synditechtechnologies/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-white" />
+              </motion.a>
+              
+              <motion.a
+                href="https://www.instagram.com/synditech"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Instagram className="w-5 h-5 text-gray-600 group-hover:text-white" />
+              </motion.a>
+              
+              <motion.a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@synditech.ai"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Contact Us"
+                className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="w-5 h-5 text-gray-600 group-hover:text-white" />
+              </motion.a>
             </div>
           </div>
 

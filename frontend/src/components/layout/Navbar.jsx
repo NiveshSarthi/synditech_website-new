@@ -10,8 +10,20 @@ const Navbar = ({ openProjectModal }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [mobileDropdown, setMobileDropdown] = useState(null)
+  const dropdownRef = useRef(null)
 
   const lastScrollY = useRef(0)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,7 +62,7 @@ const Navbar = ({ openProjectModal }) => {
           </Link>
 
           {/* Nav links — centered with even spacing */}
-          <div className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8">
+          <div ref={dropdownRef} className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8">
             <NavLink to="/">Home</NavLink>
 
             <DesktopDropdown
@@ -174,7 +186,7 @@ const NavLink = ({ to, children }) => (
 )
 
 const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => (
-  <div
+  <div 
     className="relative"
     onMouseEnter={() => setActive(id)}
     onMouseLeave={() => setActive(null)}

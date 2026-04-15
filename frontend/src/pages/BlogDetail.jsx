@@ -71,64 +71,56 @@ const BlogDetail = () => {
   }
 
   return (
-    <section className="min-h-screen bg-[linear-gradient(180deg,_#f7faf7_0%,_#ffffff_20%,_#ffffff_100%)] px-10 py-16">
-      <article className="mx-auto max-w-full">
+    <section className="min-h-screen bg-[linear-gradient(180deg,_#f7faf7_0%,_#ffffff_20%,_#ffffff_100%)] px-4 md:px-10 py-16">
+      <article className="mx-auto max-w-7xl">
         <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-green-700 transition-transform hover:-translate-x-1">
           <ArrowLeft className="h-4 w-4" />
           Back to Blog
         </Link>
 
-        <header className="mt-8 px-6 py-8 md:px-10">
-          <div className="flex flex-wrap gap-3">
-            <span className="rounded-full bg-green-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-green-700">
-              {blog.category || 'Insights'}
-            </span>
-            {(blog.tags || []).map((tag) => (
-              <span key={tag} className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-gray-600">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <h1 className="mt-6 text-4xl font-semibold text-gray-900" style={{ lineHeight: 1.6 }}>{blog.title}</h1>
-          <p className="mt-4 text-gray-600" style={{ lineHeight: 1.6, marginBottom: '16px' }}>{blog.excerpt}</p>
-          <div className="mt-8 flex flex-wrap gap-5 text-sm text-gray-500">
-            <span className="inline-flex items-center gap-2">
-              <CalendarDays className="h-4 w-4 text-green-600" />
-              {formatDate(blog.publishedAt || blog.createdAt)}
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <PenSquare className="h-4 w-4 text-green-600" />
-              {blog.authorName || 'Synditech Team'}
-            </span>
-          </div>
-        </header>
-
-        {blog.coverImage && !imageError && (
-          <div className="blog-image-container mt-8 overflow-hidden">
+        <div className="mt-8 overflow-hidden">
+          {blog.coverImage && !imageError && (
             <img 
               src={blog.coverImage} 
               alt={blog.title} 
-              className="blog-image"
+              className="float-right w-[40%] lg:w-[42%] ml-6 mb-4 h-auto object-contain rounded-lg"
               onError={() => setImageError(true)}
             />
-          </div>
-        )}
-        
-        {slug === 'how-zavyo-helps-businesses-automate-whatsapp-communication-with-ai' && (
-          <div className="blog-image-container mt-8 overflow-hidden">
-            <img 
-              src='/assets/images/zavyo.jpeg' 
-              alt={blog.title} 
-              className="blog-image" 
-            />
-          </div>
-        )}
+          )}
 
-        <div className="mt-8 px-6 py-8 md:px-10 md:py-10">
-          <div className="space-y-6 text-base text-gray-700" style={{ lineHeight: 1.6 }}>
-            {renderParagraphs(blog.content).map((paragraph) => (
-              <p key={paragraph.slice(0, 40)} style={{ marginBottom: '16px' }}>{paragraph}</p>
-            ))}
+          <div className="pr-6">
+            <header>
+              <div className="flex flex-wrap gap-3">
+                <span className="rounded-full bg-green-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-green-700">
+                  {blog.category || 'Insights'}
+                </span>
+                {(blog.tags || []).map((tag) => (
+                  <span key={tag} className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-gray-600">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h1 className="mt-6 text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900" style={{ lineHeight: 1.4 }}>{blog.title}</h1>
+              <p className="mt-4 text-gray-600" style={{ lineHeight: 1.6 }}>{blog.excerpt}</p>
+              <div className="mt-6 flex flex-wrap gap-5 text-sm text-gray-500">
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4 text-green-600" />
+                  {formatDate(blog.publishedAt || blog.createdAt)}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <PenSquare className="h-4 w-4 text-green-600" />
+                  {blog.authorName || 'Synditech Team'}
+                </span>
+              </div>
+            </header>
+          </div>
+
+          <div className="clear-right mt-8">
+            <div className="space-y-6 text-base text-gray-700" style={{ lineHeight: 1.6 }}>
+              {renderParagraphs(blog.content).map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         </div>
       </article>

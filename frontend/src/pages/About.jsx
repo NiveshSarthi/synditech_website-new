@@ -1,4 +1,5 @@
 import React from "react"
+import { Target, Eye, Lightbulb, BookOpen, Wrench, TrendingUp } from "lucide-react"
 
 const About = () => {
   return (
@@ -17,14 +18,14 @@ const About = () => {
           </p>
         </div>
       </section>
- {/* ================= FOUNDER SECTION ================= */}
+  {/* ================= FOUNDER SECTION ================= */}
       <section className="mb-12">
-        <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="flex items-center justify-center h-[350px] bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-2xl overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
+          <div className="flex items-center justify-center h-[350px] bg-gradient-to-br from-green-50 to-white overflow-hidden">
             <img
-              src="assets\images\I train startups.jpg"
+              src="/assets/images/I train startups.jpg"
               alt="Founder"
-              className="w-full h-full object-contain"
+              className="w-full h-[350px] object-contain object-center"
             />
           </div>
 
@@ -50,7 +51,7 @@ const About = () => {
       </section>
       {/* ================= OUR STORY ================= */}
       <section className="mb-12 text-gray-900 bg-white">
-        <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
             <p className="text-gray-600 mb-6">
@@ -72,69 +73,104 @@ const About = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute -top-6 -left-6 w-full h-full border-2 border-dashed border-green-600/40 rounded-2xl" />
             <img
               src="https://images.unsplash.com/photo-1553877522-43269d4ea984"
               alt="Team Collaboration"
-              className="relative rounded-2xl shadow-2xl"
+              className="rounded-2xl shadow-2xl w-full h-auto"
             />
           </div>
         </div>
       </section>
 
       {/* ================= MISSION & VISION ================= */}
-      <section className="mb-12 bg-gradient-to-r from-gray-50 to-white py-16">
-        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16">
-          <div className="card">
-            <h3 className="text-3xl font-bold mb-4 text-green-600">Our Mission</h3>
-            <p className="text-gray-600">
-              To empower businesses with reliable, scalable, and innovative
-              technology solutions that drive efficiency, growth, and long-term
-              success.
-            </p>
+      <section className="mb-12 py-16 bg-gradient-to-br from-green-50 via-white to-emerald-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Purpose</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">What drives us forward and where we aim to be</p>
           </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-green-100">
+              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                <Target className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Mission</h3>
+              <p className="text-gray-600 leading-relaxed">
+                To empower businesses with reliable, scalable, and innovative
+                technology solutions that drive efficiency, growth, and long-term
+                success.
+              </p>
+            </div>
 
-          <div className="card">
-            <h3 className="text-3xl font-bold mb-4 text-green-600">Our Vision</h3>
-            <p className="text-gray-600">
-              To become a globally trusted technology partner known for
-              engineering excellence, transparency, and business-first
-              solutions.
-            </p>
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-green-100">
+              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                <Eye className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Vision</h3>
+              <p className="text-gray-600 leading-relaxed">
+                To become a globally trusted technology partner known for
+                engineering excellence, transparency, and business-first
+                solutions.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ================= HOW WE WORK (DOTTED FLOW) ================= */}
-      <section className="mb-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-16">How We Work</h2>
+      {/* ================= HOW WE WORK ================= */}
+      <section className="mb-12 py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How We Work</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Our proven approach to delivering exceptional results</p>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-12 relative">
-            {[
-              {
-                title: "Understand",
-                desc: "We deeply understand your business goals, challenges, and users."
-              },
-              {
-                title: "Build",
-                desc: "We design and develop scalable solutions using modern tech stacks."
-              },
-              {
-                title: "Scale",
-                desc: "We optimize, support, and evolve your product as your business grows."
-              }
-            ].map((step, idx) => (
-              <div key={idx} className="relative card">
-                <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-                <p className="text-gray-600">{step.desc}</p>
-
-                {/* Dotted Arrow */}
-                {idx < 2 && (
-                  <div className="hidden md:block absolute top-1/2 right-[-60px] w-12 border-t-2 border-dashed border-green-600/50" />
-                )}
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="relative group">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                1
               </div>
-            ))}
+              <div className="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 pt-12 h-full border-2 border-transparent hover:border-green-200 transition-all duration-300">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-md">
+                  <Lightbulb className="w-7 h-7 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">Understand</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We deeply understand your business goals, challenges, and users through thorough research and collaboration.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                2
+              </div>
+              <div className="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 pt-12 h-full border-2 border-transparent hover:border-green-200 transition-all duration-300">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-md">
+                  <Wrench className="w-7 h-7 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">Build</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We design and develop scalable solutions using modern tech stacks, following best practices and clean architecture.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                3
+              </div>
+              <div className="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 pt-12 h-full border-2 border-transparent hover:border-green-200 transition-all duration-300">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-md">
+                  <TrendingUp className="w-7 h-7 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">Scale</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We optimize, support, and evolve your product as your business grows, ensuring long-term success and performance.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
