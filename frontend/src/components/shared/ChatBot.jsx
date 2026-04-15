@@ -2,12 +2,22 @@ import React, { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { intents, defaultResponse, welcomeMessage } from '../../utils/faqs'
+import { useLocation } from 'react-router-dom'
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef(null)
+  const location = useLocation()
+  const previousLocation = useRef(location.pathname)
+
+  useEffect(() => {
+    if (previousLocation.current !== location.pathname && isOpen) {
+      setIsOpen(false)
+    }
+    previousLocation.current = location.pathname
+  }, [location, isOpen])
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
