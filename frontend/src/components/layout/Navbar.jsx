@@ -46,7 +46,7 @@ const Navbar = ({ openProjectModal }) => {
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-2xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-[3.9rem] items-center justify-between gap-6">
+        <div className="flex h-[3.8rem] items-center justify-between gap-6">
 
           {/* Logo — far left */}
           <Link
@@ -186,12 +186,32 @@ const NavLink = ({ to, children }) => (
 )
 
 const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => {
+  const closeTimeoutRef = useRef(null)
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setActive(id)
+  }
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setActive(null)
+    }, 3000)
+  }
+
   const handleClick = () => {
     setActive(active === id ? null : id)
   }
 
   return (
-    <div className="relative">
+    <div 
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <button 
         className="flex items-center gap-1 text-gray-900 font-semibold hover:text-green-600 transition-colors"
         onClick={handleClick}
