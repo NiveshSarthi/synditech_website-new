@@ -52,6 +52,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<BlogList />} />
           <Route path="/blog/:slug" element={<BlogDetail />} />
+          <Route path="/free-trial" element={<Home />} />
           
           {/* Service Routes */}
           <Route path="/services/saas-development" element={<SaasDevelopment />} />

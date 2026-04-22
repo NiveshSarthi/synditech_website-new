@@ -222,7 +222,17 @@ const Careers = () => {
               </ul>
               <div className="mt-8 rounded-2xl border border-green-100 bg-green-50 p-5">
                 <p className="text-sm font-semibold text-green-700 mb-2">Selected Role</p>
-                <p className="text-lg font-bold text-gray-900">{formData.role}</p>
+                {formData.role ? (
+                  <p className="text-lg font-bold text-gray-900">{formData.role}</p>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById('openings')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="text-green-700 font-semibold hover:underline text-left"
+                  >
+                    ← Select a role from openings
+                  </button>
+                )}
               </div>
             </div>
 

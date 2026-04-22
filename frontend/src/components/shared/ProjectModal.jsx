@@ -30,8 +30,8 @@ const BUDGET_OPTIONS = [
 
 const CONTACT_TIMES = [
   { id: 'morning', label: 'Morning (9AM - 12PM)' },
-  { id: 'afternoon', label: 'Afternoon (12PM - 5PM)' },
-  { id: 'evening', label: 'Evening (5PM - 8PM)' },
+  { id: 'afternoon', label: 'Afternoon (12PM - 4PM)' },
+  { id: 'evening', label: 'Evening (4PM - 8PM)' },
 ]
 
 const STEPS = [
@@ -470,28 +470,54 @@ const StepThree = ({ formData, updateFormData, errors }) => (
 
 const SuccessView = ({ onClose }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    className="p-8 text-center"
+    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    transition={{ duration: 0.4, ease: "easeOut" }}
+    className="p-10 text-center relative overflow-hidden"
   >
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-green-300/20 via-transparent to-emerald-400/20 pointer-events-none rounded-full blur-3xl" />
+    
     <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-      className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+      initial={{ scale: 0, rotate: -45 }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ delay: 0.1, type: 'spring', stiffness: 220, damping: 15 }}
+      className="relative w-24 h-24 mx-auto mb-8"
     >
-      <Check className="w-10 h-10 text-green-600" />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 animate-pulse blur-[10px] opacity-50" />
+      <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-green-500 to-emerald-500 flex items-center justify-center shadow-xl border-4 border-white">
+        <Check className="w-12 h-12 text-white stroke-[3px]" />
+      </div>
     </motion.div>
-    <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
-    <p className="text-gray-600 mb-6 max-w-sm mx-auto">
-      Our team will contact you soon to discuss your project requirements.
-    </p>
-    <button
+
+    <motion.h2 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="text-4xl font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700"
+    >
+      Thank You!
+    </motion.h2>
+
+    <motion.p 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      className="text-gray-500 mb-10 max-w-sm mx-auto leading-relaxed text-base"
+    >
+      We've received your project details. Our team will contact you shortly to discuss the next steps in bringing your vision to life.
+    </motion.p>
+
+    <motion.button
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05, boxShadow: "0 15px 30px -5px rgba(22, 163, 74, 0.4)" }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ delay: 0.4 }}
       onClick={onClose}
-      className="px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
+      className="px-10 py-4 rounded-full bg-green-600 text-white font-bold tracking-wide hover:bg-green-700 transition-colors shadow-lg"
     >
       Got it!
-    </button>
+    </motion.button>
   </motion.div>
 )
 

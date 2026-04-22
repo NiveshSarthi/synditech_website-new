@@ -186,15 +186,13 @@ const Zavyo = () => {
             Get started with Zavyo today and automate your customer communications.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a 
-              href="https://zavyo.io/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-green-700 transition-colors"
+            <Link 
+              to="/free-trial?tool=zavyo"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-green-700 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
             >
-              Visit Zavyo
+              Book a Free Trial
               <ExternalLink className="w-4 h-4" />
-            </a>
+            </Link>
             <a 
               href="https://zavyo.io/book-demo" 
               target="_blank" 
@@ -202,15 +200,6 @@ const Zavyo = () => {
               className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-green-700 transition-colors"
             >
               Book a Demo
-              <ExternalLink className="w-4 h-4" />
-            </a>
-            <a 
-              href="https://zavyo.io/register" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-green-700 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Register
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>

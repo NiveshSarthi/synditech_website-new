@@ -1,6 +1,6 @@
 // client/src/pages/Home.jsx
 import React, { useState, useRef, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { ArrowRight, CheckCircle, Layers, Shield, Rocket, Star, ArrowLeft } from "lucide-react"
 import { motion } from "framer-motion"
 import CountUp from "react-countup"
@@ -12,8 +12,15 @@ import { fadeInUp, staggerContainer, staggerItem } from "../utils/animations"
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [searchParams] = useSearchParams()
   const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true })
   const { openProjectModal } = useProjectModal()
+
+  useEffect(() => {
+    if (searchParams.get('tool') === 'zavyo') {
+      setIsModalOpen(true)
+    }
+  }, [searchParams])
 
   const carouselRef = useRef(null);
 
@@ -375,7 +382,8 @@ const Home = () => {
       {/* ================= VIDEO ================= */}
       <section className="py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-green-50/30">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-14">
+          <div className="relative rounded-[2.5rem] bg-gradient-to-br from-green-300 via-green-400 to-emerald-600 p-[2px] shadow-[0_0_40px_-5px_rgba(34,197,94,0.3)]">
+            <div className="flex flex-col lg:flex-row items-center gap-14 bg-white/95 backdrop-blur-md rounded-[2.4rem] p-8 md:p-12 lg:p-14">
 
             {/* Left: Text Content */}
             <motion.div
@@ -433,6 +441,7 @@ const Home = () => {
               </div>
             </motion.div>
 
+            </div>
           </div>
         </div>
       </section>

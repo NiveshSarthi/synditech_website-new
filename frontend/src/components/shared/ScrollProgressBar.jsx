@@ -16,7 +16,7 @@ const ScrollProgressBar = () => {
 
   return (
     <div
-      className="fixed top-[80px] left-0 right-0 h-[5px] z-[40]"
+      className="fixed top-[3.9rem] left-0 right-0 h-[5px] z-[40]"
     >
       <div
         className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-100 ease-out rounded-full"

@@ -51,11 +51,12 @@ const BlogList = () => {
           <div className="header-content">
             <div className="mb-4 md:mb-6 inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-semibold text-green-700">
               <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
-              Synditech Journal
+              INSIGHTS
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-[-0.04em] text-gray-900">
-              Ideas, product thinking, and practical AI execution.
+            <h1 className="text-5xl font-black text-gray-900">
+              Ideas, Product Thinking, and Practical AI Execution.
             </h1>
+            <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto mt-6" />
             <p className="mt-4 md:mt-6 max-w-2xl text-sm md:text-base lg:text-lg leading-6 md:leading-8 text-gray-600">
               Explore articles from the Synditech team on automation, digital products, engineering workflows, and scalable growth.
             </p>
