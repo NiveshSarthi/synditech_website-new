@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, MessageCircle, Brain, Monitor, DollarSign, HelpCircle, Search, X } from 'lucide-react'
+import { ChevronDown, MessageCircle, Search, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const CATEGORIES = [
-  { id: 'general', label: 'General & About', icon: Brain },
-  { id: 'pricing', label: 'Pricing & Billing', icon: DollarSign },
-  { id: 'features', label: 'Features', icon: Monitor },
-  { id: 'support', label: 'Support', icon: HelpCircle },
+  { id: 'general', label: 'General & About' },
+  { id: 'pricing', label: 'Pricing & Billing' },
+  { id: 'features', label: 'Features' },
+  { id: 'support', label: 'Support' },
 ]
 
 const FAQ_DATA = {
@@ -155,17 +155,16 @@ const FAQSection = () => {
         {!isSearching ? (
           <>
             <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {CATEGORIES.map(({ id, label, icon: Icon }) => (
+              {CATEGORIES.map(({ id, label }) => (
                 <button
                   key={id}
                   onClick={() => { setActiveCategory(id); setOpenIndex(null) }}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all ${
+                  className={`text-sm font-medium px-[18px] py-2 rounded-md border transition-all ${
                     activeCategory === id
-                      ? 'bg-green-600 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? 'bg-green-600 text-white border-green-600'
+                      : 'bg-transparent text-gray-500 border-gray-300 hover:border-gray-400'
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
                   {label}
                 </button>
               ))}
@@ -192,17 +191,11 @@ const FAQSection = () => {
           >
             {searchResults && Object.keys(searchResults).map((catId) => {
               const cat = CATEGORIES.find(c => c.id === catId)
-              const Icon = cat.icon
               const items = searchResults[catId]
               return (
                 <div key={catId}>
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="p-2 bg-green-100 rounded-lg text-green-600">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900">{cat.label}</h3>
-                  </div>
-                  <div className="space-y-3 pl-0">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">{cat.label}</h3>
+                  <div className="space-y-3">
                     {items.map((item, i) => renderFaqItem(item, i, catId))}
                   </div>
                 </div>
