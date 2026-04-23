@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { SERVICES, TOOLS } from "../../utils/constants"
+import ScrollProgressBar from "../shared/ScrollProgressBar"
 
 const Navbar = ({ openProjectModal }) => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -131,6 +132,8 @@ const Navbar = ({ openProjectModal }) => {
 
         </div>
       </div>
+
+      <ScrollProgressBar />
 
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-white/50 bg-[rgba(248,251,248,0.92)] backdrop-blur-xl rounded-b-3xl shadow-[0_20px_40px_-30px_rgba(15,23,42,0.4)]">

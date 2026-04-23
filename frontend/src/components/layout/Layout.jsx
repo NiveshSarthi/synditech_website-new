@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ChatBot from '../shared/ChatBot'
-import ScrollProgressBar from '../shared/ScrollProgressBar'
 import ProjectModal from '../shared/ProjectModal'
 import { pageTransition } from '../../utils/animations'
 
@@ -27,7 +26,6 @@ const Layout = () => {
     <ProjectModalContext.Provider value={{ openProjectModal, closeProjectModal }}>
       <div className="public-site-shell min-h-screen flex flex-col text-gray-900">
         <Navbar openProjectModal={openProjectModal} />
-        <ScrollProgressBar />
         
         <a
           href="#main-content"
