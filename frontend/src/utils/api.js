@@ -44,6 +44,10 @@ export const careersAPI = {
     })
 }
 
+export const jobsAPI = {
+  getAll: () => api.get('/jobs')
+}
+
 export const adminAPI = {
   login: (credentials) => api.post('/admin/login', credentials),
   verify: (token) => api.post('/admin/verify', {}, getAuthConfig(token)),
