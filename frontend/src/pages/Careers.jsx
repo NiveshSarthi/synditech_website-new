@@ -109,12 +109,12 @@ const Careers = () => {
   }
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen bg-[#f5f7f4] font-sans">
       {/* Hero Section */}
       <CareersHero />
 
       {/* Why Join Us */}
-      <section className="py-14 px-4 bg-white">
+      <section className="py-14 px-4 bg-[#f5f7f4]">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Join Synditech?</h2>
@@ -138,7 +138,7 @@ const Careers = () => {
       </section>
 
       {/* Current Openings */}
-      <section id="openings" className="py-14 px-4 bg-gradient-to-r from-gray-50 to-white">
+      <section id="openings" className="py-14 px-4 bg-gradient-to-br from-slate-50 via-[#f5f7f4] to-green-50/50">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Current Openings</h2>
@@ -191,7 +191,7 @@ const Careers = () => {
       </section>
 
       {/* Application Form */}
-      <section ref={applicationSectionRef} data-application className="py-14 px-4 bg-white">
+      <section ref={applicationSectionRef} data-application className="py-14 px-4 bg-[#f5f7f4]">
         <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Apply with Your Resume</h2>
@@ -348,7 +348,7 @@ const Careers = () => {
       </section>
 
       {/* Culture Section */}
-      <section className="py-14 px-4 bg-white">
+      <section className="py-14 px-4 bg-[#f5f7f4]">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Culture</h2>

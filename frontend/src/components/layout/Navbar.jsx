@@ -44,7 +44,7 @@ const Navbar = ({ openProjectModal }) => {
   }, [])
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-2xl transition-colors duration-300">
+    <nav className="sticky top-0 z-50 w-full bg-[#f7f8f5]/90 backdrop-blur-2xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-[3.8rem] items-center justify-between gap-6">
 
@@ -134,7 +134,7 @@ const Navbar = ({ openProjectModal }) => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl rounded-b-3xl">
+        <div className="md:hidden bg-[#f7f8f5]/95 backdrop-blur-xl rounded-b-3xl">
           <div className="px-4 py-4 space-y-3">
             <MobileLink to="/" setOpen={setMobileMenuOpen}>Home</MobileLink>
 
@@ -143,6 +143,7 @@ const Navbar = ({ openProjectModal }) => {
               items={SERVICES}
               open={mobileDropdown}
               setOpen={setMobileDropdown}
+              setMenuOpen={setMobileMenuOpen}
               id="services"
             />
 
@@ -151,6 +152,7 @@ const Navbar = ({ openProjectModal }) => {
               items={TOOLS}
               open={mobileDropdown}
               setOpen={setMobileDropdown}
+              setMenuOpen={setMobileMenuOpen}
               id="tools"
             />
 
@@ -226,39 +228,42 @@ const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className={`absolute top-full left-0 mt-2 w-80 bg-white rounded-xl border border-gray-200 shadow-xl z-50
-          ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
+          className={`absolute top-full left-1/2 mt-4 w-[min(92vw,760px)] -translate-x-1/2 overflow-hidden rounded-3xl border border-green-100 bg-white/95 shadow-2xl shadow-green-900/10 backdrop-blur-xl z-50
+          ${scroll ? "max-h-[72vh] overflow-y-auto" : ""}`}
         >
-          {items.map((item) => {
-            const Icon = item.icon
-            const content = (
-              <>
-                <Icon className="w-5 h-5 mt-1 text-green-600" />
-                <div>
-                  <p className="font-medium text-gray-900">{item.title || item.name}</p>
-                  <p className="text-sm text-gray-500">{item.description}</p>
-                </div>
-              </>
-            )
+          <div className={`grid gap-3 p-4 ${items.length > 6 ? "lg:grid-cols-2" : "md:grid-cols-2"}`}>
+            {items.map((item) => {
+              const Icon = item.icon
 
-            return (
-              <Link
-                key={item.id}
-                to={item.path}
-                onClick={() => setActive(null)}
-                className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50 transition-colors cursor-pointer"
-              >
-                {content}
-              </Link>
-            )
-          })}
+              return (
+                <Link
+                  key={item.id}
+                  to={item.path}
+                  onClick={() => setActive(null)}
+                  className="group flex min-h-[104px] gap-4 rounded-2xl border border-transparent p-4 text-gray-900 transition-all duration-300 hover:border-green-100 hover:bg-green-50/80 hover:shadow-lg hover:shadow-green-900/5"
+                >
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-100 text-green-700 transition-all duration-300 group-hover:bg-green-600 group-hover:text-white group-hover:scale-105">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-bold text-gray-900 transition-colors group-hover:text-green-700">
+                      {item.title || item.name}
+                    </p>
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-500">
+                      {item.description}
+                    </p>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
         </motion.div>
       )}
     </div>
   )
 }
 
-const MobileAccordion = ({ label, items, open, setOpen, id }) => (
+const MobileAccordion = ({ label, items, open, setOpen, setMenuOpen, id }) => (
   <div>
     <button
       onClick={() => setOpen(open === id ? null : id)}
@@ -278,7 +283,7 @@ const MobileAccordion = ({ label, items, open, setOpen, id }) => (
           <Link
             key={item.id}
             to={item.path}
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => setMenuOpen(false)}
             className="block text-sm text-gray-600 hover:text-green-600 py-2 transition-colors"
           >
             {item.title || item.name}

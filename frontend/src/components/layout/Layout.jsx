@@ -25,7 +25,7 @@ const Layout = () => {
 
   return (
     <ProjectModalContext.Provider value={{ openProjectModal, closeProjectModal }}>
-      <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <div className="min-h-screen flex flex-col bg-[#f5f7f4] text-gray-900">
         <Navbar openProjectModal={openProjectModal} />
         <ScrollProgressBar />
         

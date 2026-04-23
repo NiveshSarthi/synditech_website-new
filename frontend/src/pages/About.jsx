@@ -3,7 +3,7 @@ import { Target, Eye, Lightbulb, BookOpen, Wrench, TrendingUp } from "lucide-rea
 
 const About = () => {
   return (
-    <div className="pt-16 bg-white text-gray-900">
+    <div className="pt-16 bg-[#f5f7f4] text-gray-900">
 
       {/* ================= INTRO ================= */}
       <section className="mb-12">
@@ -23,22 +23,22 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
           <div className="flex items-center justify-center h-[350px] bg-gradient-to-br from-green-50 to-white overflow-hidden">
             <img
-              src="/assets/images/I train startups.jpg"
-              alt="Founder"
-              className="w-full h-[350px] object-contain object-center"
+              src="/assets/images/about us.jpg"
+              alt="About Synditech"
+              className="w-full h-[350px] object-cover object-center"
             />
           </div>
 
           <div>
             <h2 className="text-4xl font-bold mb-4">Our Founder</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 text-justify leading-relaxed">
               Synditech was founded by a visionary technologist with a strong
               belief in building technology that delivers real business value.
               With hands-on experience across software development, system
               architecture, and business strategy, the founder laid the
               foundation for a company driven by quality and trust.
             </p>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 text-justify leading-relaxed">
               The leadership philosophy focuses on long-term partnerships,
               ethical growth, and empowering teams to deliver excellence.
             </p>
@@ -50,22 +50,22 @@ const About = () => {
         </div>
       </section>
       {/* ================= OUR STORY ================= */}
-      <section className="mb-12 text-gray-900 bg-white">
+      <section className="mb-12 text-gray-900 bg-[#f5f7f4]">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 text-justify leading-relaxed">
               Synditech was founded with a simple belief — technology should
               empower businesses, not complicate them. We started as a small
               group of engineers and designers passionate about solving real
               business problems through clean, efficient, and scalable code.
             </p>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 text-justify leading-relaxed">
               Over time, we evolved into a full-service technology partner,
               helping companies transform ideas into production-ready software,
               optimize operations, and unlock growth through innovation.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-justify leading-relaxed">
               Today, Synditech works with clients across multiple industries,
               delivering web platforms, mobile apps, SaaS products, automation
               tools, and enterprise systems.
@@ -83,7 +83,7 @@ const About = () => {
       </section>
 
       {/* ================= MISSION & VISION ================= */}
-      <section className="mb-12 py-16 bg-gradient-to-br from-green-50 via-white to-emerald-50">
+      <section className="mb-12 py-16 bg-gradient-to-br from-green-50 via-[#f5f7f4] to-emerald-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Purpose</h2>
@@ -96,7 +96,7 @@ const About = () => {
                 <Target className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Mission</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-justify">
                 To empower businesses with reliable, scalable, and innovative
                 technology solutions that drive efficiency, growth, and long-term
                 success.
@@ -108,7 +108,7 @@ const About = () => {
                 <Eye className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Vision</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-justify">
                 To become a globally trusted technology partner known for
                 engineering excellence, transparency, and business-first
                 solutions.
@@ -119,7 +119,7 @@ const About = () => {
       </section>
 
       {/* ================= HOW WE WORK ================= */}
-      <section className="mb-12 py-16 bg-white">
+      <section className="mb-12 py-16 bg-[#f5f7f4]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">How We Work</h2>
@@ -136,7 +136,7 @@ const About = () => {
                   <Lightbulb className="w-7 h-7 text-green-600" />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">Understand</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-justify">
                   We deeply understand your business goals, challenges, and users through thorough research and collaboration.
                 </p>
               </div>
@@ -151,7 +151,7 @@ const About = () => {
                   <Wrench className="w-7 h-7 text-green-600" />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">Build</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-justify">
                   We design and develop scalable solutions using modern tech stacks, following best practices and clean architecture.
                 </p>
               </div>
@@ -166,7 +166,7 @@ const About = () => {
                   <TrendingUp className="w-7 h-7 text-green-600" />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">Scale</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-justify">
                   We optimize, support, and evolve your product as your business grows, ensuring long-term success and performance.
                 </p>
               </div>

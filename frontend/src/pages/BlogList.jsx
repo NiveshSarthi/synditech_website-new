@@ -45,7 +45,7 @@ const BlogList = () => {
   }, [])
 
   return (
-    <section className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.18),_transparent_28%),linear-gradient(180deg,_#ffffff_0%,_#f7faf7_100%)] px-4 md:px-10 py-4 md:py-8">
+    <section className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.16),_transparent_28%),linear-gradient(180deg,_#f5f7f4_0%,_#edf1ed_100%)] px-4 md:px-10 py-4 md:py-8">
       <div className="mx-auto max-w-full">
         <div className="header-section px-4 md:px-6 py-4 md:py-6">
           <div className="header-content">

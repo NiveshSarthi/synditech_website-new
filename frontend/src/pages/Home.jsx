@@ -67,7 +67,7 @@ const Home = () => {
   const [statsRef, statsInView] = useInView({ threshold: 0.5, triggerOnce: true })
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-[#f5f7f4] text-gray-900">
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative w-full min-h-screen overflow-hidden">
@@ -274,7 +274,7 @@ const Home = () => {
       </section>
       
       {/* ================= NEW SERVICES GRID SECTION ================= */}
-      <section className="py-14 px-4 bg-white border-t border-gray-50">
+      <section className="py-16 px-4 bg-gradient-to-br from-green-50 via-white to-emerald-50 border-t border-green-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 mb-2 leading-tight">
@@ -287,40 +287,44 @@ const Home = () => {
           {/* Carousel Container */}
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:overflow-visible md:pb-0 md:items-stretch md:justify-items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
           >
             {SERVICES.map((service, idx) => {
               const Icon = service.icon || ArrowRight;
-              const formattedId = (idx + 1).toString().padStart(2, '0');
               return (
                 <div 
                   key={idx} 
-                  className="group shrink-0 w-[85vw] md:w-[320px] flex flex-col justify-between p-8 rounded-[2rem] border bg-white border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-gray-50 hover:border-gray-200 snap-center md:snap-start relative overflow-hidden"
-                  style={{ minHeight: '380px' }}
+                  className="group shrink-0 w-[85vw] md:w-full md:max-w-[320px] flex flex-col justify-between rounded-[2rem] border border-white/80 bg-white/85 p-6 shadow-[0_22px_60px_-36px_rgba(15,23,42,0.55)] ring-1 ring-green-900/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-green-200 hover:bg-white hover:shadow-[0_30px_80px_-35px_rgba(22,163,74,0.5)] snap-center md:snap-start relative overflow-hidden"
+                  style={{ minHeight: '390px' }}
                 >
+                  <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-green-100/80 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+                  <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent" />
                   {/* Icon Area */}
-                  <div className="flex justify-center mb-10 pt-4">
-                    <Icon className="w-24 h-24 text-green-500 drop-shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:text-green-600" strokeWidth={1.5} />
+                  <div className="relative z-10 mb-8 flex items-center justify-between">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg shadow-green-600/20 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+                      <Icon className="w-8 h-8" strokeWidth={1.7} />
+                    </div>
+                    <div className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-green-700">
+                      Service
+                    </div>
                   </div>
 
                   {/* Text Container */}
-                  <div className="mt-auto relative z-10">
-                    <div className="flex items-start gap-3 mb-6">
-                      <div className="flex items-center gap-1 mt-1 shrink-0">
-                        <span className="text-xs font-medium text-gray-400 border border-gray-200 rounded-full w-7 h-7 flex items-center justify-center transition-colors duration-300 group-hover:border-green-200 group-hover:text-green-600">{formattedId}</span>
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 leading-snug">
-                        {service.title}
-                      </h3>
-                    </div>
+                  <div className="relative z-10 mt-auto">
+                    <h3 className="text-2xl font-black text-gray-900 leading-tight">
+                      {service.title}
+                    </h3>
+                    <p className="mt-4 min-h-[72px] text-sm leading-6 text-gray-600">
+                      {service.description} Built with scalable architecture, clean UX, and performance-first delivery.
+                    </p>
                     
                     {/* Bottom Action Area with Hover Animation */}
-                    <div className="flex items-center mt-2 pl-10 h-6 relative overflow-hidden">
-                      <div className="absolute left-10 top-0 transition-all duration-300 opacity-100 group-hover:opacity-0 group-hover:-translate-y-4">
-                        <ArrowRight className="w-5 h-5 text-gray-300" />
-                      </div>
-                      <Link to={service.path || "/services"} className="absolute left-10 top-0 font-bold text-sm text-gray-900 flex items-center transition-all duration-300 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 z-10 before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-0.5 before:bg-green-600 hover:before:w-full before:transition-all before:duration-300">
-                        Read More <ArrowRight className="w-4 h-4 ml-1 text-green-600" />
+                    <div className="mt-8 flex items-center justify-between border-t border-gray-100 pt-5">
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                        Learn more
+                      </span>
+                      <Link to={service.path || "/services"} className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg shadow-gray-900/15 transition-all duration-300 group-hover:bg-green-600 group-hover:shadow-green-600/25">
+                        <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
                       </Link>
                     </div>
                   </div>
@@ -328,23 +332,11 @@ const Home = () => {
               );
             })}
           </div>
-          
-          {/* Simple Decorative Carousel Dots mimicking user image */}
-          <div className="flex justify-center items-center gap-3 mt-12">
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
-            <div className="w-3 h-3 rounded-full border border-gray-800 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-gray-800"></div>
-            </div>
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
-          </div>
-
         </div>
       </section>
       
       {/* ================= STATS SECTION ================= */}
-      <section ref={statsRef} className="py-12 px-4 bg-white">
+      <section ref={statsRef} className="py-12 px-4 bg-[#f5f7f4]">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
@@ -446,7 +438,7 @@ const Home = () => {
         </div>
       </section>
       {/* ================= SERVICES ================= */}
-      <section ref={ref} className="py-16 px-4 bg-white">
+      <section ref={ref} className="py-16 px-4 bg-[#f5f7f4]">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -506,7 +498,7 @@ const Home = () => {
       </section>
 
       {/* ================= PROCESS ================= */}
-      <section className="py-16 px-4 bg-gradient-to-r from-gray-50 to-white">
+      <section className="py-16 px-4 bg-gradient-to-br from-slate-50 via-[#f5f7f4] to-green-50/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold mb-4">How We Work</h2>
@@ -552,7 +544,7 @@ const Home = () => {
       </section>
 
       {/* ================= WHY CHOOSE US ================= */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-[#f5f7f4]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold mb-4">Why Choose Synditech?</h2>
@@ -586,7 +578,7 @@ const Home = () => {
      
 
       {/* ================= TESTIMONIALS ================= */}
-      <section className="relative py-16 px-4 bg-white overflow-hidden">
+      <section className="hidden relative py-16 px-4 bg-gradient-to-br from-[#f5f7f4] via-slate-50 to-green-50/40 overflow-hidden">
 
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
           {/* Label */}

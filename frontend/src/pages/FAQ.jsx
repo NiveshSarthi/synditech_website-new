@@ -3,7 +3,7 @@ import FAQSection from '../components/shared/FAQSection'
 
 const FAQ = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f5f7f4]">
       <FAQSection />
     </div>
   )

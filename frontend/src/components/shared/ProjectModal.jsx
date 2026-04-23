@@ -476,51 +476,80 @@ const SuccessView = ({ onClose }) => (
     initial={{ opacity: 0, scale: 0.95, y: 10 }}
     animate={{ opacity: 1, scale: 1, y: 0 }}
     transition={{ duration: 0.4, ease: "easeOut" }}
-    className="p-10 text-center relative overflow-hidden"
+    className="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-emerald-50 p-6 sm:p-10 text-center"
   >
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-green-300/20 via-transparent to-emerald-400/20 pointer-events-none rounded-full blur-3xl" />
-    
-    <motion.div
-      initial={{ scale: 0, rotate: -45 }}
-      animate={{ scale: 1, rotate: 0 }}
-      transition={{ delay: 0.1, type: 'spring', stiffness: 220, damping: 15 }}
-      className="relative w-24 h-24 mx-auto mb-8"
-    >
-      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 animate-pulse blur-[10px] opacity-50" />
-      <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-green-500 to-emerald-500 flex items-center justify-center shadow-xl border-4 border-white">
-        <Check className="w-12 h-12 text-white stroke-[3px]" />
-      </div>
-    </motion.div>
+    <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-green-300/30 blur-3xl" />
+    <div className="pointer-events-none absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-emerald-300/30 blur-3xl" />
+    <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent" />
 
-    <motion.h2 
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 }}
-      className="text-4xl font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700"
-    >
-      Thank You!
-    </motion.h2>
+    <div className="relative mx-auto max-w-md rounded-[2rem] border border-white/80 bg-white/80 p-7 shadow-2xl shadow-green-900/10 backdrop-blur-sm">
+      <motion.div
+        initial={{ scale: 0, rotate: -45 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ delay: 0.1, type: 'spring', stiffness: 220, damping: 15 }}
+        className="relative mx-auto mb-7 h-24 w-24"
+      >
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 opacity-50 blur-[12px]" />
+        <div className="relative flex h-full w-full items-center justify-center rounded-full border-4 border-white bg-gradient-to-tr from-green-500 to-emerald-500 shadow-xl">
+          <Check className="h-12 w-12 text-white stroke-[3px]" />
+        </div>
+      </motion.div>
 
-    <motion.p 
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3 }}
-      className="text-gray-500 mb-10 max-w-sm mx-auto leading-relaxed text-base"
-    >
-      We've received your project details. Our team will contact you shortly to discuss the next steps in bringing your vision to life.
-    </motion.p>
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.18 }}
+        className="mb-4 inline-flex items-center rounded-full border border-green-200 bg-green-50 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-green-700"
+      >
+        Request received
+      </motion.div>
 
-    <motion.button
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.05, boxShadow: "0 15px 30px -5px rgba(22, 163, 74, 0.4)" }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ delay: 0.4 }}
-      onClick={onClose}
-      className="px-10 py-4 rounded-full bg-green-600 text-white font-bold tracking-wide hover:bg-green-700 transition-colors shadow-lg"
-    >
-      Got it!
-    </motion.button>
+      <motion.h2
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.24 }}
+        className="mb-3 text-4xl font-black tracking-tight text-gray-900"
+      >
+        Thank You!
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mx-auto mb-7 max-w-sm text-base leading-relaxed text-gray-600"
+      >
+        We've received your project details. Our team will review your request and contact you shortly with the next steps.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.36 }}
+        className="mb-8 grid grid-cols-2 gap-3 text-left"
+      >
+        <div className="rounded-2xl border border-green-100 bg-green-50/70 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-green-700">Next step</p>
+          <p className="mt-1 text-sm font-bold text-gray-900">Discovery call</p>
+        </div>
+        <div className="rounded-2xl border border-green-100 bg-green-50/70 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-green-700">Response</p>
+          <p className="mt-1 text-sm font-bold text-gray-900">Soon</p>
+        </div>
+      </motion.div>
+
+      <motion.button
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.04, boxShadow: "0 18px 36px -10px rgba(22, 163, 74, 0.45)" }}
+        whileTap={{ scale: 0.96 }}
+        transition={{ delay: 0.42 }}
+        onClick={onClose}
+        className="w-full rounded-full bg-gradient-to-r from-green-600 to-emerald-600 px-10 py-4 font-bold tracking-wide text-white shadow-lg shadow-green-600/25 transition-colors hover:from-green-700 hover:to-emerald-700"
+      >
+        Got it!
+      </motion.button>
+    </div>
   </motion.div>
 )
 

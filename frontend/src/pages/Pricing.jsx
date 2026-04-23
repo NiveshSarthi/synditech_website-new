@@ -5,7 +5,7 @@ import { CheckCircle, Zap, ShieldCheck } from "lucide-react"
 
 const Pricing = () => {
   return (
-    <div className="min-h-screen bg-white pt-20 md:pt-24 pb-12 md:pb-20 px-4">
+    <div className="min-h-screen bg-[#f5f7f4] pt-20 md:pt-24 pb-12 md:pb-20 px-4">
       <div className="max-w-7xl mx-auto">
 
         {/* ================= HEADER ================= */}
