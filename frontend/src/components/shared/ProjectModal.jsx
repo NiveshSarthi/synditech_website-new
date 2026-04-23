@@ -30,8 +30,8 @@ const BUDGET_OPTIONS = [
 
 const CONTACT_TIMES = [
   { id: 'morning', label: 'Morning (9AM - 12PM)' },
-  { id: 'afternoon', label: 'Afternoon (12PM - 5PM)' },
-  { id: 'evening', label: 'Evening (5PM - 8PM)' },
+  { id: 'afternoon', label: 'Afternoon (12PM - 4PM)' },
+  { id: 'evening', label: 'Evening (4PM - 8PM)' },
 ]
 
 const STEPS = [
@@ -182,26 +182,26 @@ const ProjectModal = ({ isOpen, onClose }) => {
           className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full hover:bg-gray-100 transition-colors"
-          >
-            <X className="w-5 h-5 text-gray-500" />
-          </button>
-
           {isSuccess ? (
             <SuccessView onClose={onClose} />
           ) : (
             <>
               <div className="p-6 border-b border-gray-100">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900">Start Your Project</h2>
-                  <span className="text-sm text-gray-500">
-                    Step {currentStep} of {STEPS.length}
-                  </span>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900">Start Your Project</h2>
+                    <span className="text-sm text-gray-500">
+                      Step {currentStep} of {STEPS.length}
+                    </span>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="p-2 -mt-1 -mr-1 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <X className="w-5 h-5 text-gray-500" />
+                  </button>
                 </div>
-
-                <div className="flex gap-2">
+                <div className="mt-4 flex gap-2">
                   {STEPS.map((step) => (
                     <div
                       key={step.id}
@@ -213,7 +213,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <div className="p-6 overflow-y-auto max-h-[50vh] pb-4">
                 <AnimatePresence mode="wait">
                   {currentStep === 1 && (
                     <StepOne
@@ -242,45 +242,47 @@ const ProjectModal = ({ isOpen, onClose }) => {
                 </AnimatePresence>
               </div>
 
-              <div className="p-6 border-t border-gray-100 bg-gray-50">
-                <div className="flex gap-3">
+              <div className="p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+                <div className="flex justify-between gap-3 mt-1">
                   {currentStep > 1 && (
                     <button
                       onClick={handleBack}
-                      className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-colors"
+                      className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       Back
                     </button>
                   )}
 
-                  {currentStep < 3 ? (
-                    <button
-                      onClick={handleNext}
-                      className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
-                    >
-                      Continue
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        <>
-                          Submit
-                          <ArrowRight className="w-4 h-4" />
-                        </>
-                      )}
-                    </button>
-                  )}
+                  <div className="flex gap-3">
+                    {currentStep < 3 ? (
+                      <button
+                        onClick={handleNext}
+                        className="flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors whitespace-nowrap"
+                      >
+                        Continue
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                        className="flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors disabled:opacity-50 whitespace-nowrap"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            Submit
+                            <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
                 {errors.submit && (
                   <p className="mt-2 text-sm text-red-500 text-center">{errors.submit}</p>
@@ -470,28 +472,54 @@ const StepThree = ({ formData, updateFormData, errors }) => (
 
 const SuccessView = ({ onClose }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    className="p-8 text-center"
+    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    transition={{ duration: 0.4, ease: "easeOut" }}
+    className="p-10 text-center relative overflow-hidden"
   >
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-green-300/20 via-transparent to-emerald-400/20 pointer-events-none rounded-full blur-3xl" />
+    
     <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-      className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+      initial={{ scale: 0, rotate: -45 }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ delay: 0.1, type: 'spring', stiffness: 220, damping: 15 }}
+      className="relative w-24 h-24 mx-auto mb-8"
     >
-      <Check className="w-10 h-10 text-green-600" />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 animate-pulse blur-[10px] opacity-50" />
+      <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-green-500 to-emerald-500 flex items-center justify-center shadow-xl border-4 border-white">
+        <Check className="w-12 h-12 text-white stroke-[3px]" />
+      </div>
     </motion.div>
-    <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
-    <p className="text-gray-600 mb-6 max-w-sm mx-auto">
-      Our team will contact you soon to discuss your project requirements.
-    </p>
-    <button
+
+    <motion.h2 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="text-4xl font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700"
+    >
+      Thank You!
+    </motion.h2>
+
+    <motion.p 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      className="text-gray-500 mb-10 max-w-sm mx-auto leading-relaxed text-base"
+    >
+      We've received your project details. Our team will contact you shortly to discuss the next steps in bringing your vision to life.
+    </motion.p>
+
+    <motion.button
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05, boxShadow: "0 15px 30px -5px rgba(22, 163, 74, 0.4)" }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ delay: 0.4 }}
       onClick={onClose}
-      className="px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
+      className="px-10 py-4 rounded-full bg-green-600 text-white font-bold tracking-wide hover:bg-green-700 transition-colors shadow-lg"
     >
       Got it!
-    </button>
+    </motion.button>
   </motion.div>
 )
 

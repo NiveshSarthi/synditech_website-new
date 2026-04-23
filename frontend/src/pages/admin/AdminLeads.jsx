@@ -12,9 +12,7 @@ import {
   User
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ADMIN_TOKEN_KEY } from '../../utils/api'
-
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+import { leadAPI } from '../../utils/api'
 
 const AdminLeads = () => {
   const [leads, setLeads] = useState([])
@@ -34,13 +32,8 @@ const AdminLeads = () => {
     setLoading(true)
     setError(null)
     try {
-      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await fetch(`${API_URL}/leads`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
+      const response = await leadAPI.getAll()
+      const data = response.data
       if (data.success) {
         setLeads(data.data)
       } else {
@@ -62,14 +55,8 @@ const AdminLeads = () => {
     if (!window.confirm('Delete this lead?')) return
     setDeletingId(leadId)
     try {
-      const token = localStorage.getItem(ADMIN_TOKEN_KEY)
-      const response = await fetch(`${API_URL}/leads/${leadId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
+      const response = await leadAPI.delete(leadId)
+      const data = response.data
       if (data.success) {
         setLeads(prev => prev.filter(l => l._id !== leadId))
         if (selectedLead?._id === leadId) {

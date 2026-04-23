@@ -47,7 +47,7 @@ const BlogDetail = () => {
 
   if (isLoading) {
     return (
-      <section className="public-section min-h-screen px-10 py-16">
+      <section className="min-h-screen bg-white px-10 py-16">
         <div className="mx-auto max-w-full px-6 py-16 text-center text-gray-600">
           Loading article...
         </div>
@@ -57,7 +57,7 @@ const BlogDetail = () => {
 
   if (errorMessage || !blog) {
     return (
-      <section className="public-section min-h-screen px-10 py-16">
+      <section className="min-h-screen bg-white px-10 py-16">
         <div className="mx-auto max-w-full px-6 py-16 text-center">
           <h1 className="text-2xl font-bold text-gray-900">Article unavailable</h1>
           <p className="mt-3 text-red-700">{errorMessage || 'This blog post could not be found.'}</p>
@@ -71,8 +71,8 @@ const BlogDetail = () => {
   }
 
   return (
-    <section className="public-section min-h-screen bg-[linear-gradient(180deg,_rgba(247,250,247,0.82)_0%,_rgba(255,255,255,0.44)_20%,_rgba(244,249,243,0.68)_100%)] px-4 md:px-10 py-16">
-      <article className="public-panel mx-auto max-w-7xl p-8 md:p-10">
+    <section className="min-h-screen bg-[linear-gradient(180deg,_#f7faf7_0%,_#ffffff_20%,_#ffffff_100%)] px-4 md:px-10 py-16">
+      <article className="mx-auto max-w-7xl">
         <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-green-700 transition-transform hover:-translate-x-1">
           <ArrowLeft className="h-4 w-4" />
           Back to Blog

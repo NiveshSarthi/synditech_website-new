@@ -32,7 +32,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="py-10 px-4 border-t border-white/50 bg-[linear-gradient(180deg,rgba(247,250,247,0.62)_0%,rgba(241,247,242,0.88)_100%)] backdrop-blur-xl">
+    <footer className="py-10 px-4 bg-gray-50 border-t border-gray-200">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand & Social */}

@@ -57,7 +57,7 @@ const SaasDevelopment = () => {
   ]
 
   return (
-    <div className="min-h-screen pt-14 pb-20 px-4">
+    <div className="min-h-screen bg-white pt-14 pb-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-10 animate-fade-in">

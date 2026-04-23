@@ -110,7 +110,7 @@ const FAQSection = () => {
   }
 
   return (
-    <section className="public-section pb-24 px-4">
+    <section className="pb-24 px-4">
       <div className="max-w-4xl mx-auto">
 
         <div className="text-center mb-10">
@@ -125,7 +125,7 @@ const FAQSection = () => {
         </div>
 
         <div className="max-w-xl mx-auto mb-8">
-          <div className="public-panel-soft relative rounded-full">
+          <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
@@ -139,7 +139,7 @@ const FAQSection = () => {
                   setOpenIndex(null)
                 }
               }}
-              className="w-full rounded-full bg-transparent pl-12 pr-10 py-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+              className="w-full pl-12 pr-10 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
             />
             {searchQuery && (
               <button
@@ -211,7 +211,7 @@ const FAQSection = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="public-panel mt-16 text-center p-10 rounded-[2rem] border border-green-100 bg-[linear-gradient(180deg,rgba(240,253,244,0.78)_0%,rgba(255,255,255,0.72)_100%)]"
+          className="mt-16 text-center p-10 rounded-[2rem] bg-green-50 border border-green-100"
         >
           <h3 className="text-2xl font-bold text-gray-900 mb-3">Still have questions?</h3>
           <p className="text-gray-600 mb-6">Let's chat with our experts!</p>

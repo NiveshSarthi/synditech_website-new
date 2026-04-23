@@ -4,43 +4,23 @@ const ScrollProgressBar = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    let frameId = null;
-
     const handleScroll = () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
-
-      frameId = requestAnimationFrame(() => {
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = totalHeight > 0 ? window.scrollY / totalHeight : 0;
-        setScrollProgress(Math.max(0, Math.min(progress, 1)));
-      });
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
     };
 
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
-    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[3px] overflow-hidden"
+      className="fixed top-[3.8rem] left-0 right-0 h-[5px] z-[40]"
     >
       <div
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.04)_0%,rgba(34,197,94,0.14)_50%,rgba(15,23,42,0.04)_100%)]"
-      />
-      <div
-        className="h-full origin-left rounded-r-full bg-[linear-gradient(90deg,rgba(34,197,94,0.98)_0%,rgba(16,185,129,0.92)_55%,rgba(110,231,183,0.8)_100%)] shadow-[0_0_14px_rgba(34,197,94,0.26)] transition-transform duration-150 ease-out"
-        style={{
-          width: '100%',
-          transform: `scaleX(${scrollProgress})`,
-        }}
+        className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-100 ease-out rounded-full"
+        style={{ width: `${scrollProgress}%` }}
       />
     </div>
   );

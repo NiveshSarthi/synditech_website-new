@@ -55,10 +55,9 @@ export const TOOLS = [
   {
     id: 'zavyo',
     name: 'Zavyo',
-    description: 'Whatsaap marketing tool',
+    description: 'WhatsApp marketing tool',
     icon: Zap,
-    path: 'https://zavyo.io/',
-    external: true,
+    path: '/tools/zavyo',
     benefits: ['Website Access', 'External Platform', 'Product Overview']
   },
   {
@@ -66,8 +65,7 @@ export const TOOLS = [
     name: 'Task Tracker',
     description: 'Manage tasks and projects efficiently',
     icon: ClipboardList,
-    path: 'https://tracker.niveshsarthi.com/',
-    external: true,
+    path: '/tools/task-tracker',
     benefits: ['Real-time Updates', 'Team Collaboration', 'Progress Tracking']
   },
   {
@@ -91,8 +89,7 @@ export const TOOLS = [
     name: 'HRMS',
     description: 'Complete HR management solution',
     icon: Briefcase,
-    path: 'https://hrms.niveshsarthi.com/',
-    external: true,
+    path: '/tools/hrms',
     benefits: ['Employee Database', 'Payroll', 'Leave Management']
   },
   {

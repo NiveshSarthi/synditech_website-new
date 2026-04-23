@@ -3,11 +3,11 @@ import { Target, Eye, Lightbulb, BookOpen, Wrench, TrendingUp } from "lucide-rea
 
 const About = () => {
   return (
-    <div className="pt-16 text-gray-900">
+    <div className="pt-16 bg-white text-gray-900">
 
       {/* ================= INTRO ================= */}
-      <section className="public-section mb-12">
-        <div className="public-panel max-w-7xl mx-auto px-4 py-14 text-center">
+      <section className="mb-12">
+        <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-[48px] md:text-6xl font-bold mb-6">
             About <span className="text-green-600">Synditech</span>
           </h1>
@@ -19,9 +19,9 @@ const About = () => {
         </div>
       </section>
   {/* ================= FOUNDER SECTION ================= */}
-      <section className="public-section mb-12">
+      <section className="mb-12">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
-          <div className="public-panel-soft flex items-center justify-center h-[350px] overflow-hidden">
+          <div className="flex items-center justify-center h-[350px] bg-gradient-to-br from-green-50 to-white overflow-hidden">
             <img
               src="/assets/images/I train startups.jpg"
               alt="Founder"
@@ -50,7 +50,7 @@ const About = () => {
         </div>
       </section>
       {/* ================= OUR STORY ================= */}
-      <section className="public-section-muted mb-12 text-gray-900">
+      <section className="mb-12 text-gray-900 bg-white">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
@@ -83,7 +83,7 @@ const About = () => {
       </section>
 
       {/* ================= MISSION & VISION ================= */}
-      <section className="public-section mb-12 py-16 bg-gradient-to-br from-green-50/70 via-white/30 to-emerald-50/60">
+      <section className="mb-12 py-16 bg-gradient-to-br from-green-50 via-white to-emerald-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Purpose</h2>
@@ -91,7 +91,7 @@ const About = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="public-panel rounded-3xl p-8 hover:shadow-xl transition-shadow duration-300 border border-green-100">
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-green-100">
               <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
                 <Target className="w-8 h-8 text-green-600" />
               </div>
@@ -103,7 +103,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="public-panel rounded-3xl p-8 hover:shadow-xl transition-shadow duration-300 border border-green-100">
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-green-100">
               <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
                 <Eye className="w-8 h-8 text-green-600" />
               </div>
@@ -119,7 +119,7 @@ const About = () => {
       </section>
 
       {/* ================= HOW WE WORK ================= */}
-      <section className="public-section-muted mb-12 py-16">
+      <section className="mb-12 py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">How We Work</h2>

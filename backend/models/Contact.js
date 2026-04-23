@@ -28,6 +28,11 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a message'],
   },
+  status: {
+    type: String,
+    enum: ['unread', 'read'],
+    default: 'unread',
+  },
 }, {
   timestamps: true,
 });

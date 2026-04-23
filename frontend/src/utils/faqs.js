@@ -1,56 +1,66 @@
-export const faqs = [
-  {
-    question: "how can i apply",
-    keywords: ["apply", "job", "career", "hiring", "application", "resume", "positions", "vacancy"],
-    answer: "You can apply for open positions by visiting our Careers page. Click on any job listing you're interested in and submit your resume through our application form. You can also email your resume directly to us."
+export const intents = {
+  price: {
+    keywords: ["price", "pricing", "cost", "fee", "charges", "quote", "budget", "expensive", "cheap", "affordable", "rate", "rates", "how much", "cost of", "estimate"],
+    response: "Our pricing varies based on project requirements and complexity. Contact us at contact@synditech.ai for a custom quote tailored to your needs."
   },
-  {
-    question: "do you offer internships",
-    keywords: ["internship", "intern", "student", "fresher", "training"],
-    answer: "Yes, we offer internships for students and fresh graduates. Check our Careers page for current internship opportunities or email us your resume."
+  service: {
+    keywords: ["service", "services", "offer", "provide", "solutions", "capabilities", "expertise", "development", "build", "create", "design", "what do", "builds"],
+    response: "We offer SaaS Development, Web Development, Mobile App Development, E-commerce Solutions, API Integration, and Cloud Services. Visit our Services page for details."
   },
-  {
-    question: "what services do you offer",
-    keywords: ["service", "services", "what do you do", "solutions"],
-    answer: "We offer a range of services including SaaS Development, Web Development, Mobile App Development, E-commerce Solutions, API Integration, and Cloud Services. Visit our Services page for more details."
+  contact: {
+    keywords: ["contact", "reach", "email", "phone", "talk", "message", "connect", "talk to", "speak to", "call", "whatsapp"],
+    response: "You can reach us at contact@synditech.ai, call +91 9560037154, or visit our Contact page. We're happy to help!"
   },
-  {
-    question: "how can i contact you",
-    keywords: ["contact", "reach", "email", "phone", "talk", "support"],
-    answer: "You can reach us through our Contact page, email us at contact@synditech.ai, or call us. We're happy to assist you with any inquiries."
+  career: {
+    keywords: ["job", "career", "careers", "hiring", "apply", "application", "resume", "cv", "vacancy", "positions", "work with", "join", "opportunity"],
+    response: "Check our Careers page for open positions. Apply by clicking a job listing and submitting your resume through our form."
   },
-  {
-    question: "what are your pricing plans",
-    keywords: ["price", "pricing", "cost", "fee", "plan", "plans", "charges", "quote"],
-    answer: "Our pricing varies based on project requirements. Visit our Pricing page for more information, or contact us for a custom quote tailored to your needs."
+  internship: {
+    keywords: ["internship", "intern", "student", "fresher", "training", "fresh graduate", "college", "placement"],
+    response: "Yes, we offer internships for students and fresh graduates. Email us your resume or check our Careers page for opportunities."
   },
-  {
-    question: "do you provide support",
-    keywords: ["support", "help", "maintenance", "assistance", "issue", "problem"],
-    answer: "Yes, we provide ongoing support and maintenance for all our projects. Contact our support team through the Contact page for any issues or assistance."
+  support: {
+    keywords: ["support", "help", "maintenance", "assistance", "issue", "problem", "bug", "fix", "troubleshoot", "maintain", "broken", "error"],
+    response: "We provide ongoing support and maintenance for all projects. Contact us through our website for any issues or assistance."
   },
-  {
-    question: "where are you located",
-    keywords: ["location", "address", "office", "headquarters", "based", "located"],
-    answer: "We're a technology company providing services globally. Contact us through our website to discuss your project requirements."
+  location: {
+    keywords: ["location", "address", "office", "headquarters", "where", "based", "located", "city", "place", "india"],
+    response: "We're based in Faridabad, Haryana, India (BH-918, 9th Floor, 81 High Street-Puri Business Hub, Sector-81). We serve clients globally."
   },
-  {
-    question: "how long does it take to complete a project",
-    keywords: ["time", "duration", "timeline", "delivery", "deadline", "how long"],
-    answer: "Project timeline depends on the complexity and scope. Small projects typically take 2-4 weeks, while larger projects may take several months. Contact us for a specific timeline estimate."
+  timeline: {
+    keywords: ["time", "duration", "timeline", "delivery", "deadline", "how long", "turnaround", "fast", "quick", "weeks", "months", "days", "when"],
+    response: "Project timelines depend on complexity. Small projects take 2-4 weeks, larger ones may take several months. Contact us for a specific estimate."
   },
-  {
-    question: "what technologies do you use",
-    keywords: ["technology", "tech", "stack", "tools", "framework", "languages"],
-    answer: "We use modern technologies including React, Next.js, Node.js, Python, MongoDB, AWS, and more. We select the best tech stack based on your project requirements."
+  technology: {
+    keywords: ["technology", "tech", "stack", "tools", "framework", "language", "react", "node", "python", "aws", "mongodb", "javascript", "java", "nextjs", "angular", "vue", "sql"],
+    response: "We use modern tech including React, Next.js, Node.js, Python, MongoDB, AWS, and more. We choose the best stack for your project."
   },
-  {
-    question: "do you work with small businesses",
-    keywords: ["small", "business", "startup", "start-ups", " SME", "enterprise"],
-    answer: "Yes, we work with businesses of all sizes - from startups to large enterprises. We offer flexible solutions tailored to your budget and requirements."
+  business: {
+    keywords: ["small", "business", "startup", "enterprise", "company", "corporate", "client", "sme", "agency"],
+    response: "We work with businesses of all sizes - startups to enterprises. Our solutions scale to your budget and requirements."
+  },
+  remote: {
+    keywords: ["remote", "work from home", "virtual", "online", "telecommute", "work remotely", "distributed"],
+    response: "Yes, we offer remote development services. Our team works globally via video calls, project management tools, and regular updates."
+  },
+  experience: {
+    keywords: ["experience", "years", "portfolio", "project", "projects", "samples", "case study", "previous", "work done", "examples"],
+    response: "We have experience delivering various web and mobile applications. Visit our portfolio section or contact us to discuss your requirements."
+  },
+  start: {
+    keywords: ["start", "begin", "get started", "hire", "project", "new", "develop", "launch", "need", "want"],
+    response: "Contact us at contact@synditech.ai or visit our Contact page. We'll discuss your requirements and provide a proposal."
+  },
+  greeting: {
+    keywords: ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "howdy", "greetings"],
+    response: "Hello! How can I help you today? Ask me about our services, pricing, careers, or contact details."
+  },
+  thanks: {
+    keywords: ["thank", "thanks", "appreciate", "helpful"],
+    response: "You're welcome! Is there anything else I can help you with?"
   }
-]
+}
 
-export const defaultResponse = "Sorry, I didn't understand that. Please contact us or check our FAQ page for more information."
+export const defaultResponse = "I'm not sure about that. Try asking about our services, pricing, careers, contact details, or project timelines. You can also email us at contact@synditech.ai"
 
-export const welcomeMessage = "Hi! I'm here to help. Ask me about careers, services, pricing, or contact details."
+export const welcomeMessage = "Hi! I can help with questions about our services, pricing, careers, contact details, or how to start a project. What would you like to know?"

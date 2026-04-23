@@ -31,14 +31,15 @@ const FreeTrialModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" onClick={onClose}></div>
       <div className="relative bg-white/95 backdrop-blur-xl rounded-2xl p-8 max-w-md w-full mx-4 border border-green-600/30">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-900 hover:text-green-600"
-        >
-          <X className="w-6 h-6" />
-        </button>
-
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Free Trial Request</h2>
+        <div className="flex items-start justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Free Trial Request</h2>
+          <button
+            onClick={onClose}
+            className="p-1 -mt-1 -mr-1 text-gray-900 hover:text-green-600 transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

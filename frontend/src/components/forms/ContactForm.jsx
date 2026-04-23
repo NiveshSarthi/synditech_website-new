@@ -5,7 +5,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
+    phone: '',
     message: ''
   })
   const [loading, setLoading] = useState(false)
@@ -28,9 +28,14 @@ const ContactForm = () => {
     try {
       await contactAPI.submit(formData)
       setSuccess(true)
-      setFormData({ name: '', email: '', subject: '', message: '' })
+      setFormData({ name: '', email: '', phone: '', message: '' })
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong')
+      const errorData = err.response?.data
+      if (errorData?.errors && errorData.errors.length > 0) {
+        setError(errorData.errors.join('. '))
+      } else {
+        setError(errorData?.message || 'Something went wrong')
+      }
     } finally {
       setLoading(false)
     }
@@ -85,18 +90,17 @@ const ContactForm = () => {
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium mb-2">
-          Subject *
+        <label htmlFor="phone" className="block text-sm font-medium mb-2">
+          Phone
         </label>
         <input
-          type="text"
-          id="subject"
-          name="subject"
-          value={formData.subject}
+          type="tel"
+          id="phone"
+          name="phone"
+          value={formData.phone}
           onChange={handleChange}
-          required
           className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-green-600 text-gray-900"
-          placeholder="What's this about?"
+          placeholder="Your phone number"
         />
       </div>
 

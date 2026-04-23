@@ -45,7 +45,7 @@ const BlogList = () => {
   }, [])
 
   return (
-    <section className="public-section min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.18),_transparent_28%),linear-gradient(180deg,_rgba(255,255,255,0.42)_0%,_rgba(247,250,247,0.78)_100%)] px-4 md:px-10 py-4 md:py-8">
+    <section className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.18),_transparent_28%),linear-gradient(180deg,_#ffffff_0%,_#f7faf7_100%)] px-4 md:px-10 py-4 md:py-8">
       <div className="mx-auto max-w-full">
         <div className="header-section px-4 md:px-6 py-4 md:py-6">
           <div className="header-content">
@@ -79,7 +79,7 @@ const BlogList = () => {
         ) : (
           <div className="blog-grid-responsive mt-8 md:mt-10">
             {blogs.map((blog, index) => (
-              <article key={blog._id} className="public-panel blog-card overflow-hidden transition-transform hover:-translate-y-1">
+              <article key={blog._id} className="blog-card overflow-hidden transition-transform hover:-translate-y-1">
                 <div className="overflow-hidden p-4 md:p-6 flex flex-col h-full">
                   {blog.coverImage && !imageErrors[blog._id] ? (
                     <img 

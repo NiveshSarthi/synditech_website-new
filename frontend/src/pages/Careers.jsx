@@ -114,7 +114,7 @@ const Careers = () => {
       <CareersHero />
 
       {/* Why Join Us */}
-      <section className="public-section py-14 px-4">
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Join Synditech?</h2>
@@ -138,7 +138,7 @@ const Careers = () => {
       </section>
 
       {/* Current Openings */}
-      <section id="openings" className="public-section-muted py-14 px-4 bg-gradient-to-r from-gray-50/70 to-white/30">
+      <section id="openings" className="py-14 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Current Openings</h2>
@@ -191,7 +191,7 @@ const Careers = () => {
       </section>
 
       {/* Application Form */}
-      <section ref={applicationSectionRef} data-application className="public-section py-14 px-4">
+      <section ref={applicationSectionRef} data-application className="py-14 px-4 bg-white">
         <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Apply with Your Resume</h2>
@@ -348,7 +348,7 @@ const Careers = () => {
       </section>
 
       {/* Culture Section */}
-      <section className="public-section-muted py-14 px-4">
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Culture</h2>

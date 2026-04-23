@@ -67,7 +67,7 @@ const Home = () => {
   const [statsRef, statsInView] = useInView({ threshold: 0.5, triggerOnce: true })
 
   return (
-    <div className="min-h-screen text-gray-900">
+    <div className="min-h-screen bg-white text-gray-900">
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative w-full min-h-screen overflow-hidden">
@@ -274,7 +274,7 @@ const Home = () => {
       </section>
       
       {/* ================= NEW SERVICES GRID SECTION ================= */}
-      <section className="public-section py-14 px-4 border-t border-white/40">
+      <section className="py-14 px-4 bg-white border-t border-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 mb-2 leading-tight">
@@ -295,7 +295,7 @@ const Home = () => {
               return (
                 <div 
                   key={idx} 
-                  className="public-panel group shrink-0 w-[85vw] md:w-[320px] flex flex-col justify-between p-8 rounded-[2rem] border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-gray-200 snap-center md:snap-start relative overflow-hidden"
+                  className="group shrink-0 w-[85vw] md:w-[320px] flex flex-col justify-between p-8 rounded-[2rem] border bg-white border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:bg-gray-50 hover:border-gray-200 snap-center md:snap-start relative overflow-hidden"
                   style={{ minHeight: '380px' }}
                 >
                   {/* Icon Area */}
@@ -344,7 +344,7 @@ const Home = () => {
       </section>
       
       {/* ================= STATS SECTION ================= */}
-      <section ref={statsRef} className="public-section-muted py-12 px-4">
+      <section ref={statsRef} className="py-12 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
@@ -380,7 +380,7 @@ const Home = () => {
       </section>
       
       {/* ================= VIDEO ================= */}
-      <section className="public-section py-20 px-4 bg-gradient-to-br from-gray-50/70 via-white/40 to-green-50/40">
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-green-50/30">
         <div className="max-w-6xl mx-auto">
           <div className="relative rounded-[2.5rem] bg-gradient-to-br from-green-300 via-green-400 to-emerald-600 p-[2px] shadow-[0_0_40px_-5px_rgba(34,197,94,0.3)]">
             <div className="flex flex-col lg:flex-row items-center gap-14 bg-white/95 backdrop-blur-md rounded-[2.4rem] p-8 md:p-12 lg:p-14">
@@ -446,7 +446,7 @@ const Home = () => {
         </div>
       </section>
       {/* ================= SERVICES ================= */}
-      <section ref={ref} className="public-section-muted py-16 px-4">
+      <section ref={ref} className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -506,7 +506,7 @@ const Home = () => {
       </section>
 
       {/* ================= PROCESS ================= */}
-      <section className="public-section py-16 px-4 bg-gradient-to-r from-gray-50/70 to-white/35">
+      <section className="py-16 px-4 bg-gradient-to-r from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold mb-4">How We Work</h2>
@@ -552,7 +552,7 @@ const Home = () => {
       </section>
 
       {/* ================= WHY CHOOSE US ================= */}
-      <section className="public-section-muted py-16 px-4">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold mb-4">Why Choose Synditech?</h2>
@@ -586,7 +586,7 @@ const Home = () => {
      
 
       {/* ================= TESTIMONIALS ================= */}
-      <section className="public-section relative py-16 px-4 overflow-hidden">
+      <section className="relative py-16 px-4 bg-white overflow-hidden">
 
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
           {/* Label */}

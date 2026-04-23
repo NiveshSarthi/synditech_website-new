@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500/api'
 export const ADMIN_TOKEN_KEY = 'synditech_admin_token'
 
 const getAuthConfig = (token) => ({
@@ -18,9 +18,23 @@ const api = axios.create({
   }
 })
 
+// Automatically attach auth token to all requests
+api.interceptors.request.use(
+  (config) => {
+    const token = getAdminToken()
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
 export const contactAPI = {
   submit: (data) => api.post('/contact', data),
-  getAll: () => api.get('/contact')
+  getAll: () => api.get('/contact'),
+  delete: (id) => api.delete(`/contact/${id}`),
+  updateStatus: (id, status) => api.patch(`/contact/${id}/status`, { status }),
 }
 
 export const leadAPI = {
@@ -44,10 +58,6 @@ export const careersAPI = {
     })
 }
 
-export const jobsAPI = {
-  getAll: () => api.get('/jobs')
-}
-
 export const adminAPI = {
   login: (credentials) => api.post('/admin/login', credentials),
   verify: (token) => api.post('/admin/verify', {}, getAuthConfig(token)),
@@ -64,6 +74,17 @@ export const adminBlogsAPI = {
   create: (token, data) => api.post('/admin/blogs', data, getAuthConfig(token)),
   update: (token, id, data) => api.put(`/admin/blogs/${id}`, data, getAuthConfig(token)),
   delete: (token, id) => api.delete(`/admin/blogs/${id}`, getAuthConfig(token))
+}
+
+export const jobsAPI = {
+  getAll: () => api.get('/jobs')
+}
+
+export const adminJobsAPI = {
+  getAll: (token) => api.get('/jobs/all', getAuthConfig(token)),
+  create: (token, data) => api.post('/jobs', data, getAuthConfig(token)),
+  update: (token, id, data) => api.put(`/jobs/${id}`, data, getAuthConfig(token)),
+  delete: (token, id) => api.delete(`/jobs/${id}`, getAuthConfig(token))
 }
 
 export default api
