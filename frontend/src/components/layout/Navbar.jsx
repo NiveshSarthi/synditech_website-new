@@ -79,7 +79,6 @@ const Navbar = ({ openProjectModal }) => {
               active={activeDropdown}
               setActive={setActiveDropdown}
               id="tools"
-              scroll
             />
 
             <NavLink to="/about">About</NavLink>
@@ -185,7 +184,7 @@ const NavLink = ({ to, children }) => (
   </Link>
 )
 
-const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => {
+const DesktopDropdown = ({ label, items, active, setActive, id }) => {
   const closeTimeoutRef = useRef(null)
 
   const handleMouseEnter = () => {
@@ -226,32 +225,32 @@ const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className={`absolute top-full left-0 mt-2 w-80 bg-white rounded-xl border border-gray-200 shadow-xl z-50
-          ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
+          className={`absolute top-full left-1/2 z-50 mt-4 -translate-x-1/2 overflow-hidden rounded-[1.75rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(246,250,247,0.96)_100%)] shadow-[0_28px_65px_-30px_rgba(15,23,42,0.4)] backdrop-blur-2xl ${
+            id === 'tools' ? 'w-[44rem]' : 'w-[38rem]'
+          }`}
         >
-          {items.map((item) => {
-            const Icon = item.icon
-            const content = (
-              <>
-                <Icon className="w-5 h-5 mt-1 text-green-600" />
-                <div>
-                  <p className="font-medium text-gray-900">{item.title || item.name}</p>
-                  <p className="text-sm text-gray-500">{item.description}</p>
-                </div>
-              </>
-            )
+          <div className={`grid grid-cols-2 gap-2 p-3`}>
+            {items.map((item) => {
+              const Icon = item.icon
 
-            return (
-              <Link
-                key={item.id}
-                to={item.path}
-                onClick={() => setActive(null)}
-                className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50 transition-colors cursor-pointer"
-              >
-                {content}
-              </Link>
-            )
-          })}
+              return (
+                <Link
+                  key={item.id}
+                  to={item.path}
+                  onClick={() => setActive(null)}
+                  className="group flex min-h-[96px] gap-3 rounded-2xl border border-transparent px-4 py-4 text-gray-900 transition-all duration-200 hover:border-green-200 hover:bg-white/80 hover:shadow-[0_18px_35px_-30px_rgba(34,197,94,0.7)]"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-green-100 to-emerald-50 text-green-700 ring-1 ring-green-100 transition-transform duration-200 group-hover:scale-105">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-gray-900">{item.title || item.name}</p>
+                    <p className="mt-1 text-sm leading-6 text-gray-500">{item.description}</p>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
         </motion.div>
       )}
     </div>
