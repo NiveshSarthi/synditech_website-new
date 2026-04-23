@@ -287,14 +287,14 @@ const Home = () => {
           {/* Carousel Container */}
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:overflow-visible md:pb-0 md:items-stretch md:justify-items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 md:overflow-visible md:pb-0 md:items-stretch md:justify-items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
           >
             {SERVICES.map((service, idx) => {
               const Icon = service.icon || ArrowRight;
               return (
                 <div 
                   key={idx} 
-                  className="group shrink-0 w-[85vw] md:w-full md:max-w-[320px] flex flex-col justify-between rounded-[2rem] border border-white/80 bg-white/85 p-6 shadow-[0_22px_60px_-36px_rgba(15,23,42,0.55)] ring-1 ring-green-900/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-green-200 hover:bg-white hover:shadow-[0_30px_80px_-35px_rgba(22,163,74,0.5)] snap-center md:snap-start relative overflow-hidden"
+                  className="group shrink-0 w-[85vw] md:w-full md:max-w-[320px] lg:col-span-2 xl:col-span-3 flex flex-col justify-between rounded-[2rem] border border-white/80 bg-white/85 p-6 shadow-[0_22px_60px_-36px_rgba(15,23,42,0.55)] ring-1 ring-green-900/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-green-200 hover:bg-white hover:shadow-[0_30px_80px_-35px_rgba(22,163,74,0.5)] snap-center md:snap-start relative overflow-hidden"
                   style={{ minHeight: '390px' }}
                 >
                   <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-green-100/80 blur-2xl transition-transform duration-500 group-hover:scale-125" />

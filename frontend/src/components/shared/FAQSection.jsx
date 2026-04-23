@@ -110,7 +110,7 @@ const FAQSection = () => {
   }
 
   return (
-    <section className="pb-24 px-4">
+    <section className="pt-10 md:pt-14 pb-24 px-4">
       <div className="max-w-4xl mx-auto">
 
         <div className="text-center mb-10">
