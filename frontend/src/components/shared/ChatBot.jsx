@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { intents, defaultResponse, welcomeMessage } from '../../utils/faqs'
 import { useLocation } from 'react-router-dom'
+import { intents, defaultResponse, welcomeMessage } from '../../utils/faqs'
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false)

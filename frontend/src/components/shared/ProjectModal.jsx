@@ -187,16 +187,17 @@ const ProjectModal = ({ isOpen, onClose }) => {
           ) : (
             <>
               <div className="p-6 border-b border-gray-100">
-                <div className="flex items-start justify-between">
-                  <div>
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="min-w-0">
                     <h2 className="text-2xl font-bold text-gray-900">Start Your Project</h2>
-                    <span className="text-sm text-gray-500">
+                    <span className="mt-1 block text-sm text-gray-500">
                       Step {currentStep} of {STEPS.length}
                     </span>
                   </div>
                   <button
                     onClick={onClose}
-                    className="p-2 -mt-1 -mr-1 rounded-full hover:bg-gray-100 transition-colors"
+                    aria-label="Close project form"
+                    className="flex-shrink-0 p-2 rounded-full hover:bg-gray-100 transition-colors"
                   >
                     <X className="w-5 h-5 text-gray-500" />
                   </button>
