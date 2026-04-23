@@ -1,21 +1,38 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Github, Twitter, Linkedin, Mail, Send } from 'lucide-react'
+import { Linkedin, Instagram, Mail, Send } from 'lucide-react'
 import { SERVICES, TOOLS } from '../../utils/constants'
+import { newsletterAPI } from '../../utils/api'
 
 const Footer = () => {
   const [email, setEmail] = React.useState('')
+  const [status, setStatus] = React.useState('idle') // idle | loading | success | error
+  const [message, setMessage] = React.useState('')
 
-  const handleNewsletterSubmit = (e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault()
-    // TODO: Implement newsletter signup
-    console.log('Newsletter signup:', email)
-    setEmail('')
+    setStatus('loading')
+    setMessage('')
+    try {
+      const res = await newsletterAPI.subscribe(email)
+      const data = res.data
+      if (data.success) {
+        setStatus('success')
+        setMessage(data.message || 'Subscribed successfully!')
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage(data.message || 'Something went wrong. Please try again.')
+      }
+    } catch (err) {
+      setStatus('error')
+      setMessage(err.response?.data?.message || 'Unable to connect. Please try again later.')
+    }
   }
 
   return (
-    <footer className="py-16 px-4 bg-gray-50 border-t border-gray-200">
+    <footer className="py-10 px-4 border-t border-white/50 bg-[linear-gradient(180deg,rgba(247,250,247,0.62)_0%,rgba(241,247,242,0.88)_100%)] backdrop-blur-xl">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand & Social */}
@@ -28,28 +45,45 @@ const Footer = () => {
               <span className="text-gray-900">TECH</span>
             </motion.h3>
             <p className="text-gray-600 mb-6">
-              Building the future, one line of code at a time.
+              Transforming ideas into solutions
             </p>
             
-            {/* Social Media Links */}
             <div className="flex gap-4">
-              {[
-                { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Twitter, href: '#', label: 'Twitter' },
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Mail, href: '#', label: 'Email' }
-              ].map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Icon className="w-5 h-5 text-gray-600 group-hover:text-white" />
-                </motion.a>
-              ))}
+              <motion.a
+                href="https://www.linkedin.com/company/synditechtechnologies/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-white" />
+              </motion.a>
+              
+              <motion.a
+                href="https://www.instagram.com/synditech"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Instagram className="w-5 h-5 text-gray-600 group-hover:text-white" />
+              </motion.a>
+              
+              <motion.a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@synditech.ai"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Contact Us"
+                className="w-10 h-10 bg-gray-200 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="w-5 h-5 text-gray-600 group-hover:text-white" />
+              </motion.a>
             </div>
           </div>
 
@@ -103,35 +137,41 @@ const Footer = () => {
             <p className="text-gray-600 text-sm mb-4">
               Subscribe to our newsletter for the latest updates.
             </p>
-            <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
-                className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-green-600 transition-colors text-sm"
-                required
-              />
-              <motion.button
-                type="submit"
-                className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-green-500/50 transition-shadow"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Subscribe <Send className="w-4 h-4" />
-              </motion.button>
-            </form>
+            {status === 'success' ? (
+              <div className="flex items-start gap-2 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+                <span>✅</span>
+                <span>{message}</span>
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email"
+                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-green-600 transition-colors text-sm"
+                  required
+                  disabled={status === 'loading'}
+                />
+                {status === 'error' && (
+                  <p className="text-red-500 text-xs">{message}</p>
+                )}
+                <motion.button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-green-500/50 transition-shadow disabled:opacity-60 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {status === 'loading' ? 'Subscribing...' : <><span>Subscribe</span><Send className="w-4 h-4" /></>}
+                </motion.button>
+              </form>
+            )}
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600 text-sm">
-            <p>© 2026 Synditech. All rights reserved.</p>
-            <div className="flex gap-6">
-              <Link to="/privacy" className="hover:text-green-600 transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-green-600 transition-colors">Terms of Service</Link>
-            </div>
-          </div>
+        <div className="pt-8 border-t border-gray-200 text-center">
+          <p className="text-gray-600 text-sm">© 2026 Synditech. All rights reserved.</p>
         </div>
       </div>
     </footer>

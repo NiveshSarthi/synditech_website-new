@@ -25,7 +25,7 @@ const Layout = () => {
 
   return (
     <ProjectModalContext.Provider value={{ openProjectModal, closeProjectModal }}>
-      <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <div className="public-site-shell min-h-screen flex flex-col text-gray-900">
         <Navbar openProjectModal={openProjectModal} />
         <ScrollProgressBar />
         
@@ -40,7 +40,7 @@ const Layout = () => {
           <motion.main
             key={location.pathname}
             id="main-content"
-            className="flex-grow pt-4"
+            className="public-page flex-grow"
             variants={pageTransition}
             initial="hidden"
             animate="visible"

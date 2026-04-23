@@ -10,8 +10,20 @@ const Navbar = ({ openProjectModal }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [mobileDropdown, setMobileDropdown] = useState(null)
+  const dropdownRef = useRef(null)
 
   const lastScrollY = useRef(0)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,30 +44,25 @@ const Navbar = ({ openProjectModal }) => {
   }, [])
 
   return (
-  <nav
-  className="
-    sticky top-0 z-50
-    w-full
-    bg-white/90
-    backdrop-blur-2xl
-    transition-colors duration-300
-  "
->
+    <nav className="sticky top-0 z-50 w-full border-b border-white/40 bg-[rgba(248,251,248,0.74)] backdrop-blur-2xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          <Link 
-            to="/" 
-            className="transition-transform hover:scale-105"
+        <div className="flex h-[3.8rem] items-center justify-between gap-6">
+
+          {/* Logo — far left */}
+          <Link
+            to="/"
+            className="flex-shrink-0 transition-transform hover:scale-105"
             aria-label="Synditech - Home"
           >
-            <img 
-              src="/assets/images/logo.png" 
-              alt="Synditech Logo" 
-              className="h-16 sm:h-20 w-auto object-contain"
+            <img
+              src="/assets/images/logo.png"
+              alt="Synditech Logo"
+              className="h-14 sm:h-16 w-auto object-contain"
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Nav links — centered with even spacing */}
+          <div ref={dropdownRef} className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8">
             <NavLink to="/">Home</NavLink>
 
             <DesktopDropdown
@@ -78,17 +85,20 @@ const Navbar = ({ openProjectModal }) => {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/blog">Blog</NavLink>
             <NavLink to="/careers">Careers</NavLink>
-            {/* <NavLink to="/pricing">Pricing</NavLink> */}
             <NavLink to="/faq">FAQ</NavLink>
+          </div>
 
-            <Link 
+          {/* Contact Us CTA — far right */}
+          <div className="hidden md:flex flex-shrink-0 items-center">
+            <Link
               to="/contact"
-              className="btn-primary"
+              className="btn-primary whitespace-nowrap"
             >
               Contact Us
             </Link>
           </div>
 
+          {/* Mobile hamburger */}
           <button
             className="md:hidden text-gray-900 p-2 hover:bg-gray-100 rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -119,11 +129,12 @@ const Navbar = ({ openProjectModal }) => {
               )}
             </AnimatePresence>
           </button>
+
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl rounded-b-3xl">
+        <div className="md:hidden border-t border-white/50 bg-[rgba(248,251,248,0.92)] backdrop-blur-xl rounded-b-3xl shadow-[0_20px_40px_-30px_rgba(15,23,42,0.4)]">
           <div className="px-4 py-4 space-y-3">
             <MobileLink to="/" setOpen={setMobileMenuOpen}>Home</MobileLink>
 
@@ -174,58 +185,78 @@ const NavLink = ({ to, children }) => (
   </Link>
 )
 
-const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => (
-  <div
-    className="relative"
-    onMouseEnter={() => setActive(id)}
-    onMouseLeave={() => setActive(null)}
-  >
-    <button className="flex items-center gap-1 text-gray-900 font-semibold hover:text-green-600">
-      {label}
-      <ChevronDown className="w-4 h-4" />
-    </button>
+const DesktopDropdown = ({ label, items, active, setActive, id, scroll }) => {
+  const closeTimeoutRef = useRef(null)
 
-    {active === id && (
-      <div
-        className={`absolute top-full left-0 mt-0 w-80 bg-white rounded-xl border border-gray-200 shadow-xl
-        ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setActive(id)
+  }
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setActive(null)
+    }, 3000)
+  }
+
+  const handleClick = () => {
+    setActive(active === id ? null : id)
+  }
+
+  return (
+    <div 
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <button 
+        className="flex items-center gap-1 text-gray-900 font-semibold hover:text-green-600 transition-colors"
+        onClick={handleClick}
       >
-        {items.map((item) => {
-          const Icon = item.icon
-          const content = (
-            <>
-              <Icon className="w-5 h-5 mt-1" />
-              <div>
-                <p className="font-medium">{item.title || item.name}</p>
-                <p className="text-sm text-gray-500">{item.description}</p>
-              </div>
-            </>
-          )
+        {label}
+        <ChevronDown className={`w-4 h-4 transition-transform ${active === id ? 'rotate-180' : ''}`} />
+      </button>
 
-          return item.external ? (
-            <a
-              key={item.id}
-              href={item.path}
-              target="_blank"
-              rel="noreferrer"
-              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
-            >
-              {content}
-            </a>
-          ) : (
-            <Link
-              key={item.id}
-              to={item.path}
-              className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50"
-            >
-              {content}
-            </Link>
-          )
-        })}
-      </div>
-    )}
-  </div>
-)
+      {active === id && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+          className={`absolute top-full left-0 mt-2 w-80 bg-white rounded-xl border border-gray-200 shadow-xl z-50
+          ${scroll ? "max-h-96 overflow-y-auto" : ""}`}
+        >
+          {items.map((item) => {
+            const Icon = item.icon
+            const content = (
+              <>
+                <Icon className="w-5 h-5 mt-1 text-green-600" />
+                <div>
+                  <p className="font-medium text-gray-900">{item.title || item.name}</p>
+                  <p className="text-sm text-gray-500">{item.description}</p>
+                </div>
+              </>
+            )
+
+            return (
+              <Link
+                key={item.id}
+                to={item.path}
+                onClick={() => setActive(null)}
+                className="flex gap-3 px-4 py-3 text-gray-900 hover:bg-green-50 transition-colors cursor-pointer"
+              >
+                {content}
+              </Link>
+            )
+          })}
+        </motion.div>
+      )}
+    </div>
+  )
+}
 
 const MobileAccordion = ({ label, items, open, setOpen, id }) => (
   <div>
@@ -242,28 +273,17 @@ const MobileAccordion = ({ label, items, open, setOpen, id }) => (
     </button>
 
     {open === id && (
-      <div className="pl-4 space-y-2">
-        {items.map((item) =>
-          item.external ? (
-            <a
-              key={item.id}
-              href={item.path}
-              target="_blank"
-              rel="noreferrer"
-              className="block text-sm text-gray-600 hover:text-green-600"
-            >
-              {item.title || item.name}
-            </a>
-          ) : (
-            <Link
-              key={item.id}
-              to={item.path}
-              className="block text-sm text-gray-600 hover:text-green-600"
-            >
-              {item.title || item.name}
-            </Link>
-          )
-        )}
+      <div className="pl-4 space-y-1">
+        {items.map((item) => (
+          <Link
+            key={item.id}
+            to={item.path}
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm text-gray-600 hover:text-green-600 py-2 transition-colors"
+          >
+            {item.title || item.name}
+          </Link>
+        ))}
       </div>
     )}
   </div>

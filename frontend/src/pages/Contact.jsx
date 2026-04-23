@@ -192,7 +192,7 @@ const Contact = () => {
 
         <div className="mt-10 animate-fade-in">
           <h2 className="text-2xl font-bold text-gray-900 mb-5 text-center">Visit Our Office</h2>
-          <div className="rounded-2xl overflow-hidden">
+          <div className="public-panel rounded-2xl overflow-hidden">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.8947!2d77.3087!3d28.4089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdd7f47c7c36b!2sBH-918,%2081%20High%20Street-Puri%20Business%20Hub,%20Sec-81,%20Faridabad,%20Haryana%20121002!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
               width="100%"

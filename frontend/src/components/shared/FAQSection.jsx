@@ -1,267 +1,223 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  ChevronDown, 
-  MessageCircle, 
-  Brain, 
-  Monitor, 
-  Rocket, 
-  DollarSign, 
-  ShieldCheck, 
-  TrendingUp 
-} from 'lucide-react'
+import { ChevronDown, MessageCircle, Search, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+const CATEGORIES = [
+  { id: 'general', label: 'General & About' },
+  { id: 'pricing', label: 'Pricing & Billing' },
+  { id: 'features', label: 'Features' },
+  { id: 'support', label: 'Support' },
+]
+
+const FAQ_DATA = {
+  general: [
+    { q: "What is Synditech.ai?", a: "Synditech.ai is a technology-driven SaaS and automation company providing AI-powered solutions for businesses, including CRM systems, WhatsApp automation, workflow automation, and custom software development." },
+    { q: "What makes Synditech different?", a: "Synditech.ai combines AI automation, official WhatsApp integration, advanced CRM capabilities, and custom development services all in one platform." },
+    { q: "How can I get started?", a: "Get started by booking a personalized demo through our official website." },
+    { q: "Do you provide support?", a: "Yes, we offer complete onboarding support including setup assistance, technical training, and ongoing dedicated support." },
+    { q: "Where are you available?", a: "We provide services globally across different time zones and regions." },
+  ],
+  pricing: [
+    { q: "How does pricing work?", a: "We offer flexible pricing plans based on your business needs. Contact our sales team for a customized quote." },
+    { q: "Any hidden charges?", a: "No, we believe in transparent pricing. All features and costs are clearly mentioned in our plans." },
+    { q: "Do you offer a free trial?", a: "Yes, we offer a 14-day free trial for all new users to explore our features." },
+    { q: "What payment methods do you accept?", a: "We accept all major credit cards, UPI, bank transfers, and enterprise invoicing." },
+    { q: "Can I change my plan later?", a: "Yes, you can upgrade or downgrade your plan at any time." },
+  ],
+  features: [
+    { q: "What services do you offer?", a: "WhatsApp automation, AI chatbots, CRM solutions, marketing automation, SaaS development, and custom software." },
+    { q: "What is WhatsApp automation?", a: "Official WhatsApp API automation for notifications, automated replies, and workflows at scale." },
+    { q: "Do you provide custom development?", a: "Yes, we build custom SaaS platforms, CRM systems, and enterprise-grade applications." },
+    { q: "What are AI chatbot advantages?", a: "Instant responses, 24/7 availability, lead qualification, and automated workflows." },
+    { q: "Do you support marketing automation?", a: "Yes, automated multi-channel campaigns through WhatsApp, email, and CRM workflows." },
+    { q: "Do you offer CRM solutions?", a: "Yes, advanced CRM systems for lead management, sales pipelines, and follow-ups." },
+    { q: "Can you automate customer support?", a: "Yes, AI chatbots and workflows handle common queries and routing." },
+  ],
+  support: [
+    { q: "How can I contact support?", a: "Email us at support@synditech.ai, WhatsApp chat, or through our in-app chat feature." },
+    { q: "What are your support hours?", a: "Standard support is available 24/7 for all plans." },
+    { q: "Do you offer technical training?", a: "Yes, comprehensive training for all new customers as part of onboarding." },
+    { q: "What if I encounter technical issues?", a: "Our team typically responds within 2 hours." },
+    { q: "Is documentation available?", a: "Yes, extensive docs, video tutorials, and knowledge base articles in our help center." },
+  ],
+}
+
 const FAQSection = () => {
-  const [activeId, setActiveId] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [activeCategory, setActiveCategory] = useState('general')
+  const [openIndex, setOpenIndex] = useState(null)
 
-  const faqData = [
-    {
-      category: "General FAQs",
-      icon: Brain,
-      items: [
-        {
-          question: "What does your company do?",
-          answer: "We provide end-to-end technology solutions including product development, web & mobile applications, and digital transformation services tailored to businesses of all sizes."
-        },
-        {
-          question: "Who are your services for?",
-          answer: "Our services are designed for startups, SMEs, and enterprises looking to build, scale, or optimize their digital products."
-        },
-        {
-          question: "What industries do you specialize in?",
-          answer: "We work across multiple industries including SaaS, e-commerce, fintech, healthcare, and education."
-        },
-        {
-          question: "Do you offer custom solutions?",
-          answer: "Yes, all our solutions are customized based on your business goals and requirements."
-        }
-      ]
-    },
-    {
-      category: "Product & Services FAQs",
-      icon: Monitor,
-      items: [
-        {
-          question: "What services do you offer?",
-          answer: "We offer web development, mobile app development, UI/UX design, cloud solutions, API integration, and ongoing maintenance."
-        },
-        {
-          question: "Do you build both websites and mobile apps?",
-          answer: "Yes, we develop responsive websites and cross-platform mobile applications."
-        },
-        {
-          question: "Can you redesign or improve an existing product?",
-          answer: "Absolutely! We specialize in redesigning, optimizing performance, and enhancing user experience."
-        },
-        {
-          question: "What technologies do you use?",
-          answer: "We use modern technologies like React, Node.js, Python, Flutter, and cloud platforms such as AWS and Google Cloud."
-        }
-      ]
-    },
-    {
-      category: "Project Process FAQs",
-      icon: Rocket,
-      items: [
-        {
-          question: "What is your development process?",
-          answer: "Our process includes discovery, planning, design, development, testing, and deployment, followed by support."
-        },
-        {
-          question: "How long does it take to complete a project?",
-          answer: "Project timelines vary depending on complexity, but most projects range from a few weeks to a few months."
-        },
-        {
-          question: "Will I be involved during development?",
-          answer: "Yes, we maintain regular communication and provide updates at every stage."
-        },
-        {
-          question: "Do you provide post-launch support?",
-          answer: "Yes, we offer ongoing maintenance, updates, and technical support."
-        }
-      ]
-    },
-    {
-      category: "Pricing FAQs",
-      icon: DollarSign,
-      items: [
-        {
-          question: "How much do your services cost?",
-          answer: "Pricing depends on the project scope, features, and complexity. We provide a custom quote after understanding your requirements."
-        },
-        {
-          question: "Do you offer fixed pricing or hourly billing?",
-          answer: "We offer both fixed-price and flexible hourly models."
-        },
-        {
-          question: "Is there a free consultation?",
-          answer: "Yes, we offer an initial consultation to understand your needs and suggest the best approach."
-        }
-      ]
-    },
-    {
-      category: "Security & Support FAQs",
-      icon: ShieldCheck,
-      items: [
-        {
-          question: "How do you ensure data security?",
-          answer: "We follow industry best practices including encryption, secure coding standards, and regular security audits."
-        },
-        {
-          question: "What kind of support do you provide?",
-          answer: "We provide technical support, bug fixes, updates, and performance monitoring."
-        },
-        {
-          question: "Can you sign an NDA?",
-          answer: "Yes, we are happy to sign an NDA to protect your idea and data."
-        }
-      ]
-    },
-    {
-      category: "Business & Scaling FAQs",
-      icon: TrendingUp,
-      items: [
-        {
-          question: "Can you help scale my product?",
-          answer: "Yes, we design scalable architectures and optimize systems for growth."
-        },
-        {
-          question: "Do you work with startups?",
-          answer: "Yes, we love working with startups—from idea validation to full product launch."
-        },
-        {
-          question: "Can you integrate third-party tools?",
-          answer: "Yes, we can integrate payment gateways, CRMs, analytics tools, and more."
-        }
-      ]
-    }
-  ]
+  const searchAllCategories = () => {
+    if (!searchQuery.trim()) return null
+    const results = {}
+    Object.keys(FAQ_DATA).forEach(catId => {
+      const matches = FAQ_DATA[catId].filter(f =>
+        f.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        f.a.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      if (matches.length > 0) {
+        results[catId] = matches
+      }
+    })
+    return Object.keys(results).length > 0 ? results : null
+  }
 
-  const toggleFAQ = (id) => {
-    setActiveId(activeId === id ? null : id)
+  const searchResults = searchAllCategories()
+  const isSearching = searchQuery.trim()
+  const currentFaqs = FAQ_DATA[activeCategory]
+
+  const toggleQuestion = (uniqueId) => {
+    setOpenIndex(openIndex === uniqueId ? null : uniqueId)
+  }
+
+  const renderFaqItem = (item, index, categoryId = activeCategory) => {
+    const uniqueId = `${categoryId}-${index}`
+    const isOpen = openIndex === uniqueId
+    return (
+      <div
+        key={uniqueId}
+        className={`rounded-xl border transition-all ${
+          isOpen ? 'border-green-600/30 bg-green-50/30' : 'border-gray-200 hover:border-green-600/30'
+        }`}
+      >
+        <button
+          onClick={() => toggleQuestion(uniqueId)}
+          className="w-full flex items-center justify-between px-6 py-5 text-left"
+        >
+          <span className={`font-medium pr-4 ${isOpen ? 'text-green-700' : 'text-gray-800'}`}>
+            {item.q}
+          </span>
+          <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
+        </button>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: 'auto' }}
+              exit={{ height: 0 }}
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden"
+            >
+              <div className="px-6 pb-5 text-gray-600 border-t border-gray-100 pt-4">
+                {item.a}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    )
   }
 
   return (
-    <section className="py-24 px-4 bg-white overflow-hidden">
+    <section className="public-section pb-24 px-4">
       <div className="max-w-4xl mx-auto">
-        
-        {/* ================= HEADER ================= */}
-        <div className="text-center mb-20">
-          <motion.h2 
+
+        <div className="text-center mb-10">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+            className="text-3xl md:text-5xl font-bold text-gray-900"
           >
             Frequently Asked Questions
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600"
-          >
-            Everything you need to know about our platform
-          </motion.p>
-          <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto mt-6 rounded-full" />
         </div>
 
-        {/* ================= GROUPED ACCORDION ================= */}
-        <div className="space-y-12">
-          {faqData.map((group, groupIdx) => {
-            const CategoryIcon = group.icon
-            return (
-              <div key={groupIdx} className="space-y-6">
-                {/* Category Header */}
-                <div className="flex items-center gap-3 pb-2 border-b border-gray-100">
-                  <div className="p-2 bg-green-50 rounded-lg text-green-600">
-                    <CategoryIcon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
-                    {group.category}
-                  </h3>
-                </div>
-
-                <div className="space-y-4">
-                  {group.items.map((item, itemIdx) => {
-                    const uniqueId = `${groupIdx}-${itemIdx}`
-                    const isActive = activeId === uniqueId
-
-                    return (
-                      <motion.div 
-                        key={uniqueId}
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: itemIdx * 0.05 }}
-                        className={`rounded-2xl border transition-all duration-300 ${
-                          isActive 
-                            ? 'border-green-600/30 bg-green-50/40 shadow-lg shadow-green-600/10' 
-                            : 'border-gray-100 bg-white hover:border-green-600/20 hover:shadow-md'
-                        }`}
-                      >
-                        <button
-                          onClick={() => toggleFAQ(uniqueId)}
-                          className="w-full text-left px-6 py-5 flex items-center justify-between group focus:outline-none"
-                        >
-                          <span className={`text-lg font-bold transition-colors ${
-                            isActive ? 'text-green-700' : 'text-gray-900 group-hover:text-green-600'
-                          }`}>
-                            {item.question}
-                          </span>
-                          <div className={`p-2 rounded-full transition-all duration-300 ${
-                            isActive ? 'bg-green-600 text-white rotate-180 scale-110' : 'bg-gray-50 text-gray-400 group-hover:bg-green-50 group-hover:text-green-600'
-                          }`}>
-                            <ChevronDown className="w-5 h-5" />
-                          </div>
-                        </button>
-
-                        <AnimatePresence>
-                          {isActive && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] }}
-                              className="overflow-hidden"
-                            >
-                              <div className="px-6 pb-6 text-gray-600 leading-relaxed text-base border-t border-green-600/5 pt-4">
-                                {item.answer}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* ================= CTA ================= */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-20 text-center p-12 rounded-[2.5rem] bg-gradient-to-br from-green-50/80 to-white border border-green-100 shadow-xl shadow-green-600/5"
-        >
-          <div className="inline-flex items-center justify-center p-3 bg-green-100 rounded-2xl text-green-600 mb-6 font-bold shadow-inner">
-            <MessageCircle className="w-6 h-6 mr-2" />
-            Support Helpdesk
+        <div className="max-w-xl mx-auto mb-8">
+          <div className="public-panel-soft relative rounded-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search for answers..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value)
+                if (e.target.value.trim()) {
+                  setOpenIndex('0')
+                } else {
+                  setOpenIndex(null)
+                }
+              }}
+              className="w-full rounded-full bg-transparent pl-12 pr-10 py-3 border border-transparent focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => { setSearchQuery(''); setOpenIndex(null) }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">Still have questions?</h3>
-          <p className="text-gray-600 mb-10 max-w-lg mx-auto text-lg">
-            Our experts are ready to help you find the right solution for your business. Let's chat!
-          </p>
+        </div>
+
+        {!isSearching ? (
+          <>
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              {CATEGORIES.map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => { setActiveCategory(id); setOpenIndex(null) }}
+                  className={`text-sm font-medium px-[18px] py-2 rounded-md border transition-all ${
+                    activeCategory === id
+                      ? 'bg-green-600 text-white border-green-600'
+                      : 'bg-transparent text-gray-500 border-gray-300 hover:border-gray-400'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="space-y-3"
+              >
+                {currentFaqs.map((item, i) => renderFaqItem(item, i))}
+              </motion.div>
+            </AnimatePresence>
+          </>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-6"
+          >
+            {searchResults && Object.keys(searchResults).map((catId) => {
+              const cat = CATEGORIES.find(c => c.id === catId)
+              const items = searchResults[catId]
+              return (
+                <div key={catId}>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">{cat.label}</h3>
+                  <div className="space-y-3">
+                    {items.map((item, i) => renderFaqItem(item, i, catId))}
+                  </div>
+                </div>
+              )
+            })}
+            {!searchResults && (
+              <p className="text-center text-gray-500 py-12">No results found for "{searchQuery}"</p>
+            )}
+          </motion.div>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="public-panel mt-16 text-center p-10 rounded-[2rem] border border-green-100 bg-[linear-gradient(180deg,rgba(240,253,244,0.78)_0%,rgba(255,255,255,0.72)_100%)]"
+        >
+          <h3 className="text-2xl font-bold text-gray-900 mb-3">Still have questions?</h3>
+          <p className="text-gray-600 mb-6">Let's chat with our experts!</p>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center px-10 py-5 rounded-full bg-gradient-to-r from-green-600 to-green-700 text-white font-bold text-xl hover:shadow-[0_20px_50px_rgba(22,_163,_74,_0.3)] hover:-translate-y-1 transition-all active:scale-95"
+            className="inline-block px-8 py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
           >
             Contact Us
           </Link>

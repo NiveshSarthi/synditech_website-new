@@ -25,6 +25,7 @@ const BlogDetail = () => {
   const [blog, setBlog] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [imageError, setImageError] = useState(false)
 
   useEffect(() => {
     const loadBlog = async () => {
@@ -46,7 +47,7 @@ const BlogDetail = () => {
 
   if (isLoading) {
     return (
-      <section className="min-h-screen bg-white px-10 py-16">
+      <section className="public-section min-h-screen px-10 py-16">
         <div className="mx-auto max-w-full px-6 py-16 text-center text-gray-600">
           Loading article...
         </div>
@@ -56,7 +57,7 @@ const BlogDetail = () => {
 
   if (errorMessage || !blog) {
     return (
-      <section className="min-h-screen bg-white px-10 py-16">
+      <section className="public-section min-h-screen px-10 py-16">
         <div className="mx-auto max-w-full px-6 py-16 text-center">
           <h1 className="text-2xl font-bold text-gray-900">Article unavailable</h1>
           <p className="mt-3 text-red-700">{errorMessage || 'This blog post could not be found.'}</p>
@@ -70,53 +71,56 @@ const BlogDetail = () => {
   }
 
   return (
-    <section className="min-h-screen bg-[linear-gradient(180deg,_#f7faf7_0%,_#ffffff_20%,_#ffffff_100%)] px-10 py-16">
-      <article className="mx-auto max-w-full">
+    <section className="public-section min-h-screen bg-[linear-gradient(180deg,_rgba(247,250,247,0.82)_0%,_rgba(255,255,255,0.44)_20%,_rgba(244,249,243,0.68)_100%)] px-4 md:px-10 py-16">
+      <article className="public-panel mx-auto max-w-7xl p-8 md:p-10">
         <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-green-700 transition-transform hover:-translate-x-1">
           <ArrowLeft className="h-4 w-4" />
           Back to Blog
         </Link>
 
-        <header className="mt-8 px-6 py-8 md:px-10">
-          <div className="flex flex-wrap gap-3">
-            <span className="rounded-full bg-green-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-green-700">
-              {blog.category || 'Insights'}
-            </span>
-            {(blog.tags || []).map((tag) => (
-              <span key={tag} className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-gray-600">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <h1 className="mt-6 text-4xl font-semibold text-gray-900" style={{ lineHeight: 1.6 }}>{blog.title}</h1>
-          <p className="mt-4 text-gray-600" style={{ lineHeight: 1.6, marginBottom: '16px' }}>{blog.excerpt}</p>
-          <div className="mt-8 flex flex-wrap gap-5 text-sm text-gray-500">
-            <span className="inline-flex items-center gap-2">
-              <CalendarDays className="h-4 w-4 text-green-600" />
-              {formatDate(blog.publishedAt || blog.createdAt)}
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <PenSquare className="h-4 w-4 text-green-600" />
-              {blog.authorName || 'Synditech Team'}
-            </span>
-          </div>
-        </header>
-
-        {(blog.coverImage || slug === 'how-zavyo-helps-businesses-automate-whatsapp-communication-with-ai') && (
-          <div className="blog-image-container mt-8 overflow-hidden">
+        <div className="mt-8 overflow-hidden">
+          {blog.coverImage && !imageError && (
             <img 
-              src={slug === 'how-zavyo-helps-businesses-automate-whatsapp-communication-with-ai' ? '/assets/images/zavyo.jpeg' : blog.coverImage} 
+              src={blog.coverImage} 
               alt={blog.title} 
-              className="blog-image" 
+              className="float-right w-[40%] lg:w-[42%] ml-6 mb-4 h-auto object-contain rounded-lg"
+              onError={() => setImageError(true)}
             />
-          </div>
-        )}
+          )}
 
-        <div className="mt-8 px-6 py-8 md:px-10 md:py-10">
-          <div className="space-y-6 text-base text-gray-700" style={{ lineHeight: 1.6 }}>
-            {renderParagraphs(blog.content).map((paragraph) => (
-              <p key={paragraph.slice(0, 40)} style={{ marginBottom: '16px' }}>{paragraph}</p>
-            ))}
+          <div className="pr-6">
+            <header>
+              <div className="flex flex-wrap gap-3">
+                <span className="rounded-full bg-green-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-green-700">
+                  {blog.category || 'Insights'}
+                </span>
+                {(blog.tags || []).map((tag) => (
+                  <span key={tag} className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-gray-600">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h1 className="mt-6 text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900" style={{ lineHeight: 1.4 }}>{blog.title}</h1>
+              <p className="mt-4 text-gray-600" style={{ lineHeight: 1.6 }}>{blog.excerpt}</p>
+              <div className="mt-6 flex flex-wrap gap-5 text-sm text-gray-500">
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4 text-green-600" />
+                  {formatDate(blog.publishedAt || blog.createdAt)}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <PenSquare className="h-4 w-4 text-green-600" />
+                  {blog.authorName || 'Synditech Team'}
+                </span>
+              </div>
+            </header>
+          </div>
+
+          <div className="clear-right mt-8">
+            <div className="space-y-6 text-base text-gray-700" style={{ lineHeight: 1.6 }}>
+              {renderParagraphs(blog.content).map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         </div>
       </article>
